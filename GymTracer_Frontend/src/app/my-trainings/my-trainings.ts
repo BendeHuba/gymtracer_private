@@ -154,6 +154,12 @@ export class MyTrainingsPage implements OnInit {
       return;
     }
 
+    const durationError = this.getDurationError();
+    if (durationError) {
+      this.modalError = durationError;
+      return;
+    }
+
     this.isSaving = true;
     this.modalError = null;
 
@@ -227,6 +233,17 @@ export class MyTrainingsPage implements OnInit {
     return Math.max(0.5, Math.min(100, (duration / totalMinutes) * 100));
   }
 
+  getDurationError(): string | null {
+    if (!this.form.startTime || !this.form.endTime) return null;
+    const start = new Date(this.form.startTime).getTime();
+    const end = new Date(this.form.endTime).getTime();
+    if (isNaN(start) || isNaN(end)) return null;
+    const durationMs = end - start;
+    if (durationMs < 5 * 60 * 1000) return 'Az edzés legalább 5 perc hosszú kell legyen!';
+    if (durationMs > 5 * 60 * 60 * 1000) return 'Az edzés legfeljebb 5 óra hosszú lehet!';
+    return null;
+  }
+
   getNewBarLeft(): number {
     if (!this.form.startTime) return 0;
     return this.getBarLeft(this.form.startTime);
@@ -234,6 +251,9 @@ export class MyTrainingsPage implements OnInit {
 
   getNewBarWidth(): number {
     if (!this.form.startTime || !this.form.endTime) return 0;
+    const start = new Date(this.form.startTime).getTime();
+    const end = new Date(this.form.endTime).getTime();
+    if (isNaN(start) || isNaN(end) || end <= start) return 0;
     return this.getBarWidth(this.form.startTime, this.form.endTime);
   }
 
