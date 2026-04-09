@@ -145,13 +145,22 @@ export class MyTrainingsPage implements OnInit {
   save() {
     const userId = this.auth.actingUser?.id;
     if (!userId) return;
+
+    const startDate = new Date(this.form.startTime);
+    const endDate = new Date(this.form.endTime);
+
+    if (!this.form.startTime || !this.form.endTime || isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+      this.modalError = 'Kérjük, add meg az érvényes kezdési és befejezési időpontot!';
+      return;
+    }
+
     this.isSaving = true;
     this.modalError = null;
 
     const dto: CreateTrainingDto = {
       ...this.form,
-      startTime: new Date(this.form.startTime).toISOString(),
-      endTime: new Date(this.form.endTime).toISOString(),
+      startTime: startDate.toISOString(),
+      endTime: endDate.toISOString(),
     };
 
     const obs = this.editingId
