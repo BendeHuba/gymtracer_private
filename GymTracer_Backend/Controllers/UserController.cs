@@ -36,23 +36,14 @@ namespace GymTracer.Controllers
                 {
                     var user = DbContext.Set<User>().FirstOrDefault(u => u.Id == id);
 
-                    var cardOfUser = DbContext.Set<Card>().Where(c => c.UserId == user!.Id);
-                    List<long> cardsIds = [];
-                    foreach (var c in cardOfUser)
-                    {
-                        cardsIds.Add(c.Id);
-                    }
+                    var cardsOfUser = DbContext.Set<Card>().Where(c => c.UserId == user!.Id);
 
                     return StatusCode(200, new
                     {
-                        user = new
-                        {
                             name = user!.Name,
                             email = user.Email,
                             birthDate = user.BirthDate,
                             creationDate = user.CreationDate,
-                            cards = cardsIds,
-                        }
                     });
                 }
                 else
@@ -178,14 +169,15 @@ namespace GymTracer.Controllers
                 {
                     var user = DbContext.Set<User>().FirstOrDefault(u => u.Id == id);
 
-                    var cardsOfUser = DbContext.Set<Card>().Where(c => c.UserId == user!.Id && c.RevokedAt == null).ToList();
+                    var cardsOfUser = DbContext.Set<Card>().Include(c => c.UsageLogs).Where(c => c.UserId == user!.Id && c.RevokedAt == null).ToList();
 
                     if (cardsOfUser.Count != 0)
                     {
                         return StatusCode(200, cardsOfUser.Select(c => new
                         {
                             c.Id,
-                            c.Code
+                            c.Code,
+                            c.CreatedAt,
                         }));
                     }
                     else
@@ -223,7 +215,8 @@ namespace GymTracer.Controllers
                     return StatusCode(200, card.Select(c => new
                     {
                         c.Id,
-                        c.Code
+                        c.Code,
+                        c.CreatedAt
                     }));
                     
                 }
