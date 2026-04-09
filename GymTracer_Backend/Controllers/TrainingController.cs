@@ -596,7 +596,8 @@ namespace GymTracer.Controllers
                         .Max(ulong.MaxValue);
 
                     ticket.ThenValidate(ticket => ticket.Type, "típus")
-                        .InEnum();
+                        .InEnum()
+                        .Equal(Ticket_Type.training, "Az edzéshez csak edzésjegy típusú jegy adható meg.");
                 });
 
             return ticketsValidator;

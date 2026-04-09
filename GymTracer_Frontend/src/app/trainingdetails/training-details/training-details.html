@@ -215,7 +215,18 @@
                   <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Név</th>
                   <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Jelentkezés ideje</th>
                   <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Státusz</th>
-                  <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Jelenlét</th>
+                  <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Jelenlét
+                    @if(canMarkPresence()) {
+                      <div class="text-[10px] font-normal normal-case text-gray-400 mt-0.5">
+                        @if(isPresenceCheckable()) {
+                          Jelölhető az edzés befejezése után 2 hétig
+                        } @else {
+                          A 2 hetes jelölési időszak lejárt
+                        }
+                      </div>
+                    }
+                  </th>
                 </tr>
               </thead>
               
@@ -249,7 +260,7 @@
                   <td class="flex sm:table-cell justify-between items-center text-center px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
                      <span class="sm:hidden text-xs font-medium text-gray-500 uppercase">Jelenlét</span>
                      <div class="flex justify-center items-center">
-                       @if(canMarkPresence()) {
+                       @if(canMarkPresence() && isPresenceCheckable()) {
                          <input type="checkbox" [checked]="user.presence"
                            (change)="onPresenceChange(user.id, $any($event.target).checked)"
                            class="h-6 w-6 sm:h-5 sm:w-5 accent-primary-600 focus:ring-primary-500 border-gray-300 rounded cursor-pointer">
