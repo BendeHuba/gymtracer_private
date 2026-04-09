@@ -173,8 +173,8 @@ export class MyTrainingsPage implements OnInit {
 
     const dto: CreateTrainingDto = {
       ...this.form,
-      startTime: startDate.toISOString(),
-      endTime: endDate.toISOString(),
+      startTime: this.form.startTime.length === 16 ? `${this.form.startTime}:00` : this.form.startTime,
+      endTime: this.form.endTime.length === 16 ? `${this.form.endTime}:00` : this.form.endTime,
     };
 
     const obs = this.editingId
