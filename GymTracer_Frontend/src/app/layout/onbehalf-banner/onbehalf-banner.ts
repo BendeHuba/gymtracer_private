@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ThemeService } from '../../services/theme.service';
@@ -7,7 +6,7 @@ import { ThemeService } from '../../services/theme.service';
 @Component({
   selector: 'app-onbehalf-banner',
   standalone: true,
-  imports: [NgIf],
+  imports: [],
   templateUrl: './onbehalf-banner.html',
 })
 export class OnbehalfBanner {

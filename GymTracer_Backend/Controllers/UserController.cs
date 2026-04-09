@@ -485,7 +485,7 @@ namespace GymTracer.Controllers
                 }
                 else
                 {
-                    throw new ApiException(400, "Bad request");
+                    users = DbContext.Set<User>().Where(u => u.Name.Contains(name) && u.Email.Contains(email)).ToList();
                 }
 
                 if (users.Count == 0)
@@ -495,10 +495,12 @@ namespace GymTracer.Controllers
 
                 return StatusCode(200, users.Select(u => new
                     {
+                        id = u.Id,
                         name = u.Name,
                         email = u.Email,
                         birthDate = u.BirthDate,
                         creationDate = u.CreationDate,
+                        role = u.Role,
                     }
                 ));
             });
