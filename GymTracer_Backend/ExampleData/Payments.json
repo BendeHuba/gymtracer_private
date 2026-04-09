@@ -1,0 +1,82 @@
+﻿[
+    {
+        "Id": 1,
+        "IssuerId": 1,
+        "DueDate": "2023-02-01T00:00:00Z",
+        "PaymentDate": "2023-01-30T10:00:00Z",
+        "TotalPrice": 5000,
+        "ReceiptNumber": "REC-00001"
+    },
+    {
+        "Id": 2,
+        "IssuerId": 2,
+        "DueDate": "2023-02-05T00:00:00Z",
+        "PaymentDate": "2023-02-04T11:00:00Z",
+        "TotalPrice": 45000,
+        "ReceiptNumber": "REC-00002"
+    },
+    {
+        "Id": 3,
+        "IssuerId": 3,
+        "DueDate": "2023-02-10T00:00:00Z",
+        "PaymentDate": "2023-02-09T12:00:00Z",
+        "TotalPrice": 20000,
+        "ReceiptNumber": "REC-00003"
+    },
+    {
+        "Id": 4,
+        "IssuerId": 4,
+        "DueDate": "2023-02-15T00:00:00Z",
+        "PaymentDate": "2023-02-14T13:00:00Z",
+        "TotalPrice": 3000,
+        "ReceiptNumber": "REC-00004"
+    },
+    {
+        "Id": 5,
+        "IssuerId": 5,
+        "DueDate": "2023-02-20T00:00:00Z",
+        "PaymentDate": "2023-02-19T14:00:00Z",
+        "TotalPrice": 40000,
+        "ReceiptNumber": "REC-00005"
+    },
+    {
+        "Id": 6,
+        "IssuerId": 6,
+        "DueDate": "2023-02-25T00:00:00Z",
+        "PaymentDate": "2023-02-24T15:00:00Z",
+        "TotalPrice": 2500,
+        "ReceiptNumber": "REC-00006"
+    },
+    {
+        "Id": 7,
+        "IssuerId": 7,
+        "DueDate": "2023-03-01T00:00:00Z",
+        "PaymentDate": "2023-02-28T16:00:00Z",
+        "TotalPrice": 22500,
+        "ReceiptNumber": "REC-00007"
+    },
+    {
+        "Id": 8,
+        "IssuerId": 8,
+        "DueDate": "2023-03-05T00:00:00Z",
+        "PaymentDate": null,
+        "TotalPrice": 3500,
+        "ReceiptNumber": "REC-00008"
+    },
+    {
+        "Id": 9,
+        "IssuerId": 9,
+        "DueDate": "2023-03-10T00:00:00Z",
+        "PaymentDate": "2023-03-09T18:00:00Z",
+        "TotalPrice": 15000,
+        "ReceiptNumber": "REC-00009"
+    },
+    {
+        "Id": 10,
+        "IssuerId": 10,
+        "DueDate": "2023-03-15T00:00:00Z",
+        "PaymentDate": "2023-03-14T19:00:00Z",
+        "TotalPrice": 400000,
+        "ReceiptNumber": "REC-00010"
+    }
+]

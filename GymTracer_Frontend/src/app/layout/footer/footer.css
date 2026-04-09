@@ -1,0 +1,9 @@
+@reference "#theme";
+
+footer {
+    @apply w-full bg-black text-white p-2 text-center;
+}
+
+a{
+    @apply text-primary-400 hover:text-primary-600 hover:cursor-pointer transition-colors duration-300 ease-out;
+}

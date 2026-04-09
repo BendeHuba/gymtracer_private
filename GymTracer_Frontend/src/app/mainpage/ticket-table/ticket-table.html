@@ -1,0 +1,18 @@
+<div class="p-5 bg-red-300 mx-auto w-110 rounded-2xl">
+    <table class="table-auto border-collapse border border-gray-300 w-100 text-center">
+        <thead>
+            <tr>
+                <th class="border-collapse border border-gray-300">Jegy</th>
+                <th class="border-collapse border border-gray-300">Ár</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (ticket of tickets; track $index) {
+                <tr>
+                    <td class="border-collapse border border-gray-300">{{ ticket.description }}</td>
+                    <td class="border-collapse border border-gray-300">{{ ticket.price }} Ft</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

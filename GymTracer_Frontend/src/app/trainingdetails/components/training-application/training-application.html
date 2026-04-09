@@ -1,0 +1,65 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-4"
+    (click)="closeModal()">
+
+  <div class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6 relative flex flex-col max-h-[90vh]"
+    (click)="$event.stopPropagation()">
+
+    <button (click)="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer z-10">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <div class="shrink-0">
+      <h2 class="text-2xl font-bold mb-2 text-gray-800">Jegyválasztás</h2>
+      <p class="text-sm text-gray-500 mb-4">Kérlek válaszd ki, milyen jeggyel/bérlettel szeretnél részt venni az edzésen.</p>
+    </div>
+
+    <div class="space-y-3 mb-2 overflow-y-auto flex-1 pr-2">
+      @for (ticket of tickets; track ticket.id) {
+        <div (click)="selectTicket(ticket.id)" 
+          [class.border-primary-600]="selectedTicketId === ticket.id"
+          [class.bg-primary-50]="selectedTicketId === ticket.id"
+          [class.bg-gray-50]="selectedTicketId !== ticket.id"
+          class="border-2 border-gray-200 rounded-lg p-4 flex flex-col cursor-pointer transition-colors hover:border-primary-400">
+          
+          <div class="flex justify-between items-start mb-2">
+            <span class="text-sm font-bold text-gray-800">{{ ticket.description }}</span>
+            <span 
+              [class.bg-primary-600]="selectedTicketId === ticket.id"
+              [class.text-white]="selectedTicketId === ticket.id"
+              [class.bg-primary-100]="selectedTicketId !== ticket.id"
+              [class.text-primary-800]="selectedTicketId !== ticket.id"
+              class="text-xs py-1 px-2 rounded font-semibold transition-colors">
+              {{ ticket.price | number:'1.0-0' }} Ft
+            </span>
+          </div>
+          
+          <div class="text-xs text-gray-500 flex justify-between mt-1 border-t border-gray-200/50 pt-2">
+            <span>Diák: {{ ticket.isStudent ? 'Igen' : 'Nem' }}</span>
+            <span>Felhasználható: {{ ticket.maxUsage }}x</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="flex justify-end gap-3 shrink-0 pt-4 border-t border-gray-100 mt-2">
+      <button (click)="closeModal()"
+        class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded hover:bg-gray-200 transition-colors cursor-pointer">
+        Mégse
+      </button>
+
+      <button (click)="onSubmitApplication()" [disabled]="!selectedTicketId || isSubmitting"
+        class="px-4 py-2 bg-primary-600 text-white font-medium rounded hover:bg-primary-500 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed flex items-center">
+        @if (isSubmitting) {
+          <svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        }
+        Jelentkezem
+      </button>
+    </div>
+
+  </div>
+</div>

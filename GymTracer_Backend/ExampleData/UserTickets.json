@@ -1,0 +1,92 @@
+﻿[
+    {
+        "Id": 1,
+        "UserId": 1,
+        "TicketId": 1,
+        "PaymentId": 1,
+        "CreationDate": "2023-01-30T10:05:00Z",
+        "ExpirationDate": "2023-01-31T23:59:59Z",
+        "UsageAmount": 1
+    },
+    {
+        "Id": 2,
+        "UserId": 2,
+        "TicketId": 3,
+        "PaymentId": 2,
+        "CreationDate": "2023-02-04T11:05:00Z",
+        "ExpirationDate": "2023-03-04T23:59:59Z",
+        "UsageAmount": 0
+    },
+    {
+        "Id": 3,
+        "UserId": 3,
+        "TicketId": 6,
+        "PaymentId": 3,
+        "CreationDate": "2023-02-09T12:05:00Z",
+        "ExpirationDate": "2023-05-09T23:59:59Z",
+        "UsageAmount": 5
+    },
+    {
+        "Id": 4,
+        "UserId": 4,
+        "TicketId": 7,
+        "PaymentId": 4,
+        "CreationDate": "2023-02-14T13:05:00Z",
+        "ExpirationDate": "2023-02-15T23:59:59Z",
+        "UsageAmount": 1
+    },
+    {
+        "Id": 5,
+        "UserId": 5,
+        "TicketId": 5,
+        "PaymentId": 5,
+        "CreationDate": "2023-02-19T14:05:00Z",
+        "ExpirationDate": "2023-05-19T23:59:59Z",
+        "UsageAmount": 2
+    },
+    {
+        "Id": 6,
+        "UserId": 6,
+        "TicketId": 2,
+        "PaymentId": 6,
+        "CreationDate": "2023-02-24T15:05:00Z",
+        "ExpirationDate": "2023-02-25T23:59:59Z",
+        "UsageAmount": 1
+    },
+    {
+        "Id": 7,
+        "UserId": 7,
+        "TicketId": 4,
+        "PaymentId": 7,
+        "CreationDate": "2023-02-28T16:05:00Z",
+        "ExpirationDate": "2023-03-28T23:59:59Z",
+        "UsageAmount": 0
+    },
+    {
+        "Id": 8,
+        "UserId": 8,
+        "TicketId": 3,
+        "PaymentId": 8,
+        "CreationDate": "2023-03-05T08:00:00Z",
+        "ExpirationDate": "2023-03-06T12:00:00Z",
+        "UsageAmount": 0
+    },
+    {
+        "Id": 9,
+        "UserId": 9,
+        "TicketId": 2,
+        "PaymentId": 9,
+        "CreationDate": "2023-03-09T18:05:00Z",
+        "ExpirationDate": "2023-04-09T23:59:59Z",
+        "UsageAmount": 4
+    },
+    {
+        "Id": 10,
+        "UserId": 10,
+        "TicketId": 8,
+        "PaymentId": 10,
+        "CreationDate": "2023-03-14T19:05:00Z",
+        "ExpirationDate": "2024-03-14T23:59:59Z",
+        "UsageAmount": 0
+    }
+]

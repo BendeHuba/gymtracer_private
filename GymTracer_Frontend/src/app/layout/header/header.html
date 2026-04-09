@@ -1,0 +1,84 @@
+<header class="min-h-20 max-nav:h-auto z-20 whitespace-nowrap relative -mb-4"
+        [ngClass]="theme.getColor()">
+  
+  <div class="nav:hidden absolute w-full border-b border-gray-800/50 shadow-lg h-6 top-18 -mt-6 z-50 transition-all duration-300 ease-in-out origin-center" 
+       [ngClass]="menuOpen ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'">
+  </div>
+
+  <nav class="flex flex-col nav:flex-row nav:justify-between nav:items-center bg-primary-600 transition-colors duration-300 ease-in-out shadow-xl rounded-b-lg min-h-18 nav:h-18 p-0 nav:px-2 cursor-default overflow-hidden">
+    
+    <div class="flex justify-between items-center w-full nav:w-auto h-18 px-4 nav:px-2 select-none shrink-0 bg-primary-600 transition-colors duration-300 ease-in-out relative z-10">
+      <a class="flex items-center space-x-2" routerLink="/">
+        <img ngSrc="images/GymTracer_logo.svg" width="50" height="50" priority alt="GymTracer Logo"  draggable="false">
+        <p class="text-2xl font-bold">GymTracer</p>
+      </a>
+
+      <button class="nav:hidden p-2 rounded focus:outline-none cursor-pointer hover:bg-black/10" (click)="toggleMenu()">
+        <img class="w-8 h-8" src="images/hamburger.svg" alt="Menu icon"/>
+      </button>
+    </div>
+
+    <div class="w-full nav:w-auto nav:h-full max-nav:bg-primary-500 max-nav:transition-all max-nav:duration-300 max-nav:ease-in-out max-nav:overflow-hidden"
+         [ngClass]="menuOpen ? 'max-nav:max-h-[500px]' : 'max-nav:max-h-0'">
+      
+      <div class="flex flex-col nav:flex-row select-none transition-colors duration-300 ease-in-out nav:h-full nav:items-center nav:justify-between w-full">
+
+        <div class="flex flex-col nav:flex-row nav:items-center nav:h-full">
+          <a class="nav-element" routerLink="/">Kezdőlap</a>
+          
+          @if(auth.actingUserRole === UserRole.not_found){
+            <a class="nav-element" routerLink="/login">Bejelentkezés</a>
+            <a class="nav-element" routerLink="/registration">Regisztráció</a>
+          }
+          @else if(theme.isStaffMode && (auth.actingUserRole === UserRole.staff || auth.actingUserRole === UserRole.admin)){
+            <a class="nav-element" routerLink="/users">Felhasználók</a>
+            <a class="nav-element" routerLink="/statistics">Statisztikák</a>
+            @if(auth.actingUserRole === UserRole.admin){
+              <a class="nav-element" routerLink="/card-usage">Kártyahasználat</a>
+              <a class="nav-element" routerLink="/income">Bevétel</a>
+            }
+          }
+          @else {
+            <a class="nav-element" routerLink="/trainings">Edzések</a>
+            <a class="nav-element" routerLink="/tickets">Jegyeim</a>
+            @if(auth.actingUserRole === UserRole.trainer){
+              <a class="nav-element" routerLink="/my-trainings">Edzéseim</a>
+            }
+            <a class="nav-element" routerLink="/cards">Kártyáim</a>
+            <a class="nav-element" routerLink="/profile">Profilom</a>
+          }
+        </div>
+
+        @if(auth.actingUserRole !== UserRole.not_found){
+          <div class="flex flex-col nav:flex-row items-center justify-center max-nav:py-6 max-nav:border-t max-nav:border-gray-800/20 nav:pl-4 nav:ml-4 nav:border-l border-gray-600 gap-4 nav:gap-5">
+            
+            <div class="flex flex-col items-center justify-center leading-tight">
+              <p class="font-semibold truncate max-w-[200px]" [title]="auth.user?.name">
+                Üdv, {{ auth.actingUser?.name }}!
+              </p>
+              <p class="text-xs font-mono text-gray-800 mt-0.5">
+                <span>{{ remainingTime }}</span>
+              </p>
+            </div>
+
+            @if(auth.user?.role === UserRole.staff || auth.user?.role === UserRole.admin) {
+              <div class="flex flex-col items-center justify-center">
+                <p class="text-xs text-gray-800 font-bold mb-0.5 uppercase">Ügykezelés</p>
+                <mat-slide-toggle color="primary" class="scale-90" (change)="toggleStaff($event)" [checked]="theme.isStaffMode"></mat-slide-toggle>
+              </div>
+            }
+
+            <button class="p-2 rounded-full hover:bg-black/10 transition-colors focus:outline-none cursor-pointer flex items-center justify-center" 
+                    (click)="auth.HandleLogout()" title="Kijelentkezés">
+              <img class="w-7 h-7" src="images/logout.svg" alt="Logout icon"/>
+            </button>
+            
+          </div>
+        }
+
+      </div>
+
+    </div>
+  </nav>
+  <div class="h-2"></div>
+</header>

@@ -1,0 +1,112 @@
+﻿[
+  {
+    "Id": 1,
+    "TrainerId": 3,
+    "Name": "Yoga Basics",
+    "Description": "Intro to Yoga",
+    "Image": "yoga.jpg",
+    "StartTime": "2023-05-01T08:00:00Z",
+    "EndTime": "2023-05-01T09:00:00Z",
+    "MaxParticipant": 20,
+    "Active": 1
+  },
+  {
+    "Id": 2,
+    "TrainerId": 6,
+    "Name": "HIIT Blast",
+    "Description": "High Intensity Interval Training",
+    "Image": "hiit.jpg",
+    "StartTime": "2023-05-01T10:00:00Z",
+    "EndTime": "2023-05-01T11:00:00Z",
+    "MaxParticipant": 15,
+    "Active": 1
+  },
+  {
+    "Id": 3,
+    "TrainerId": 3,
+    "Name": "Pilates Core",
+    "Description": "Core strengthening",
+    "Image": "pilates.jpg",
+    "StartTime": "2023-05-02T08:00:00Z",
+    "EndTime": "2023-05-02T09:00:00Z",
+    "MaxParticipant": 15,
+    "Active": 1
+  },
+  {
+    "Id": 4,
+    "TrainerId": 6,
+    "Name": "Zumba Dance",
+    "Description": "Dance cardio",
+    "Image": "zumba.jpg",
+    "StartTime": "2023-05-02T18:00:00Z",
+    "EndTime": "2023-05-02T19:00:00Z",
+    "MaxParticipant": 25,
+    "Active": 1
+  },
+  {
+    "Id": 5,
+    "TrainerId": 3,
+    "Name": "CrossFit Intro",
+    "Description": "Learn the basics of CrossFit",
+    "Image": "crossfit.jpg",
+    "StartTime": "2023-05-03T17:00:00Z",
+    "EndTime": "2023-05-03T18:00:00Z",
+    "MaxParticipant": 10,
+    "Active": 1
+  },
+  {
+    "Id": 6,
+    "TrainerId": 6,
+    "Name": "Spin Class",
+    "Description": "Indoor cycling",
+    "Image": "spin.jpg",
+    "StartTime": "2023-05-04T07:00:00Z",
+    "EndTime": "2023-05-04T08:00:00Z",
+    "MaxParticipant": 20,
+    "Active": 1
+  },
+  {
+    "Id": 7,
+    "TrainerId": 3,
+    "Name": "Boxing Fundamentals",
+    "Description": "Pad work and technique",
+    "Image": "boxing.jpg",
+    "StartTime": "2023-05-05T19:00:00Z",
+    "EndTime": "2023-05-05T20:00:00Z",
+    "MaxParticipant": 12,
+    "Active": 1
+  },
+  {
+    "Id": 8,
+    "TrainerId": 6,
+    "Name": "Stretching & Mobility",
+    "Description": "Recovery session",
+    "Image": "stretch.jpg",
+    "StartTime": "2023-05-06T10:00:00Z",
+    "EndTime": "2023-05-06T11:00:00Z",
+    "MaxParticipant": 20,
+    "Active": 1
+  },
+  {
+    "Id": 9,
+    "TrainerId": 3,
+    "Name": "Powerlifting 101",
+    "Description": "Squat, Bench, Deadlift",
+    "Image": "power.jpg",
+    "StartTime": "2023-05-07T16:00:00Z",
+    "EndTime": "2023-05-07T17:30:00Z",
+    "MaxParticipant": 8,
+    "Active": 1
+  },
+  {
+    "Id": 10,
+    "TrainerId": 6,
+    "Name": "Aerobics",
+    "Description": "Aerobic workout",
+    "Image": "aerobics.jpg",
+    "StartTime": "2023-05-08T09:00:00Z",
+    "EndTime": "2023-05-08T10:00:00Z",
+    "MaxParticipant": 15,
+    "Active": 1
+  }
+]

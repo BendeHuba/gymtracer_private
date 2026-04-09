@@ -1,0 +1,50 @@
+
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+@include mat.core();
+
+$red-palette: mat.m2-define-palette(map.merge(mat.$m2-red-palette, (
+  400: #f87171,
+  500: #ef4444,
+  600: #dc2626)), 500);
+$yellow-palette: mat.m2-define-palette(map.merge(mat.$m2-amber-palette, (
+  400: #facc15,
+  500: #eab308,
+  600: #ca8a04)), 500);
+$orange-palette: mat.m2-define-palette(map.merge(mat.$m2-orange-palette, (
+  400: #ff8904,
+  500: #ff6900,
+  600: #f54900)), 500);
+$theme-red: mat.m2-define-light-theme((color: (primary: $red-palette, accent: $red-palette)));
+$theme-yellow: mat.m2-define-light-theme((color: (primary: $yellow-palette, accent: $yellow-palette)));
+$theme-orange: mat.m2-define-light-theme((color: (primary: $orange-palette, accent: $orange-palette)));
+
+@include mat.all-component-themes($theme-red);
+
+.theme-yellow {
+  @include mat.all-component-colors($theme-yellow);
+}
+
+.theme-orange {
+  @include mat.all-component-colors($theme-orange);
+}
+
+body {
+  color-scheme: light;
+  background-color: var(--mat-sys-surface, #ffffff);
+  color: var(--mat-sys-on-surface, #000000);
+  margin: 0;
+}
+
+.mat-mdc-slide-toggle .mdc-switch__track {
+  background-color: #d1d5db !important;
+  border-color: #9e9e9e !important; 
+  transition: background-color 300ms ease-in-out, border-color 300ms ease-in-out !important;
+}

@@ -1,0 +1,123 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Alice Smith",
+    "Email": "alice@example.com",
+    "Password": "hashed_pw_1",
+    "BirthDate": "1990-05-15T00:00:00Z",
+    "Role": 0,
+    "CreationDate": "2023-01-10T08:00:00Z",
+    "Active": 1
+  },
+  {
+    "Id": 2,
+    "Name": "Bob Jones",
+    "Email": "bob@example.com",
+    "Password": "hashed_pw_2",
+    "BirthDate": "1985-10-22T00:00:00Z",
+    "Role": 0,
+    "CreationDate": "2023-01-11T09:30:00Z",
+    "Active": 1
+
+  },
+  {
+    "Id": 3,
+    "Name": "Charlie Brown",
+    "Email": "charlie@example.com",
+    "Password": "hashed_pw_3",
+    "BirthDate": "1992-03-08T00:00:00Z",
+    "Role": 1,
+    "CreationDate": "2023-01-12T10:15:00Z",
+    "Active": 1
+  },
+  {
+    "Id": 4,
+    "Name": "Diana Prince",
+    "Email": "diana@example.com",
+    "Password": "hashed_pw_4",
+    "BirthDate": "1988-12-01T00:00:00Z",
+    "Role": 0,
+    "CreationDate": "2023-01-13T11:45:00Z",
+    "Active": 1
+  },
+  {
+    "Id": 5,
+    "Name": "Evan Wright",
+    "Email": "evan@example.com",
+    "Password": "hashed_pw_5",
+    "BirthDate": "1995-07-19T00:00:00Z",
+    "Role": 0,
+    "CreationDate": "2023-01-14T14:20:00Z",
+    "Active": 1
+  },
+  {
+    "Id": 6,
+    "Name": "Fiona Gallagher",
+    "Email": "fiona@example.com",
+    "Password": "hashed_pw_6",
+    "BirthDate": "1993-02-14T00:00:00Z",
+    "Role": 1,
+    "CreationDate": "2023-01-15T16:05:00Z",
+    "Active": 1
+  },
+  {
+    "Id": 7,
+    "Name": "George Miller",
+    "Email": "george@example.com",
+    "Password": "hashed_pw_7",
+    "BirthDate": "1980-09-30T00:00:00Z",
+    "Role": 0,
+    "CreationDate": "2023-01-16T18:50:00Z",
+    "Active": 1
+  },
+  {
+    "Id": 8,
+    "Name": "Hannah Abbott",
+    "Email": "hannah@example.com",
+    "Password": "hashed_pw_8",
+    "BirthDate": "1998-04-25T00:00:00Z",
+    "Role": 0,
+    "CreationDate": "2023-01-17T07:10:00Z",
+    "Active": 1
+  },
+  {
+    "Id": 9,
+    "Name": "Ian Malcolm",
+    "Email": "ian@example.com",
+    "Password": "hashed_pw_9",
+    "BirthDate": "1975-11-11T00:00:00Z",
+    "Role": 0,
+    "CreationDate": "2023-01-18T12:35:00Z",
+    "Active": 1
+  },
+  {
+    "Id": 10,
+    "Name": "Jane Doe",
+    "Email": "jane@example.com",
+    "Password": "hashed_pw_10",
+    "BirthDate": "1999-08-05T00:00:00Z",
+    "Role": 0,
+    "CreationDate": "2023-01-19T15:25:00Z",
+    "Active": 1
+  },
+  {
+    "Id": 11,
+    "Name": "Teszt Elek",
+    "Email": "tesztelek@example.com",
+    "Password": "hashed_pw_10",
+    "BirthDate": "1999-08-05T00:00:00Z",
+    "Role": 2,
+    "CreationDate": "2023-01-19T15:25:00Z",
+    "Active": 1
+  },
+  {
+    "Id": 12,
+    "Name": "Git Áron",
+    "Email": "gitaron@example.com",
+    "Password": "hashed_pw_10",
+    "BirthDate": "1999-08-05T00:00:00Z",
+    "Role": 3,
+    "CreationDate": "2023-01-19T15:25:00Z",
+    "Active": 1
+  }
+]
