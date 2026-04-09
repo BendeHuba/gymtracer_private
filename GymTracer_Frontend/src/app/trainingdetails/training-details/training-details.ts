@@ -6,6 +6,7 @@ import { ThemeService } from '../../services/theme.service';
 import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { TrainingApplication } from "../components/training-application/training-application";
+import { UserRole } from '../../models/user.role.model';
 
 @Component({
   selector: 'app-training-details',
@@ -20,6 +21,9 @@ export class TrainingDetails {
   errorMessage: string | null = null;
 
   isModalOpen: boolean = false;
+  isCancelling = false;
+
+  UserRole = UserRole;
 
   auth = inject(AuthService);
   route = inject(ActivatedRoute);
@@ -48,12 +52,34 @@ export class TrainingDetails {
 
   canApply() {
     if (!this.training) return false;
+    if (this.auth.actingUserRole === UserRole.trainer ||
+        this.auth.actingUserRole === UserRole.staff ||
+        this.auth.actingUserRole === UserRole.admin) return false;
 
     if (this.training.users && this.auth.actingUser) {
       return !this.training.users.some(u => u.id === this.auth.actingUser?.id);
     }
 
     return !this.training.isApplied;
+  }
+
+  isApplied(): boolean {
+    if (!this.training) return false;
+    if (this.training.users && this.auth.actingUser) {
+      return this.training.users.some(u => u.id === this.auth.actingUser?.id);
+    }
+    return this.training.isApplied;
+  }
+
+  canCancel(): boolean {
+    if (this.endedInPast()) return false;
+    return this.isApplied();
+  }
+
+  canMarkPresence(): boolean {
+    if (!this.training) return false;
+    const role = this.auth.actingUserRole;
+    return role === UserRole.trainer || role === UserRole.staff || role === UserRole.admin;
   }
 
   onImgError(event: Event) {
@@ -93,6 +119,35 @@ export class TrainingDetails {
 
   closeModal() {
     this.isModalOpen = false;
+    if (this.trainingId) {
+      this.loadTrainingDetails(this.trainingId);
+    }
+  }
+
+  cancelApplication() {
+    const userId = this.auth.actingUser?.id;
+    if (!userId || !this.trainingId) return;
+    this.isCancelling = true;
+    this.trainingDetailService.cancelApplication(userId, this.trainingId).subscribe({
+      next: () => {
+        this.isCancelling = false;
+        if (this.trainingId) this.loadTrainingDetails(this.trainingId);
+      },
+      error: (err) => {
+        this.isCancelling = false;
+        alert(err.error || 'Nem sikerült lemondani az edzést.');
+      }
+    });
+  }
+
+  onPresenceChange(userId: number, presence: boolean) {
+    if (!this.trainingId) return;
+    this.trainingDetailService.markPresence(this.trainingId, userId, presence).subscribe({
+      error: (err) => {
+        alert(err.error || 'Nem sikerült menteni a jelenlétet.');
+        if (this.trainingId) this.loadTrainingDetails(this.trainingId);
+      }
+    });
   }
 
 }

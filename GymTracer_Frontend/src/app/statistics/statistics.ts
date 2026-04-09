@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NgClass, DecimalPipe } from '@angular/common';
+import { NgClass, SlicePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../services/theme.service';
 import { StatisticService } from '../services/statistic.service';
@@ -8,7 +8,7 @@ import { GymStatDayItem, GymStatWeekItem } from '../models/statistic.model';
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [NgClass, FormsModule, DecimalPipe],
+  imports: [NgClass, FormsModule, SlicePipe],
   templateUrl: './statistics.html',
   host: { class: 'flex-1 flex flex-col w-full' }
 })

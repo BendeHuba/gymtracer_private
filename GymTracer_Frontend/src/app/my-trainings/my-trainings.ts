@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NgClass, DatePipe } from '@angular/common';
+import { NgClass, DatePipe, SlicePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ThemeService } from '../services/theme.service';
@@ -10,7 +10,7 @@ import { AllTrainingResponse } from '../trainings/models/trainings.all.model';
 @Component({
   selector: 'app-my-trainings',
   standalone: true,
-  imports: [NgClass, DatePipe, FormsModule],
+  imports: [NgClass, DatePipe, FormsModule, SlicePipe],
   templateUrl: './my-trainings.html',
   host: { class: 'flex-1 flex flex-col w-full' }
 })

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { NgClass, SlicePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ThemeService } from '../services/theme.service';
@@ -9,7 +9,7 @@ import { UserRole } from '../models/user.role.model';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [NgClass, FormsModule],
+  imports: [NgClass, FormsModule, SlicePipe],
   templateUrl: './profile.html',
   host: { class: 'flex-1 flex flex-col w-full' }
 })

@@ -71,7 +71,7 @@ export class TrainingApplication {
           this.isSubmitting = false;
           this.closeModal();
           
-          this.router.navigate(['/user',this.userId,'tickets']);
+          this.router.navigate(['/tickets']);
         },
         error: (err) => {
           this.isSubmitting = false;
