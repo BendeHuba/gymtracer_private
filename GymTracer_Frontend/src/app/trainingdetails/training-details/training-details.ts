@@ -117,9 +117,9 @@ export class TrainingDetails {
     this.isModalOpen = true;
   }
 
-  closeModal() {
+  closeModal(applied = false) {
     this.isModalOpen = false;
-    if (this.trainingId) {
+    if (applied && this.trainingId) {
       this.loadTrainingDetails(this.trainingId);
     }
   }

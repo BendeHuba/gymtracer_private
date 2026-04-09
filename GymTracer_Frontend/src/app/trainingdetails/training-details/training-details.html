@@ -175,7 +175,7 @@
                   [userId]="auth.actingUser.id" 
                   [trainingId]="trainingId" 
                   [tickets]="training.tickets" 
-                  (modalClose)="closeModal()"
+                  (modalClose)="closeModal($event)"
                 />
               }
 

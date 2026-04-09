@@ -33,7 +33,7 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            @for (item of ticketStats; track item.ticket.description) {
+            @for (item of ticketStats; track item.ticket.type + item.ticket.description + (item.ticket.isStudent ? '1' : '0')) {
               <tr class="hover:bg-gray-50 transition-colors">
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                   <span class="px-2 py-1 rounded text-xs font-semibold bg-primary-100 text-primary-800">
