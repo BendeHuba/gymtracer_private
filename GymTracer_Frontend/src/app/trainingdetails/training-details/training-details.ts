@@ -82,6 +82,14 @@ export class TrainingDetails {
     return role === UserRole.trainer || role === UserRole.staff || role === UserRole.admin;
   }
 
+  isPresenceCheckable(): boolean {
+    if (!this.training) return false;
+    const now = Date.now();
+    const endTime = new Date(this.training.endTime).getTime();
+    const twoWeeksMs = 14 * 24 * 60 * 60 * 1000;
+    return now <= endTime + twoWeeksMs;
+  }
+
   onImgError(event: Event) {
     const img = event.target as HTMLImageElement;
     img.src = 'images/training_default.jpg';

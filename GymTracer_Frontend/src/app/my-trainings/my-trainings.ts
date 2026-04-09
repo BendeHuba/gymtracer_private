@@ -1,17 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NgClass, DatePipe, SlicePipe } from '@angular/common';
+import { NgClass, DatePipe, SlicePipe, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ThemeService } from '../services/theme.service';
 import { TrainerService } from '../services/trainer.service';
 import { TrainerTrainingModel, CreateTrainingDto, CreateTicketDto } from '../models/trainer-training.model';
 import { AllTrainingResponse } from '../trainings/models/trainings.all.model';
+import { Router } from '@angular/router';
 import { formatErrors } from '../utils/error-helper';
 
 @Component({
   selector: 'app-my-trainings',
   standalone: true,
-  imports: [NgClass, DatePipe, FormsModule, SlicePipe],
+  imports: [NgClass, DatePipe, FormsModule, SlicePipe, DecimalPipe],
   templateUrl: './my-trainings.html',
   host: { class: 'flex-1 flex flex-col w-full' }
 })
@@ -19,6 +20,7 @@ export class MyTrainingsPage implements OnInit {
   auth = inject(AuthService);
   theme = inject(ThemeService);
   trainerService = inject(TrainerService);
+  router = inject(Router);
 
   isLoading = true;
   errorMessage: string | null = null;
@@ -31,6 +33,7 @@ export class MyTrainingsPage implements OnInit {
   editingId: number | null = null;
   isSaving = false;
   modalError: string | null = null;
+  fieldErrors: Record<string, string> = {};
 
   form: CreateTrainingDto = {
     name: '',
@@ -85,6 +88,7 @@ export class MyTrainingsPage implements OnInit {
     };
     this.newTicket = { description: '', isStudent: false, price: 0, type: 0 };
     this.modalError = null;
+    this.fieldErrors = {};
     this.showModal = true;
     this.loadAllTrainings();
   }
@@ -102,6 +106,7 @@ export class MyTrainingsPage implements OnInit {
     };
     this.newTicket = { description: '', isStudent: false, price: 0, type: 0 };
     this.modalError = null;
+    this.fieldErrors = {};
     this.showModal = true;
     this.loadAllTrainings();
   }
@@ -141,6 +146,7 @@ export class MyTrainingsPage implements OnInit {
   closeModal() {
     this.showModal = false;
     this.modalError = null;
+    this.fieldErrors = {};
   }
 
   save() {
@@ -163,6 +169,7 @@ export class MyTrainingsPage implements OnInit {
 
     this.isSaving = true;
     this.modalError = null;
+    this.fieldErrors = {};
 
     const dto: CreateTrainingDto = {
       ...this.form,
@@ -183,8 +190,12 @@ export class MyTrainingsPage implements OnInit {
         this.load();
       },
       error: (err) => {
-        this.modalError = formatErrors(err);
         this.isSaving = false;
+        if (err.error?.errors && typeof err.error.errors === 'object') {
+          this.fieldErrors = err.error.errors;
+        } else {
+          this.modalError = err.error?.error || err.error || 'Ismeretlen hiba történt.';
+        }
       }
     });
   }
@@ -281,5 +292,20 @@ export class MyTrainingsPage implements OnInit {
 
   isUpcoming(t: TrainerTrainingModel): boolean {
     return new Date(t.endTime).getTime() > Date.now();
+  }
+
+  viewTraining(id: number) {
+    this.router.navigate(['/trainings', id]);
+  }
+
+  getTicketErrors(index: number): string[] {
+    const prefix = `jegy.[${index}]`;
+    return Object.entries(this.fieldErrors)
+      .filter(([k]) => k.startsWith(prefix))
+      .map(([, v]) => v);
+  }
+
+  hasAnyTicketErrors(): boolean {
+    return Object.keys(this.fieldErrors).some(k => k.startsWith('jegy.'));
   }
 }
