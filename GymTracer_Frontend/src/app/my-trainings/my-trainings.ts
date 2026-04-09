@@ -6,6 +6,7 @@ import { ThemeService } from '../services/theme.service';
 import { TrainerService } from '../services/trainer.service';
 import { TrainerTrainingModel, CreateTrainingDto, CreateTicketDto } from '../models/trainer-training.model';
 import { AllTrainingResponse } from '../trainings/models/trainings.all.model';
+import { formatErrors } from '../utils/error-helper';
 
 @Component({
   selector: 'app-my-trainings',
@@ -65,7 +66,7 @@ export class MyTrainingsPage implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        this.errorMessage = err.error?.errors ? JSON.stringify(err.error.errors) : (err.error?.error || 'Nem sikerült betölteni az edzéseket.');
+        this.errorMessage = formatErrors(err);
         this.isLoading = false;
       }
     });
@@ -182,7 +183,7 @@ export class MyTrainingsPage implements OnInit {
         this.load();
       },
       error: (err) => {
-        this.modalError = err.error?.errors ? JSON.stringify(err.error.errors) : (err.error || 'Hiba történt a mentés során.');
+        this.modalError = formatErrors(err);
         this.isSaving = false;
       }
     });
@@ -199,7 +200,7 @@ export class MyTrainingsPage implements OnInit {
         setTimeout(() => this.successMessage = null, 3000);
       },
       error: (err) => {
-        this.errorMessage = err.error || 'Nem sikerült törölni az edzést.';
+        this.errorMessage = formatErrors(err);
         this.deletingIds.delete(id);
       }
     });

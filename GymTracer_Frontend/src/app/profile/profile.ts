@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { ThemeService } from '../services/theme.service';
 import { UserService } from '../services/user.service';
 import { UserRole } from '../models/user.role.model';
+import { formatErrors } from '../utils/error-helper';
 
 @Component({
   selector: 'app-profile',
@@ -45,7 +46,7 @@ export class ProfilePage implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        this.errorMessage = err.error?.error || 'Nem sikerült betölteni a profilt.';
+        this.errorMessage = formatErrors(err);
         this.isLoading = false;
       }
     });
@@ -85,7 +86,7 @@ export class ProfilePage implements OnInit {
         this.successMessage = 'A profil sikeresen mentve!';
       },
       error: (err) => {
-        this.errorMessage = err.error?.error || 'Nem sikerült menteni a profilt.';
+        this.errorMessage = formatErrors(err);
         this.isSaving = false;
       }
     });

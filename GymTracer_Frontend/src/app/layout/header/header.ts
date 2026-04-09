@@ -81,6 +81,16 @@ export class Header implements OnInit, OnDestroy {
 
   toggleStaff($event: MatSlideToggleChange){
     this.theme.isStaffMode = $event.checked;
+    if ($event.checked) {
+      this.router.navigate(['/users']);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
+
+  logout(){
+    this.auth.HandleLogout();
+    this.router.navigate(['/login']);
   }
 
 }

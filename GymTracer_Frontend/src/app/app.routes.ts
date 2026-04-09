@@ -18,6 +18,8 @@ import { MyTrainingsPage } from './my-trainings/my-trainings';
 import { staffGuard } from './guards/staff-guard';
 import { adminGuard } from './guards/admin-guard';
 import { trainerGuard } from './guards/trainer-guard';
+import { staffModeGuard } from './guards/staff-mode-guard';
+import { userModeGuard } from './guards/user-mode-guard';
 
 export const routes: Routes = [
     {
@@ -27,16 +29,16 @@ export const routes: Routes = [
             {path: '', component: MainPage},
             {path: 'login', component: Login, canActivate: [guestGuard]},
             {path: 'registration', component: Registration, canActivate: [guestGuard]},
-            {path: 'trainings', component: Trainings, canActivate: [authGuard]},
-            {path: 'trainings/:id', component: TrainingDetails, canActivate: [authGuard]},
-            {path: 'profile', component: ProfilePage, canActivate: [authGuard]},
-            {path: 'cards', component: CardsPage, canActivate: [authGuard]},
-            {path: 'tickets', component: TicketsPage, canActivate: [authGuard]},
-            {path: 'users', component: UsersPage, canActivate: [authGuard, staffGuard]},
-            {path: 'statistics', component: StatisticsPage, canActivate: [authGuard, staffGuard]},
-            {path: 'income', component: IncomePage, canActivate: [authGuard, adminGuard]},
-            {path: 'card-usage', component: CardUsagePage, canActivate: [authGuard, adminGuard]},
-            {path: 'my-trainings', component: MyTrainingsPage, canActivate: [authGuard, trainerGuard]},
+            {path: 'trainings', component: Trainings, canActivate: [authGuard, userModeGuard]},
+            {path: 'trainings/:id', component: TrainingDetails, canActivate: [authGuard, userModeGuard]},
+            {path: 'profile', component: ProfilePage, canActivate: [authGuard, userModeGuard]},
+            {path: 'cards', component: CardsPage, canActivate: [authGuard, userModeGuard]},
+            {path: 'tickets', component: TicketsPage, canActivate: [authGuard, userModeGuard]},
+            {path: 'users', component: UsersPage, canActivate: [authGuard, staffGuard, staffModeGuard]},
+            {path: 'statistics', component: StatisticsPage, canActivate: [authGuard, staffGuard, staffModeGuard]},
+            {path: 'income', component: IncomePage, canActivate: [authGuard, adminGuard, staffModeGuard]},
+            {path: 'card-usage', component: CardUsagePage, canActivate: [authGuard, adminGuard, staffModeGuard]},
+            {path: 'my-trainings', component: MyTrainingsPage, canActivate: [authGuard, trainerGuard, userModeGuard]},
         ]
     },
     {
