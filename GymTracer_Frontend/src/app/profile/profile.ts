@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { ThemeService } from '../services/theme.service';
 import { UserService } from '../services/user.service';
 import { UserRole } from '../models/user.role.model';
+import { formatErrors } from '../utils/error-helper';
 
 @Component({
   selector: 'app-profile',
@@ -36,13 +37,6 @@ export class ProfilePage implements OnInit {
     this.loadProfile(userId);
   }
 
-  formatErrors(err: any): string {
-    if (err.error?.errors && typeof err.error.errors === 'object') {
-      return Object.values(err.error.errors).join(' ');
-    }
-    return err.error?.error || err.error || 'Ismeretlen hiba történt.';
-  }
-
   loadProfile(id: number) {
     this.isLoading = true;
     this.errorMessage = null;
@@ -52,7 +46,7 @@ export class ProfilePage implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        this.errorMessage = this.formatErrors(err);
+        this.errorMessage = formatErrors(err);
         this.isLoading = false;
       }
     });
@@ -92,7 +86,7 @@ export class ProfilePage implements OnInit {
         this.successMessage = 'A profil sikeresen mentve!';
       },
       error: (err) => {
-        this.errorMessage = this.formatErrors(err);
+        this.errorMessage = formatErrors(err);
         this.isSaving = false;
       }
     });
