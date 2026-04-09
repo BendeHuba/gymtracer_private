@@ -14,7 +14,7 @@ export class TrainingApplication {
   @Input({required: true}) trainingId!: number;
   @Input({required: true}) userId!: number;
   @Input({required: true}) tickets: Ticket[] = [];
-  @Output() modalClose = new EventEmitter();
+  @Output() modalClose = new EventEmitter<boolean>();
 
   trainingDetailService = inject(TrainingDetailService);
   router = inject(Router);
@@ -56,8 +56,8 @@ export class TrainingApplication {
     this.selectedTicketId = ticketId;
   }
 
-  closeModal(){
-    this.modalClose.emit();
+  closeModal(applied = false){
+    this.modalClose.emit(applied);
   }
 
   onSubmitApplication() {
@@ -69,9 +69,9 @@ export class TrainingApplication {
       .subscribe({
         next: (res) => {
           this.isSubmitting = false;
-          this.closeModal();
+          this.closeModal(true);
           
-          this.router.navigate(['/user',this.userId,'tickets']);
+          this.router.navigate(['/tickets']);
         },
         error: (err) => {
           this.isSubmitting = false;
