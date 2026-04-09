@@ -65,7 +65,7 @@ export class MyTrainingsPage implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        this.errorMessage = err.error?.errors ? JSON.stringify(err.error.errors) : (err.error?.error || 'Nem sikerült betölteni az edzéseket.');
+        this.errorMessage = this.formatErrors(err);
         this.isLoading = false;
       }
     });
@@ -182,7 +182,7 @@ export class MyTrainingsPage implements OnInit {
         this.load();
       },
       error: (err) => {
-        this.modalError = err.error?.errors ? JSON.stringify(err.error.errors) : (err.error || 'Hiba történt a mentés során.');
+        this.modalError = this.formatErrors(err);
         this.isSaving = false;
       }
     });
@@ -199,7 +199,7 @@ export class MyTrainingsPage implements OnInit {
         setTimeout(() => this.successMessage = null, 3000);
       },
       error: (err) => {
-        this.errorMessage = err.error || 'Nem sikerült törölni az edzést.';
+        this.errorMessage = this.formatErrors(err);
         this.deletingIds.delete(id);
       }
     });
@@ -276,6 +276,13 @@ export class MyTrainingsPage implements OnInit {
       case 3: return 'Alkalomjegy';
       default: return '?';
     }
+  }
+
+  formatErrors(err: any): string {
+    if (err.error?.errors && typeof err.error.errors === 'object') {
+      return Object.values(err.error.errors).join(' ');
+    }
+    return err.error?.error || err.error || 'Ismeretlen hiba történt.';
   }
 
   isUpcoming(t: TrainerTrainingModel): boolean {

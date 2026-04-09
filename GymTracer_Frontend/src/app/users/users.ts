@@ -70,7 +70,7 @@ export class UsersPage implements OnInit {
     this.auth.pretendedUser = userModel;
     this.theme.isPretendMode = true;
     localStorage.setItem('pretended_user', JSON.stringify(userModel));
-    this.router.navigate(['/trainings']);
+    this.router.navigate(['/profile']);
   }
 
   getRoleLabel(role: UserRole): string {

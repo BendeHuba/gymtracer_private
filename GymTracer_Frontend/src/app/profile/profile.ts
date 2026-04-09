@@ -36,6 +36,13 @@ export class ProfilePage implements OnInit {
     this.loadProfile(userId);
   }
 
+  formatErrors(err: any): string {
+    if (err.error?.errors && typeof err.error.errors === 'object') {
+      return Object.values(err.error.errors).join(' ');
+    }
+    return err.error?.error || err.error || 'Ismeretlen hiba történt.';
+  }
+
   loadProfile(id: number) {
     this.isLoading = true;
     this.errorMessage = null;
@@ -45,7 +52,7 @@ export class ProfilePage implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        this.errorMessage = err.error?.error || 'Nem sikerült betölteni a profilt.';
+        this.errorMessage = this.formatErrors(err);
         this.isLoading = false;
       }
     });
@@ -85,7 +92,7 @@ export class ProfilePage implements OnInit {
         this.successMessage = 'A profil sikeresen mentve!';
       },
       error: (err) => {
-        this.errorMessage = err.error?.error || 'Nem sikerült menteni a profilt.';
+        this.errorMessage = this.formatErrors(err);
         this.isSaving = false;
       }
     });
