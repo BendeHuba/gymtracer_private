@@ -194,7 +194,7 @@ export class MyTrainingsPage implements OnInit {
         if (err.error?.errors && typeof err.error.errors === 'object') {
           this.fieldErrors = err.error.errors;
         } else {
-          this.modalError = err.error?.error || err.error || 'Ismeretlen hiba történt.';
+          this.modalError = err.error?.error || err.error || 'Edzés mentése sikertelen.';
         }
       }
     });
