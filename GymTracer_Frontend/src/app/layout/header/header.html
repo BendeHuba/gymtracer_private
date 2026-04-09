@@ -61,7 +61,7 @@
               </p>
             </div>
 
-            @if(auth.user?.role === UserRole.staff || auth.user?.role === UserRole.admin) {
+            @if(!auth.pretendedUser && (auth.user?.role === UserRole.staff || auth.user?.role === UserRole.admin)) {
               <div class="flex flex-col items-center justify-center">
                 <p class="text-xs text-gray-800 font-bold mb-0.5 uppercase">Ügykezelés</p>
                 <mat-slide-toggle color="primary" class="scale-90" (change)="toggleStaff($event)" [checked]="theme.isStaffMode"></mat-slide-toggle>
