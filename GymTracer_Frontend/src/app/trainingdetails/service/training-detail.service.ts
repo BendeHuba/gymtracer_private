@@ -17,4 +17,12 @@ export class TrainingDetailService {
   applyToTraining(userId: number, trainingId: number, ticketId: number){
     return this.http.post<TrainingUser>(`${environment.apiUrl}/User/${userId}/training/${trainingId}/ticket/${ticketId}`,{});
   }
+
+  cancelApplication(userId: number, trainingId: number){
+    return this.http.delete<any>(`${environment.apiUrl}/User/${userId}/training/${trainingId}`);
+  }
+
+  markPresence(trainingId: number, userId: number, presence: boolean){
+    return this.http.patch<any>(`${environment.apiUrl}/Training/${trainingId}/user/${userId}/presence`, { presence });
+  }
 }
