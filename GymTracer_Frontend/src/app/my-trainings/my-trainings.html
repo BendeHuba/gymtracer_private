@@ -1,0 +1,259 @@
+<div class="flex-1 min-h-full w-full px-4 py-8 md:py-12" [ngClass]="theme.getColor()">
+  <div class="w-full max-w-5xl mx-auto">
+
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-3xl font-bold text-gray-800">Edzéseim</h1>
+      <button (click)="openCreate()"
+        class="px-5 py-2 bg-primary-600 hover:bg-primary-500 text-white font-bold rounded-md transition-colors cursor-pointer flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Új edzés
+      </button>
+    </div>
+
+    @if (isLoading) {
+      <div class="bg-white rounded-lg shadow-xl p-12 flex flex-col items-center justify-center border-t-4 border-primary-600 min-h-[200px]">
+        <svg class="animate-spin h-10 w-10 text-primary-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <p class="text-gray-600">Betöltés...</p>
+      </div>
+    }
+
+    @if (errorMessage) {
+      <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-md mb-4">
+        <p class="text-red-700 font-medium">{{ errorMessage }}</p>
+      </div>
+    }
+
+    @if (successMessage) {
+      <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-md mb-4">
+        <p class="text-green-700 font-medium">{{ successMessage }}</p>
+      </div>
+    }
+
+    @if (!isLoading) {
+      @if (trainings.length === 0) {
+        <div class="bg-white rounded-lg shadow-sm p-12 flex flex-col items-center text-center border border-gray-200">
+          <svg class="w-16 h-16 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <p class="text-gray-500 text-lg font-medium">Nincsenek edzések</p>
+          <p class="text-gray-400 text-sm mt-1">Hozz létre egy új edzést!</p>
+        </div>
+      } @else {
+        <div class="space-y-4">
+          @for (t of trainings; track t.id) {
+            <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200 flex items-center gap-4 hover:border-primary-400 transition-colors"
+                 [class.opacity-60]="!isUpcoming(t)">
+              <img [src]="t.image" [alt]="t.name" (error)="$any($event.target).src='images/training_default.jpg'"
+                class="w-20 h-20 object-cover rounded-lg shrink-0">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  <h3 class="font-bold text-gray-800 text-lg truncate">{{ t.name }}</h3>
+                  @if (!isUpcoming(t)) {
+                    <span class="px-2 py-0.5 text-xs bg-gray-100 text-gray-500 rounded font-medium shrink-0">Lezárult</span>
+                  }
+                </div>
+                <p class="text-sm text-gray-500">{{ t.startTime | date:'short' }} – {{ t.endTime | date:'shortTime' }}</p>
+                <p class="text-sm text-gray-500">Max {{ t.maxParticipant }} fő</p>
+              </div>
+              <div class="flex gap-2 shrink-0">
+                <button (click)="openEdit(t)" [disabled]="!isUpcoming(t)"
+                  class="px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold rounded-md transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed text-sm">
+                  Szerkesztés
+                </button>
+                <button (click)="deleteTraining(t.id)" [disabled]="isDeleting(t.id) || !isUpcoming(t)"
+                  class="px-4 py-2 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-md transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 text-sm">
+                  @if (isDeleting(t.id)) {
+                    <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  }
+                  Törlés
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+
+  </div>
+</div>
+
+<!-- Create/Edit Modal -->
+@if (showModal) {
+  <div class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 backdrop-blur-sm p-4 overflow-y-auto" (click)="closeModal()">
+    <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl my-8 relative" (click)="$event.stopPropagation()">
+      <button (click)="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer z-10">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-2xl font-bold text-gray-800">{{ editingId ? 'Edzés szerkesztése' : 'Új edzés létrehozása' }}</h2>
+      </div>
+
+      <div class="p-6 space-y-5">
+
+        @if (modalError) {
+          <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-md">
+            <p class="text-red-700 font-medium">{{ modalError }}</p>
+          </div>
+        }
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Edzés neve *</label>
+            <input type="text" [(ngModel)]="form.name" name="trainingName"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Leírás *</label>
+            <textarea rows="3" [(ngModel)]="form.description" name="trainingDesc"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors resize-none"></textarea>
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Kép URL *</label>
+            <input type="url" [(ngModel)]="form.image" name="trainingImage"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Kezdés *</label>
+            <input type="datetime-local" [(ngModel)]="form.startTime" (ngModelChange)="updateTimeline()" name="trainingStart"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Befejezés *</label>
+            <input type="datetime-local" [(ngModel)]="form.endTime" (ngModelChange)="updateTimeline()" name="trainingEnd"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Max résztvevő *</label>
+            <input type="number" [(ngModel)]="form.maxParticipant" name="trainingMax" min="1" max="99"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors">
+          </div>
+        </div>
+
+        <!-- Timeline bar chart -->
+        @if (form.startTime || timelineTrainings.length > 0) {
+          <div class="mt-2">
+            <h3 class="text-sm font-bold text-gray-700 mb-2">Edzések idősávja ({{ form.startTime ? (form.startTime | slice:0:10) : 'mai nap' }})</h3>
+            <div class="relative bg-gray-100 rounded-lg h-12 overflow-hidden border border-gray-200">
+              <!-- Hour markers -->
+              @for (h of [6,8,10,12,14,16,18,20,22]; track h) {
+                <div class="absolute top-0 bottom-0 w-px bg-gray-300/70"
+                  [style.left.%]="((h - 6) / 16) * 100">
+                </div>
+                <span class="absolute top-0.5 text-[10px] text-gray-400"
+                  [style.left.%]="((h - 6) / 16) * 100"
+                  style="transform: translateX(-50%)">{{ h }}:00</span>
+              }
+              <!-- Existing trainings -->
+              @for (t of timelineTrainings; track t.id) {
+                <div class="absolute top-5 bottom-1 rounded bg-gray-400/70 hover:bg-gray-500/70 transition-colors"
+                  [style.left.%]="getBarLeft(t.startTime)"
+                  [style.width.%]="getBarWidth(t.startTime, t.endTime)"
+                  [title]="t.name + ': ' + (t.startTime | slice:11:16) + ' – ' + (t.endTime | slice:11:16)">
+                </div>
+              }
+              <!-- New/edited training bar -->
+              @if (form.startTime && form.endTime) {
+                <div class="absolute top-5 bottom-1 rounded transition-colors"
+                  [class.bg-primary-500]="!hasOverlap()"
+                  [class.bg-red-500]="hasOverlap()"
+                  [class.opacity-80]="true"
+                  [style.left.%]="getNewBarLeft()"
+                  [style.width.%]="getNewBarWidth()"
+                  [title]="'Új edzés'">
+                </div>
+              }
+            </div>
+            @if (hasOverlap()) {
+              <p class="text-red-600 text-xs font-semibold mt-1">⚠ Ütközés van egy meglévő edzéssel! Kérjük, válassz más időpontot.</p>
+            }
+          </div>
+        }
+
+        <!-- Tickets section -->
+        <div class="border-t border-gray-200 pt-5">
+          <h3 class="text-base font-bold text-gray-800 mb-3">Jegyek / Bérletek</h3>
+
+          @if (form.tickets.length > 0) {
+            <div class="space-y-2 mb-4">
+              @for (ticket of form.tickets; track $index) {
+                <div class="flex items-center gap-2 bg-gray-50 rounded p-3 border border-gray-200">
+                  <span class="flex-1 text-sm font-medium text-gray-700">{{ ticket.description }}</span>
+                  <span class="text-xs text-gray-500">{{ ticket.price }} Ft</span>
+                  <span class="text-xs text-gray-500">{{ getTicketTypeLabel(ticket.type) }}</span>
+                  <span class="text-xs text-gray-500">Diák: {{ ticket.isStudent ? 'I' : 'N' }}</span>
+                  <button (click)="removeTicket($index)" class="text-red-400 hover:text-red-600 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+              }
+            </div>
+          }
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-2 items-end">
+            <div class="col-span-2 md:col-span-1">
+              <label class="block text-xs font-medium text-gray-600 mb-1">Leírás</label>
+              <input type="text" [(ngModel)]="newTicket.description" name="ticketDesc" placeholder="pl. Edzésjegy"
+                class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary-400">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 mb-1">Ár (Ft)</label>
+              <input type="number" [(ngModel)]="newTicket.price" name="ticketPrice" min="0"
+                class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary-400">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 mb-1">Típus</label>
+              <select [(ngModel)]="newTicket.type" name="ticketType"
+                class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary-400">
+                <option [value]="0">Edzésjegy</option>
+                <option [value]="1">Napi</option>
+                <option [value]="2">Havi</option>
+                <option [value]="3">Alkalomjegy</option>
+              </select>
+            </div>
+            <div class="flex items-end gap-2">
+              <label class="flex items-center gap-1 text-xs text-gray-600 cursor-pointer">
+                <input type="checkbox" [(ngModel)]="newTicket.isStudent" name="ticketStudent">
+                Diák
+              </label>
+              <button (click)="addTicket()" type="button"
+                class="px-3 py-1.5 bg-primary-600 hover:bg-primary-500 text-white text-sm font-bold rounded cursor-pointer">
+                + Hozzáad
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="p-6 border-t border-gray-200 flex justify-end gap-3">
+        <button (click)="closeModal()" type="button"
+          class="px-5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-md cursor-pointer">
+          Mégse
+        </button>
+        <button (click)="save()" [disabled]="isSaving"
+          class="px-6 py-2 bg-primary-600 hover:bg-primary-500 text-white font-bold rounded-md cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+          @if (isSaving) {
+            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          }
+          Mentés
+        </button>
+      </div>
+    </div>
+  </div>
+}

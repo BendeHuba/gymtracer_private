@@ -1,0 +1,116 @@
+<div class="flex-1 min-h-full w-full px-4 py-8 md:py-12" [ngClass]="theme.getColor()">
+  <div class="w-full max-w-2xl mx-auto">
+
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Profilom</h1>
+
+    @if (isLoading) {
+      <div class="bg-white rounded-lg shadow-xl p-12 flex flex-col items-center justify-center border-t-4 border-primary-600 min-h-[300px]">
+        <svg class="animate-spin h-10 w-10 text-primary-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <p class="text-gray-600">Betöltés...</p>
+      </div>
+    }
+
+    @if (errorMessage && !isLoading && !editMode) {
+      <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-md mb-6">
+        <p class="text-red-700 font-medium">{{ errorMessage }}</p>
+      </div>
+    }
+
+    @if (successMessage && !editMode) {
+      <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-md mb-6">
+        <p class="text-green-700 font-medium">{{ successMessage }}</p>
+      </div>
+    }
+
+    @if (profile && !isLoading) {
+      <div class="bg-white rounded-lg shadow-xl overflow-hidden border-t-4 border-primary-600">
+        <div class="p-8">
+
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 text-2xl font-bold">
+                {{ profile.name.charAt(0).toUpperCase() }}
+              </div>
+              <div>
+                <h2 class="text-xl font-bold text-gray-800">{{ profile.name }}</h2>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold" [ngClass]="getRoleBadgeClass(auth.actingUser?.role)">
+                  {{ getRoleLabel(auth.actingUser?.role) }}
+                </span>
+              </div>
+            </div>
+            @if (!editMode) {
+              <button (click)="startEdit()" class="px-4 py-2 bg-primary-600 hover:bg-primary-500 text-white font-bold rounded-md transition-colors cursor-pointer text-sm">
+                Szerkesztés
+              </button>
+            }
+          </div>
+
+          @if (!editMode) {
+            <div class="space-y-4 divide-y divide-gray-100">
+              <div class="flex justify-between items-center py-3">
+                <span class="text-sm font-medium text-gray-500">Név</span>
+                <span class="text-gray-800 font-medium">{{ profile.name }}</span>
+              </div>
+              <div class="flex justify-between items-center py-3">
+                <span class="text-sm font-medium text-gray-500">E-mail</span>
+                <span class="text-gray-800 font-medium">{{ profile.email }}</span>
+              </div>
+              <div class="flex justify-between items-center py-3">
+                <span class="text-sm font-medium text-gray-500">Születési dátum</span>
+                <span class="text-gray-800 font-medium">{{ profile.birthDate ? (profile.birthDate | slice:0:10) : '–' }}</span>
+              </div>
+              <div class="flex justify-between items-center py-3">
+                <span class="text-sm font-medium text-gray-500">Regisztráció dátuma</span>
+                <span class="text-gray-800 font-medium">{{ profile.creationDate | slice:0:10 }}</span>
+              </div>
+              <div class="flex justify-between items-center py-3">
+                <span class="text-sm font-medium text-gray-500">Kártyák száma</span>
+                <span class="text-gray-800 font-medium">{{ profile.cards.length }} db</span>
+              </div>
+            </div>
+          } @else {
+            <form (ngSubmit)="saveProfile()" class="space-y-5">
+              @if (errorMessage) {
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-md">
+                  <p class="text-red-700 font-medium">{{ errorMessage }}</p>
+                </div>
+              }
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Név</label>
+                <input type="text" [(ngModel)]="editData.name" name="name" required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
+                <input type="email" [(ngModel)]="editData.email" name="email" required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Születési dátum</label>
+                <input type="date" [(ngModel)]="editData.birthDate" name="birthDate"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors">
+              </div>
+              <div class="flex gap-3 pt-2">
+                <button type="button" (click)="cancelEdit()" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-md transition-colors cursor-pointer">
+                  Mégse
+                </button>
+                <button type="submit" [disabled]="isSaving" class="px-6 py-2 bg-primary-600 hover:bg-primary-500 text-white font-bold rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                  @if (isSaving) {
+                    <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  }
+                  Mentés
+                </button>
+              </div>
+            </form>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
