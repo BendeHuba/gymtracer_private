@@ -17,14 +17,14 @@ export class TrainerService {
   }
 
   createTraining(trainerId: number, data: CreateTrainingDto) {
-    return this.http.post<any>(`${environment.apiUrl}/Training/user/${trainerId}`, data);
+    return this.http.post(`${environment.apiUrl}/Training/user/${trainerId}`, data);
   }
 
   updateTraining(trainingId: number, data: UpdateTrainingDto) {
-    return this.http.put<any>(`${environment.apiUrl}/Training/${trainingId}`, data);
+    return this.http.put(`${environment.apiUrl}/Training/${trainingId}`, data);
   }
 
   deleteTraining(trainingId: number) {
-    return this.http.delete<any>(`${environment.apiUrl}/Training/${trainingId}`);
+    return this.http.delete(`${environment.apiUrl}/Training/${trainingId}`);
   }
 }
