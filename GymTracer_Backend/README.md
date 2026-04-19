@@ -1,149 +1,185 @@
 # GymTracer Backend
 
-Edzőtermi adminisztrációs rendszer szerveroldali komponense ASP.NET Core 8 alapon.  
-A backend REST API-n keresztül kezeli a hitelesítést, jogosultságokat, edzéseket, jegyeket, kártyákat és statisztikákat.
+A GymTracer backend az edzőtermi üzleti folyamatok szerveroldali motorja.  
+Feladata, hogy megbízható REST API-n keresztül kiszolgálja a hitelesítést, jogosultságkezelést, jegy- és fizetési műveleteket, edzéskezelést, beléptetést és statisztikákat.
 
-## Gyors munkafolyamat-ellenőrzőlista
+## Rövid munkafolyamat-ellenőrzőlista
 
-- [ ] Környezet előkészítése (.NET 8, adatbázis, connection string)
-- [ ] Projekt restore + build futtatása
+- [ ] Környezet előkészítése (.NET 8, MySQL/MariaDB, connection string)
+- [ ] Build és teszt futtatása (`restore`, `build`, `test`)
 - [ ] API indítása és Swagger ellenőrzése
-- [ ] Kulcs végpontok kipróbálása (auth, user, training, ticket)
-- [ ] Tesztek futtatása és hibák átnézése
+- [ ] Auth + role alapú végpontok kipróbálása
+- [ ] Validációs és üzleti szabályok ellenőrzése (különösen training/gate folyamatok)
+- [ ] Hiba- és edge-case válaszok ellenőrzése (400/401/403/404/409)
 
 ## Tartalom
 
-- [Projektáttekintés](#projektáttekintés)
+- [Projektcél és működési fókusz](#projektcél-és-működési-fókusz)
 - [Technológiai háttér](#technológiai-háttér)
-- [Gyorsindítás](#gyorsindítás)
-- [Konfiguráció](#konfiguráció)
-- [API áttekintés](#api-áttekintés)
-- [Validáció a backendben](#validáció-a-backendben)
-- [Fejlesztői parancsok](#fejlesztői-parancsok)
+- [Architektúra és kérés-életciklus](#architektúra-és-kérés-életciklus)
+- [Fő modulok és felelősségek](#fő-modulok-és-felelősségek)
+- [Adatmodell áttekintés](#adatmodell-áttekintés)
+- [Hitelesítés és jogosultság](#hitelesítés-és-jogosultság)
+- [DataValidator részletesen](#datavalidator-részletesen)
+- [API végpontok – mit csinálnak](#api-végpontok--mit-csinálnak)
+- [Lokális futtatás](#lokális-futtatás)
+- [Konfiguráció és környezeti változók](#konfiguráció-és-környezeti-változók)
+- [Fejlesztői workflow](#fejlesztői-workflow)
+- [Biztonsági és üzemeltetési megjegyzések](#biztonsági-és-üzemeltetési-megjegyzések)
 - [Hibakeresés](#hibakeresés)
+- [Átadás előtti ellenőrzőlista](#átadás-előtti-ellenőrzőlista)
 
-## Projektáttekintés
+## Projektcél és működési fókusz
 
-A backend fő célja, hogy egységes, szerepkör-alapú API-t adjon az alábbi folyamatokra:
+A backend célja, hogy egyetlen, konzisztens API felületen keresztül kezelje az edzőtermi működés kulcsterületeit:
 
-- felhasználókezelés,
-- jegy- és fizetéskezelés,
-- edzésfoglalás és jelenlétkezelés,
-- beléptetés kártya alapján,
-- admin/staff riportok.
+- **felhasználók és szerepkörök** (customer/trainer/staff/admin),
+- **jegyek és fizetések** (vásárlás, státusz, felhasználhatóság),
+- **edzések és jelentkezések** (időablak, részvétel, férőhely),
+- **kártyás beléptetés** (kapu- és főkapu logika),
+- **riportok és statisztikák** (forgalom, kártyahasználat, ticket értékesítés).
 
-A rendszer EF Core-t használ, a séma migrációkkal követhető és telepíthető.
+A rendszer EF Core alapon, relációs modellre épül, migrációkkal verziózott adatbázis-sémával.
 
 ## Technológiai háttér
 
-| Terület | Megoldás |
-|---|---|
-| Platform | ASP.NET Core 8 (`net8.0`) |
-| Adatelérés | Entity Framework Core + MySQL provider |
-| Adatbázis | MySQL / MariaDB |
-| Auth | egyedi session tokenes authentikáció + policy |
-| Jelszókezelés | PBKDF2 (`PasswordHandler`) |
-| API dokumentáció | Swagger (Development környezetben) |
+| Terület | Megoldás | Szerepe |
+|---|---|---|
+| Platform | ASP.NET Core 8 (`net8.0`) | REST API hostolás |
+| ORM | Entity Framework Core | entitások, relációk, migrációk |
+| Adatbázis | MySQL / MariaDB | üzleti adatok tárolása |
+| Auth | egyedi auth handler + token policy | bejelentkezés, session-élettartam |
+| Password | PBKDF2 | jelszó-hash és ellenőrzés |
+| API dokumentáció | Swagger (Development) | gyors endpoint tesztelés |
 
-## Gyorsindítás
+## Architektúra és kérés-életciklus
 
-### Előfeltételek
+Egy tipikus kérés útja:
 
-- .NET SDK 8+
-- futó MySQL/MariaDB
-- érvényes connection string
+1. A frontend HTTP kérést küld egy `/api/...` végpontra.
+2. A middleware lánc fut (`UseCors`, `UseAuthentication`, `UseAuthorization`).
+3. Az `AuthHandler` ellenőrzi a Bearer tokent, frissíti a session lejáratát.
+4. A controller role és üzleti feltételek alapján feldolgozza a kérést.
+5. EF Core tranzakcióval/lekérdezéssel adatbázisműveletek történnek.
+6. A backend strukturált JSON választ ad vissza.
 
-### Lokális indítás
-
-```bash
-cd /home/runner/work/gymtracer_private/gymtracer_private/GymTracer_Backend
-
-dotnet restore
-dotnet build GymTracer.sln
-```
-
-```bash
-export ConnectionStrings__gymtracerDb="server=localhost;port=3306;database=gymtracerdb;user=<felhasznalo>;password=<jelszo>;"
-dotnet run --project /home/runner/work/gymtracer_private/gymtracer_private/GymTracer_Backend/GymTracer.csproj
-```
-
-Elérés:
-
-- HTTP: `http://localhost:5065`
-- HTTPS: `https://localhost:7261`
-- Swagger: `https://localhost:7261/swagger`
-
-> Feltételezés: lokális fejlesztésnél a backend eléri az adatbázist, és a `ConnectionStrings__gymtracerDb` helyes értékre van állítva.
-
-## Konfiguráció
-
-A backend a DB kapcsolatot a `ConnectionStrings:gymtracerDb` kulcsból olvassa (env megfelelője: `ConnectionStrings__gymtracerDb`).
-
-Részlet a `Program.cs` fájlból:
+`Program.cs` részlet:
 
 ```csharp
-var configuration = builder.Configuration;
-var connString = configuration.GetConnectionString("gymtracerDb");
-
-builder.Services.AddDbContext<GymTracerDbContext>(o =>
+builder.Services.AddAuthentication(options =>
 {
-    o.UseMySQL(connString);
+    options.DefaultScheme = "MyAuthentication";
+
+}).AddScheme<AuthOptions, AuthHandler>("MyAuthentication", options =>
+{
+    builder.Configuration.GetSection(AuthOptions.SectionName).Bind(options);
+}).AddBearerToken();
+
+builder.Services.AddAuthorization(options =>
+{
+    var sessionTokenPolicy = new AuthorizationPolicyBuilder().RequireClaim("SessionToken").Build();
+    options.AddPolicy("SessionToken", sessionTokenPolicy);
+    options.DefaultPolicy = sessionTokenPolicy;
 });
 ```
 
-Kiemelt auth/security beállítások:
+**Mit jelent ez gyakorlatban?**  
+Az alap policy szerint minden védett végpont csak érvényes `SessionToken` claimmel érhető el.
 
-| Kulcs | Jelentés |
+## Fő modulok és felelősségek
+
+| Modul | Felelősség |
 |---|---|
-| `AuthHandler:ExpirationInMinutes` | token élettartam |
-| `AuthHandler:TokenLength` | token hossz |
-| `PasswordHandler:AlgorithmName` | hash algoritmus |
-| `PasswordHandler:Iterations` | PBKDF2 iteráció |
-| `PasswordHandler:HashLength` | hash hossz |
-| `PasswordHandler:SaltLength` | só hossza |
+| `Controllers/` | végpontok, input feldolgozás, üzleti szabályok |
+| `Auth/` | token kezelés, auth handler, jelszó hash/verify |
+| `Context/` | `DbContext`, indexek, constraint-ek, seed adatok |
+| `DataValidator/` + `Extensions/ValidatorExtension` | láncolható validációs DSL |
+| `Models/` | domain entitások és enumok |
+| `Migrations/` | adatbázis séma evolúció |
 
-## API áttekintés
+## Adatmodell áttekintés
 
-Alap prefix: `/api`
+A fő entitások egymásra épülve fedik le a működést:
 
-| Modul | Példa útvonal | Megjegyzés |
-|---|---|---|
-| Auth | `POST /api/auth/login` | bejelentkezés, token kiadás |
-| User | `GET /api/user/{id}/profile` | profil lekérdezés |
-| Ticket | `GET /api/ticket/user/{id}` | felhasználó jegyei |
-| Training | `POST /api/training/user/{id}` | edzés létrehozás |
-| Gate | `POST /api/gate/{gate_id}/card/{card_code}/enter-main` | beléptetés |
-| Statistic | `GET /api/statistic/tickets` | admin riport |
+- `User` – felhasználói profil, szerepkör, aktív állapot.
+- `Token` – session token, lejárati idő (`RevokedAt`), user-kapcsolat.
+- `Card` – felhasználóhoz tartozó belépőkártya, visszavonhatóság.
+- `Ticket` – jegytípus, ár, típus, felhasználási korlát.
+- `Payment` – fizetési rekord (határidő, fizetési dátum, bizonylatszám).
+- `UserTicket` – user + ticket + payment kapcsolat, felhasználás és lejárat.
+- `Training` + `TrainingUser` – edzések és résztvevők, jelenlét kezelése.
+- `UsageLog` – kártyahasználat naplózása kapu szerint.
 
-Minta bejelentkezés:
+A `GymTracerDbContext` fontosabb séma-szabályai:
 
-```http
-POST /api/auth/login
-Content-Type: application/json
+- egyedi index több kulcson (`Email`, `TokenString`, `Card.Code`, stb.),
+- összetett egyediség (`TrainingUser`: `TrainingId + UserId`),
+- `Ticket.IsActive` default és index,
+- seed adatok JSON fájlokból (`ExampleData/*`).
 
+## Hitelesítés és jogosultság
+
+### Login / token kiadás
+
+`AuthController.Login` sikeres hitelesítés után token rekordot hoz létre:
+
+```csharp
+tokenHandler.GenerateTokenData(out string tokenString, out DateTime createdAt, out DateTime revokedAt);
+
+dbContext.Tokens.Add(new models.Token {
+    UserId = dbUser.Id,
+    CreatedAt = createdAt,
+    RevokedAt = revokedAt,
+    TokenString = tokenString
+});
+```
+
+### Token ellenőrzés és session hosszabbítás
+
+`AuthHandler` minden hitelesített kérésnél:
+
+- beolvassa az `Authorization: Bearer ...` fejlécet,
+- ellenőrzi a token létezését és lejáratát,
+- meghosszabbítja a sessiont (`RevokedAt = now + expiration`),
+- `session` response headerben visszaküldi az új `validTo` időpontot.
+
+```csharp
+if (sessionToken is null || sessionToken.RevokedAt <= tokenHandler.Now())
+    return await Task.FromResult(AuthenticateResult.Fail("Authentication failed"));
+
+sessionToken.RevokedAt = tokenHandler.Now().AddMinutes(Options.ExpirationInMinutes);
+```
+
+### Password kezelés
+
+PBKDF2 alapú hash:
+
+```csharp
+byte[] passwordHash = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, algorithm, hashLength);
+return $"$pbkdf2${algorithm.Name?.ToLower()}${iterations}${saltString}${hashString}";
+```
+
+> Fontos: a seed felhasználók jelszavai hash-elve vannak tárolva, plaintext forma nincs a repository-ban.
+
+## DataValidator részletesen
+
+A backend egyik legfontosabb erőssége a saját, láncolható validátor API, amely tisztán tartja a controller logikát.
+
+### 1) Validátor létrehozása
+
+```csharp
+public static class Validator
 {
-  "email": "admin@gym.hu",
-  "password": "<jelszo>"
+    public static Validator<T> Create<T>(T validatonTarget)
+    {
+        return new Validator<T>(validatonTarget);
+    }
 }
 ```
 
-## Validáció a backendben
+A `Validator<T>` gyűjti a hibákat (`Errors`) és ad egy `IsValid` állapotot.
 
-A projekt saját validátor-láncot használ (`DataValidator` + `ValidatorExtension`).  
-A kontroller oldalon ez jól olvashatóan, üzleti szabályokkal együtt jelenik meg.
-
-### 1) Validátor futtatása endpointban
-
-```csharp
-var validatorResult = ValidateTraining(training);
-if (!validatorResult.IsValid)
-    return BadRequest(new { validatorResult.Errors });
-```
-
-**Mit csinál?**  
-Ha bármely mező sérti a szabályokat, a hívó rendezett hibalistát kap `400 Bad Request` válaszban.
-
-### 2) Szabályok definiálása
+### 2) Szabályok láncolása (Training)
 
 ```csharp
 trainingValidator.Validate(t => t.StartTime, "edzés kezdete")
@@ -156,24 +192,143 @@ trainingValidator.Validate(t => t.MaxParticipant, "résztvevő szám")
     .LessThan(100ul);
 ```
 
-**Miért hasznos?**  
-A szabályok közel maradnak a domainhez, így a karbantartás és a hibakeresés egyszerűbb.
+Ez nem csak formális validáció: üzleti szabályt is véd (pl. időablak, férőhely-limit).
 
-### 3) Validátor létrehozása
+### 3) Kollekció validáció (Ticket lista)
 
 ```csharp
-public static class Validator
-{
-    public static Validator<T> Create<T>(T validationTarget)
+ticketsValidator.Validate(t => t, "Ticket", "jegy")!
+    .NotNull()!
+    .ForEach(ticket =>
     {
-        return new Validator<T>(validationTarget);
-    }
-}
+        ticket.ThenValidate(ticket => ticket.Description, "leírás").NotNullOrEmpty();
+        ticket.ThenValidate(ticket => ticket.Price, "ár").Min(0ul).Max(ulong.MaxValue);
+        ticket.ThenValidate(ticket => ticket.Type, "típus").InEnum();
+    });
 ```
 
-**Megjegyzés:** ez egy könnyen újrahasznosítható minta, amit más kontrollerekben is következetesen lehet alkalmazni.
+### 4) Controller használat
 
-## Fejlesztői parancsok
+```csharp
+var validatorResult = ValidateTraining(training);
+if (!validatorResult.IsValid)
+    return BadRequest(new { validatorResult.Errors });
+```
+
+**Gyakorlati előnyök:**
+
+- egységes hibaformátum,
+- könnyebb karbantartás,
+- jól olvasható üzleti szabályok,
+- új szabályok gyors bővíthetősége.
+
+## API végpontok – mit csinálnak
+
+Alap prefix: `/api`.
+
+### Auth (`/api/auth`)
+
+| Metódus | Útvonal | Mit csinál |
+|---|---|---|
+| `POST` | `/auth/registration` | új customer regisztráció, alap ellenőrzésekkel |
+| `POST` | `/auth/login` | felhasználó hitelesítése, token kiadás |
+| `POST` | `/auth/logout` | aktuális token azonnali visszavonása |
+
+### User (`/api/user`)
+
+| Metódus | Útvonal | Mit csinál |
+|---|---|---|
+| `GET` | `/user/{id}/profile` | profiladatok + napi belépés infó |
+| `PUT` | `/user/{id}/profile` | profil módosítás (email validációval) |
+| `DELETE` | `/user/{id}` | user deaktiválás + aktív token/kártya visszavonás |
+| `GET` | `/user/{id}/card` | aktív kártyák listázása |
+| `POST` | `/user/{id}/card` | új kártya kibocsátása |
+| `DELETE` | `/user/{id}/card/{card_id}` | kártya visszavonása |
+| `GET` | `/user/{id}/training` | user edzéseinek listázása |
+| `POST` | `/user/{id}/training/{training_id}/ticket/{ticket_id}` | jelentkezés edzésre tickettel |
+| `DELETE` | `/user/{id}/training/{training_id}` | lejelentkezés |
+| `GET` | `/user` | staff/admin keresés név/email/guid szerint |
+| `PUT` | `/user/{id}/role` | szerepkör módosítás (admin) |
+
+### Ticket (`/api/ticket`)
+
+| Metódus | Útvonal | Mit csinál |
+|---|---|---|
+| `GET` | `/ticket` | elérhető jegytípusok listája |
+| `GET` | `/ticket/user/{id}` | user érvényes jegyei |
+| `GET` | `/ticket/user/{id}/unpaid` | user rendezetlen ticketjei |
+| `POST` | `/ticket/{ticket_id}/user/{id}/{is_paid}` | ticket és payment létrehozás |
+| `PATCH` | `/ticket/user/{id}/pay/{payment_id}` | nyitott fizetés rendezése |
+
+### Training (`/api/training`)
+
+| Metódus | Útvonal | Mit csinál |
+|---|---|---|
+| `GET` | `/training` | edzéslista |
+| `GET` | `/training/user/{id}` | edzőhöz tartozó edzések |
+| `GET` | `/training/{training_id}` | edzés részletei |
+| `POST` | `/training/user/{id}` | új edzés létrehozása (validációval) |
+| `PUT` | `/training/{training_id}` | edzés frissítése |
+| `DELETE` | `/training/{training_id}` | edzés deaktiválása |
+| `PATCH` | `/training/{training_id}/user/{id}/presence/{presence}` | jelenlét módosítás |
+
+### Gate (`/api/gate`)
+
+| Metódus | Útvonal | Mit csinál |
+|---|---|---|
+| `POST` | `/gate/{gate_id}/card/{card_code}/enter` | kapu belépés érvényes jegy ellenőrzéssel |
+| `POST` | `/gate/{gate_id}/card/{card_code}/enter-main` | főkapu belépés napi és ticket logikával |
+
+### Statistic (`/api/statistic`)
+
+| Metódus | Útvonal | Mit csinál |
+|---|---|---|
+| `GET` | `/statistic/gym?daysBack=&weeksBack=` | látogatottság napi/heti bontásban |
+| `GET` | `/statistic/tickets` | jegyértékesítési statisztika |
+| `GET` | `/statistic/card` | kártyahasználati napló admin nézethez |
+
+## Lokális futtatás
+
+### Előfeltételek
+
+- .NET SDK 8+
+- futó MySQL/MariaDB szerver
+- érvényes `gymtracerDb` kapcsolat
+
+### Parancsok
+
+```bash
+cd /home/runner/work/gymtracer_private/gymtracer_private/GymTracer_Backend
+
+dotnet restore
+dotnet build GymTracer.sln
+
+export ConnectionStrings__gymtracerDb="server=localhost;port=3306;database=gymtracerdb;user=<felhasznalo>;password=<jelszo>;"
+dotnet run --project /home/runner/work/gymtracer_private/gymtracer_private/GymTracer_Backend/GymTracer.csproj
+```
+
+Elérési címek:
+
+- HTTP: `http://localhost:5065`
+- HTTPS: `https://localhost:7261`
+- Swagger: `https://localhost:7261/swagger`
+
+## Konfiguráció és környezeti változók
+
+| Kulcs | Jelentés |
+|---|---|
+| `ConnectionStrings:gymtracerDb` | adatbázis kapcsolat |
+| `ConnectionStrings__gymtracerDb` | ugyanez env változóként |
+| `AuthHandler:ExpirationInMinutes` | session időablak |
+| `AuthHandler:TokenLength` | token karakterhossz |
+| `PasswordHandler:AlgorithmName` | hash algoritmus neve |
+| `PasswordHandler:Iterations` | PBKDF2 iteráció |
+| `PasswordHandler:HashLength` | hash byte hossz |
+| `PasswordHandler:SaltLength` | salt byte hossz |
+
+## Fejlesztői workflow
+
+### Build és teszt
 
 ```bash
 cd /home/runner/work/gymtracer_private/gymtracer_private/GymTracer_Backend
@@ -183,14 +338,42 @@ dotnet build GymTracer.sln
 dotnet test GymTracer.sln
 ```
 
+### Migrációk
+
+```bash
+cd /home/runner/work/gymtracer_private/gymtracer_private/GymTracer_Backend
+
+dotnet ef migrations add <migration_nev>
+dotnet ef database update
+```
+
+## Biztonsági és üzemeltetési megjegyzések
+
+- A jelszavak PBKDF2 hash formában tárolódnak.
+- Tokenes authentikáció miatt minden védett hívásnál kötelező az `Authorization` fejléc.
+- Role alapú végpontvédelem több szinten érvényesül (`Authorize` + üzleti ellenőrzések).
+- Production környezetben ajánlott minden érzékeny beállítást secretből adni.
+- A token session hosszabbítás miatt a frontendnek érdemes kezelni a `session` response headert.
+
 ## Hibakeresés
 
-| Jelenség | Tipikus ok | Teendő |
+| Probléma | Tipikus ok | Teendő |
 |---|---|---|
-| `401 Unauthorized` | hiányzó/lejárt token | új login, Authorization header ellenőrzése |
-| `403 Forbidden` | nem megfelelő szerepkör | role ellenőrzése az endpointon |
-| DB connection hiba | hibás connection string | `ConnectionStrings__gymtracerDb` vizsgálata |
-| CORS hiba | origin nincs engedélyezve | `Program.cs` CORS beállítások ellenőrzése |
+| `401 Unauthorized` | hiányzó vagy lejárt token | új login, header ellenőrzés |
+| `403 Forbidden` | szerepkör nem megfelelő | role és guard/endpoint páros ellenőrzése |
+| `400 Bad Request` validációs hibával | DataValidator szabály megsértése | mezők és üzleti feltételek javítása |
+| DB kapcsolódási hiba | hibás connection string vagy DB nem elérhető | `ConnectionStrings__gymtracerDb` + DB státusz ellenőrzése |
+| CORS hiba frontendről | origin nincs policy-ben | `Program.cs` CORS lista ellenőrzése |
+
+## Átadás előtti ellenőrzőlista
+
+- [ ] `dotnet restore` rendben
+- [ ] `dotnet build` rendben
+- [ ] `dotnet test` rendben
+- [ ] Auth flow manuálisan ellenőrizve (registration/login/logout)
+- [ ] Role végpontok ellenőrizve (customer/trainer/staff/admin)
+- [ ] Training és Gate kritikus folyamatok validálva
+- [ ] Környezeti változók dokumentálva és ellenőrizve
 
 ## Készítő
 
