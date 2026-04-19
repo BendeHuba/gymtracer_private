@@ -314,7 +314,7 @@ get actingUserRole(){
 
 A frontend a backend seed felhasználóival tesztelhető.
 
-> **Megjegyzés:** a jelszavak a backend seed fájlban hash-elve tároltak, ezért a forráskódból nem olvasható ki biztos plaintext jelszó.  
+> **Megjegyzés:** a jelszavak a backend seed fájlban hash-elve tároltak, ezért a forráskódból nem olvasható ki biztosan plaintext jelszó.  
 > Gyors demóhoz javasolt saját felhasználó regisztrációja a `/registration` oldalon.
 
 ### Seed felhasználó minták
@@ -384,50 +384,50 @@ A GymTracer frontend egy szerepkör-alapú, Angular-alapú kliensalkalmazás, am
 
 ## Oldalankénti használati útmutató
 
-## `/login`
+### `/login`
 
 - cél: bejelentkezés,
 - bemenet: e-mail + jelszó,
 - siker esetén token mentés,
 - hiba esetén felhasználóbarát visszajelzés.
 
-## `/registration`
+### `/registration`
 
 - cél: új ügyfélfiók létrehozás,
 - ellenőrzés: kötelező mezők,
 - siker esetén továbblépés bejelentkezésre.
 
-## `/trainings`
+### `/trainings`
 
 - edzéslista dátumablakkal,
 - user szerepkörhöz igazodó műveletek,
 - részletek megnyitása `/:id` útvonalon.
 
-## `/tickets`
+### `/tickets`
 
 - felhasználó jegyeinek listája,
 - fizetési állapotok megjelenítése,
 - aktív jegy kiválasztása edzésjelentkezéshez.
 
-## `/profile`
+### `/profile`
 
 - személyes adatok kezelése,
 - role megjelenítés,
 - sessionhoz kötött felhasználói kontextus.
 
-## `/my-trainings`
+### `/my-trainings`
 
 - edzői munkafelület,
 - saját edzések listája,
 - jelenléti státusz állítása.
 
-## `/users` + staff mód
+### `/users` + staff mód
 
 - staff felhasználó cél-ügyfelet választ,
 - kiválasztás után user-mode műveletek,
 - staff mód és pretend mód vizuálisan elkülönítve.
 
-## `/statistics`, `/income`, `/card-usage`
+### `/statistics`, `/income`, `/card-usage`
 
 - üzleti riport oldalak,
 - role-lánc: auth + staff/admin + staff mode,
