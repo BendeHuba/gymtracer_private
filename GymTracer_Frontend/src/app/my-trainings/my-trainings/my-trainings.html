@@ -1,0 +1,24 @@
+<div class="flex-1 flex justify-center items-start min-h-full w-full px-4 py-12 bg-white dark:bg-gray-950 transition-colors duration-300"
+    [ngClass]="theme.getColor()">
+  <div class="w-full max-w-6xl bg-white dark:bg-gray-900 rounded-lg shadow-xl p-8 border-t-4 border-primary-600 transition-colors">
+    <app-my-training-list
+      [trainings]="trainings"
+      [isLoading]="isLoading"
+      [errorMessage]="errorMessage"
+      [successMessage]="successMessage"
+      [deletingIds]="deletingIds"
+      (create)="openCreate()"
+      (edit)="openEdit($event)"
+      (delete)="deleteTraining($event)"
+      (view)="viewTraining($event)">
+    </app-my-training-list>
+  </div>
+</div>
+
+<app-add-edit-training
+  [show]="showModal"
+  [editingTraining]="editingTraining"
+  [allTrainings]="allTrainings"
+  (closed)="onModalClosed()"
+  (saveSuccess)="onSaveSuccess($event)">
+</app-add-edit-training>

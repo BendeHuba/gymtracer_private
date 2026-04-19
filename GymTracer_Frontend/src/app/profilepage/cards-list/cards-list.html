@@ -1,0 +1,39 @@
+<div class="bg-gray-100/50 dark:bg-gray-900/50 p-5 rounded-2xl border border-gray-200/50 dark:border-gray-800 transition-colors" [ngClass]="theme.getColor()">
+    <div class="flex items-center justify-between mb-4">
+        <p class="text-gray-700 dark:text-gray-400 text-xs font-bold uppercase tracking-widest">Kártyák</p>
+        <span class="text-xs font-medium bg-gray-300 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-md transition-colors">
+            {{ cardsOfUser.length }} Aktív
+        </span>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-4">
+        @for (card of cardsOfUser; track $index) {
+        <div (click)="showCardDetails(card)"
+            class="w-80 px-5 py-3 bg-gray-200 dark:bg-gray-800 border border-gray-400 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 transition-all rounded-xl text-black dark:text-white font-mono text-sm shadow-sm flex items-center gap-3 cursor-pointer">
+            <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+            </svg>
+            <div class="leading-relaxed">
+                <span class="block">Kártya # ...{{ card.code.slice(-5) }}</span>
+                <span class="text-[11px] text-gray-500 dark:text-gray-400">Létrehozva: {{ card.createdAt | date:'yyyy. MM. dd. HH:mm':'':'hu' }}</span>
+            </div>
+        </div>
+        }
+
+        <div class="w-80 px-5 py-3 bg-gray-200 dark:bg-gray-800 border border-gray-400 dark:border-gray-700 rounded-xl flex items-center gap-3 transition-colors">
+            <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+            </svg>
+            <button (click)="getNewCard()"
+                class="bg-primary-600 hover:bg-primary-500 text-white px-5 py-2.5 rounded-xl font-medium transition-colors text-sm hover:cursor-pointer">
+                Új Kártya Létrehozása
+            </button>
+        </div>
+    </div>
+
+    @if (cardIsBeingShown) {
+        <app-showcard-popup [cardData]="selectedCard!" (close)="closeCardDetails()"></app-showcard-popup>
+    }
+</div>

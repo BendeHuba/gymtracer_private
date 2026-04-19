@@ -1,0 +1,43 @@
+name: Docker Image CI
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: write
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: generate image tag
+      run: |
+        echo "IMAGE_TAG=$(date +%s)" >> $GITHUB_ENV
+
+
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: |
+        docker build . --file Dockerfile --tag ghcr.io/bendehuba/gymtracer-frontend:$IMAGE_TAG        
+        docker login ghcr.io -u bendehuba -p ${{ secrets.GHCR_TOKEN }}
+        docker push ghcr.io/bendehuba/gymtracer-frontend:$IMAGE_TAG
+
+        sed -i 's|image: ghcr.io/bendehuba/gymtracer-frontend:.*|image: ghcr.io/bendehuba/gymtracer-frontend:'"$IMAGE_TAG"'|' deployment.yaml
+
+        git config --global user.name "Bende Huba"
+        git config --global user.email "bende.huba@students.jedlik.eu"
+        git add deployment.yaml
+        git commit -m "[skip ci] Automated: Updated K8S deployment.yaml with tag $IMAGE_TAG"        
+        git push
+
+        mkdir -p ~/.kube
+        echo "${{ secrets.K8S_CONFIG_BASE64 }}" | base64 -d > ~/.kube/config
+        kubectl apply -f deployment.yaml

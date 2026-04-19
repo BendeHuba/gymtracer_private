@@ -53,11 +53,11 @@ public partial class User : ModelBase<User>
 
     public void UpdateFrom(User model)
     {
-        if (model.Name != null && string.IsNullOrEmpty(model.Name))
+        if (model.Name != null && !string.IsNullOrEmpty(model.Name.Trim()))
             Name = model.Name;
         if (model.Email != null)
             Email = model.Email;
-        if (model.Name != null)
+        if (model.BirthDate != null)
             BirthDate = model.BirthDate;
     }
 }

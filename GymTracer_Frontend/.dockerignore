@@ -1,0 +1,31 @@
+# Git
+.git
+.gitignore
+
+# Dependencies
+node_modules/
+
+# IDEs and OS files
+.editorconfig
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+
+# Angular specific
+dist/
+.angular/
+
+# Cypress specific
+cypress/
+cypress.config.ts
+cypress-coverage/
+*.mp4
+*.png
+
+# Env files
+.env

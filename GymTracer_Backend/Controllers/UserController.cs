@@ -36,19 +36,25 @@ namespace GymTracer.Controllers
                 {
                     var user = DbContext.Set<User>().FirstOrDefault(u => u.Id == id);
 
-                    var cardsOfUser = DbContext.Set<Card>().Where(c => c.UserId == user!.Id);
+                    var wentInToday = DbContext.Set<UsageLog>().Any(log => log.Card.UserId == id 
+                                                                         && log.Gate == Usage_Gates.main_entrance
+                                                                         && log.UseDate >= tokenHandler.Now().Date
+                                                                         && log.UseDate < tokenHandler.Now().Date.AddDays(1));
 
                     return StatusCode(200, new
-                    {
+                    {       
+                            id = id,
                             name = user!.Name,
                             email = user.Email,
                             birthDate = user.BirthDate,
                             creationDate = user.CreationDate,
+                            role = user.Role,
+                            wentInToday = wentInToday,
                     });
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
             });
         }
@@ -71,11 +77,9 @@ namespace GymTracer.Controllers
                     if (!EmailRegex().Match(userToModifyWith.Email).Success)
                         return BadRequest(new { error = "Az email címnek validnak kell lennie" });
 
-                    var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var dbUser = DbContext.Set<User>().FirstOrDefault(u => u.Id == id);
 
-                    var loggedInUser = DbContext.Set<User>().FirstOrDefault(u => u.Id.ToString() == loggedInUserId);
-
-                    if (userToModifyWith.Email != loggedInUser!.Email)
+                    if (userToModifyWith.Email != dbUser!.Email)
                     {
                         var isUsedEmail = DbContext.Users.Any(u => u.Email == userToModifyWith.Email);
                         if (isUsedEmail)
@@ -91,12 +95,12 @@ namespace GymTracer.Controllers
                     }
                     else
                     {
-                        throw new ApiException(404, "User not found");
+                        throw new ApiException(404, "Nincs ilyen felhasználó");
                     }
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
             });   
         }
@@ -147,12 +151,12 @@ namespace GymTracer.Controllers
                     }
                     else
                     {
-                        throw new ApiException(404, "User not found");
+                        throw new ApiException(404, "Nincs ilyen felhasználó");
                     }
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
 
             });
@@ -182,12 +186,12 @@ namespace GymTracer.Controllers
                     }
                     else
                     {
-                        throw new ApiException(404, "No card found for this user");
+                        throw new ApiException(404, "Ennek a felhasználónak aktív nincsenek kártyái");
                     }
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
 
             });
@@ -222,7 +226,7 @@ namespace GymTracer.Controllers
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
 
             });
@@ -255,7 +259,7 @@ namespace GymTracer.Controllers
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
 
             });
@@ -310,7 +314,7 @@ namespace GymTracer.Controllers
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
 
             });
@@ -328,14 +332,19 @@ namespace GymTracer.Controllers
                     var user = DbContext.Set<User>().FirstOrDefault(u => u.Id == id);
                     if (user == null)
                     {
-                        throw new ApiException(400, "User not found");
+                        throw new ApiException(400, "Nincs ilyen nfelhasználó");
                     }
 
-                    var training = DbContext.Set<Training>().FirstOrDefault(u => u.Id == training_id && u.Active && u.EndTime >= tokenHandler.Now());
+                    var training = DbContext.Set<Training>().Include(t=> t.Trainer)
+                                                            .FirstOrDefault(u => u.Id == training_id && u.Active && u.EndTime >= tokenHandler.Now());
 
                     if (training == null)
                     {
-                        throw new ApiException(400, "No training avaible with this id");
+                        throw new ApiException(400, "Nincs ilyen edzés");
+                    }
+                    if (training.Trainer.Id == id)
+                    {
+                        throw new ApiException(400, "Saját edzésre nem lehet jelentkezni");
                     }
 
                     var userNumOnTraining = DbContext.Set<TrainingUser>().Where(tu => tu.TrainingId == training.Id && tu.OnWaitinglist == false).Count();
@@ -354,7 +363,7 @@ namespace GymTracer.Controllers
                     var trainingUser = DbContext.Set<TrainingUser>().FirstOrDefault(tu => tu.TrainingId == training_id && tu.UserId == id);
                     if (trainingUser != null)
                     {
-                        throw new ApiException(400, "User already applied to this training");
+                        throw new ApiException(400, "A felhasználó már jelentkezett erre az edzésre");
                     }
 
                     if (DbContext.Set<Ticket>().Where(t => t.Id == ticket_id && t.TrainingId == training_id).SingleOrDefault() != null)
@@ -371,17 +380,17 @@ namespace GymTracer.Controllers
                             }
                             else
                             {
-                                throw new ApiException(400, "Ticket creation unsuccessful");
+                                throw new ApiException(400, "Jegy sikeresen létrehozva");
                             }
                         }
                         else
                         {
-                            throw new ApiException(400, "No objectresult returned");
+                            throw new ApiException(500, "Internal server error");
                         }
                     }
                     else
                     {
-                        throw new ApiException(400, "Incorrect ticket for training");
+                        throw new ApiException(400, "Nem megfelelő jegy az edzéshez");
                     }
 
                     return StatusCode(201, new
@@ -395,7 +404,7 @@ namespace GymTracer.Controllers
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
 
             });
@@ -424,17 +433,17 @@ namespace GymTracer.Controllers
                     }
                     if (userticket == null)
                     {
-                        throw new ApiException(404, "No application to be deleted");
+                        throw new ApiException(404, "Nincs ilyen jelentkezés");
                     }
                     if (userticket.Payment.PaymentDate != null)
                     {
-                        throw new ApiException(400, "Ticket was payed! No refound can be provided!");
+                        throw new ApiException(400, "A jegy már ki van kizetve! Sikertelen visszafizetés!");
                     }
 
                     var trainingUser = DbContext.Set<TrainingUser>().FirstOrDefault(tu => tu.UserId == id && tu.TrainingId == training_id);
                     if (trainingUser == null)
                     {
-                        throw new ApiException(404, "No application found");
+                        throw new ApiException(404, "Nincs ilyen jelentkezés");
                     }
                     
                     using var transaction = DbContext.Database.BeginTransaction();
@@ -452,12 +461,12 @@ namespace GymTracer.Controllers
                     }
                     transaction.Commit();
 
-                    return StatusCode(204, "Application successfully deleted");
+                    return StatusCode(204, new {message= "A jelentkezés sikeresen törölve" });
 
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
 
             });
@@ -466,34 +475,23 @@ namespace GymTracer.Controllers
 
         [HttpGet("")]
         [Authorize(Roles = nameof(User_Role.staff) + "," + nameof(User_Role.admin))]
-        public IActionResult GetUserByParameter([FromQuery] string? name, [FromQuery] string? email)
+        public IActionResult GetUserByParameter([FromQuery] string? name, [FromQuery] string? email, [FromQuery] string? guid)
         {
             return this.Run(() =>
             {
-                List<User> users = [];
-                if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(email))
-                {
-                    return StatusCode(400, "At least one parameter requierd");
-                }
-                else if (string.IsNullOrEmpty(name))
-                {
-                    users = DbContext.Set<User>().Where(u => u.Email.Contains(email)).ToList();
-                }
-                else if (string.IsNullOrEmpty(email))
-                {
-                    users = DbContext.Set<User>().Where(u => u.Name.Contains(name)).ToList();
-                }
-                else
-                {
-                    users = DbContext.Set<User>().Where(u => u.Name.Contains(name) && u.Email.Contains(email)).ToList();
-                }
+                IQueryable<User> usersQuery = DbContext.Users.AsQueryable();
 
-                if (users.Count == 0)
-                {
-                    throw new ApiException(400, "No user found");
-                }
+                if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(email) && string.IsNullOrEmpty(guid))
+                    return StatusCode(400, new { message = "Legalább egy paraméter szükséges" });
 
-                return StatusCode(200, users.Select(u => new
+                if (!string.IsNullOrEmpty(name))
+                    usersQuery = usersQuery.Where(u => u.Name.Contains(name));
+                if (!string.IsNullOrEmpty(email))
+                    usersQuery = usersQuery.Where(u => u.Email.Contains(email));
+                if (!string.IsNullOrEmpty(guid))
+                    usersQuery = usersQuery.Where(u => u.Cards.Any(c => c.Code.ToString() == guid));
+
+                return StatusCode(200, usersQuery.Select(u => new
                     {
                         id = u.Id,
                         name = u.Name,
@@ -506,9 +504,10 @@ namespace GymTracer.Controllers
             });
         }
         
+        public record ModifyRoleOfUserDto(User_Role role);
         [HttpPut("{id}/role")]
         [Authorize(Roles = nameof(User_Role.admin))]
-        public IActionResult ModifyRoleOfUser(int id, [FromBody] User_Role role)
+        public IActionResult ModifyRoleOfUser(int id, [FromBody] ModifyRoleOfUserDto roleDto)
         {
             return this.Run(() =>
             {
@@ -518,23 +517,23 @@ namespace GymTracer.Controllers
 
                 var user = DbContext.Set<User>().FirstOrDefault(u => u.Id == id);
 
-                if (user != null)
+                if (user != null && Enum.IsDefined(roleDto.role))
                 {
-                    user.Role = role;
+                    user.Role = roleDto.role;
                 }
                 else
                 {
-                    throw new ApiException(400, "No user found");
+                    throw new ApiException(400, "Nincs ilyen felhasználó");
                 }
                 if (loggedInUser!.Id == user.Id)
                 {
-                    throw new ApiException(400, "You can't modify your own role");
+                    throw new ApiException(400, "Nem módosíthatod a saját szerepkörödet");
                 }
 
                 DbContext.Update(user);
                 DbContext.SaveChanges();
 
-                return StatusCode(200, "User role has been changed!");
+                return StatusCode(200, new { message = "A felhasználó szerepköre megváltozott"});
             });
 
         }
@@ -549,7 +548,7 @@ namespace GymTracer.Controllers
 
             if (user == null)
             {
-                throw new ApiException(404, "User not found");
+                throw new ApiException(404, "Nincs ilyen felhasználó");
             }
             if (id.ToString() == loggedInUserId || (loggedInUser!.Role == User_Role.staff || loggedInUser.Role == User_Role.admin))
             {

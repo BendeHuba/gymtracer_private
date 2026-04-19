@@ -1,0 +1,32 @@
+<section class="py-20 px-6 transition-colors duration-300" [ngClass]="theme.getColor()">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-white"><span class="text-primary-500">Edzései</span> Programok</h2>
+        @if (trainings.length === 0) {
+            <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 text-gray-200 hover:border-primary-500 transition-colors group w-80 mx-auto">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-center text-primary-500">Figyelem</h3>
+                    <p class="text-gray-400 mb-4 text-center">Nincsenek elérhető edzések a következő 7 napon belül.</p>
+                </div>
+            </div>
+        }
+        @else {
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                @for (training of trainings; track $index) {
+                    <div
+                    class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-200 hover:border-primary-500 transition-colors group">
+                        <img [src]="training.image.includes('http') ? training.image : 'images/'+training.image" alt="{{training.name}}" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">{{training.name}}</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">{{training.description}}</p>
+                            @if (!currentUser) {
+                                <a [routerLink]="['/login']" class="text-primary-500 font-semibold group-hover:underline">Jelentkezzen most &rarr;</a>
+                            } @else {
+                                <a [routerLink]="['/trainings', training.id]" class="text-primary-500 font-semibold group-hover:underline">Jelentkezzen most &rarr;</a>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>

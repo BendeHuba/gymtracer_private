@@ -1,0 +1,248 @@
+@if (show) {
+  <div class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 backdrop-blur-sm p-4 overflow-y-auto"
+      (mousedown)="onBackdropMouseDown($event)"
+      (click)="onBackdropClick($event)">
+    <div class="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-2xl my-8 relative border dark:border-gray-800"
+      (mousedown)="$event.stopPropagation()"
+      (click)="$event.stopPropagation()">
+      <button (click)="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 cursor-pointer z-10 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <div class="p-6 border-b border-gray-200 dark:border-gray-800">
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">{{ editingTraining ? 'Edzés szerkesztése' : 'Új edzés létrehozása' }}</h2>
+      </div>
+
+      <div class="p-6 space-y-5">
+
+        @if (modalError) {
+          <div class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded-md">
+            <p class="text-red-700 dark:text-red-400 font-medium">{{ modalError }}</p>
+          </div>
+        }
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Edzés neve *</label>
+            <input type="text" [(ngModel)]="form.name" name="trainingName"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors"
+              [class.border-red-400]="fieldErrors['Name']">
+            @if (fieldErrors['Name']) {
+              <p class="text-red-600 dark:text-red-400 text-xs font-semibold mt-1">{{ fieldErrors['Name'] }}</p>
+            }
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Leírás *</label>
+            <textarea rows="3" [(ngModel)]="form.description" name="trainingDesc"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors resize-none"
+              [class.border-red-400]="fieldErrors['Description']"></textarea>
+            @if (fieldErrors['Description']) {
+              <p class="text-red-600 dark:text-red-400 text-xs font-semibold mt-1">{{ fieldErrors['Description'] }}</p>
+            }
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kép URL *</label>
+            <input type="url" [(ngModel)]="form.image" name="trainingImage"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors"
+              [class.border-red-400]="fieldErrors['Image']">
+            @if (fieldErrors['Image']) {
+              <p class="text-red-600 dark:text-red-400 text-xs font-semibold mt-1">{{ fieldErrors['Image'] }}</p>
+            }
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kezdés *</label>
+            <input type="datetime-local" [(ngModel)]="form.startTime" (ngModelChange)="updateTimeline()" name="trainingStart"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors"
+              [class.border-red-400]="fieldErrors['StartTime']">
+            @if (fieldErrors['StartTime']) {
+              <p class="text-red-600 dark:text-red-400 text-xs font-semibold mt-1">{{ fieldErrors['StartTime'] }}</p>
+            }
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Befejezés *</label>
+            <input type="datetime-local" [(ngModel)]="form.endTime" (ngModelChange)="updateTimeline()" name="trainingEnd"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors"
+              [class.border-red-400]="fieldErrors['EndTime']">
+            @if (fieldErrors['EndTime']) {
+              <p class="text-red-600 dark:text-red-400 text-xs font-semibold mt-1">{{ fieldErrors['EndTime'] }}</p>
+            }
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Max résztvevő *</label>
+            <input type="number" [(ngModel)]="form.maxParticipant" name="trainingMax" min="1" max="99"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors"
+              [class.border-red-400]="fieldErrors['MaxParticipant']">
+            @if (fieldErrors['MaxParticipant']) {
+              <p class="text-red-600 dark:text-red-400 text-xs font-semibold mt-1">{{ fieldErrors['MaxParticipant'] }}</p>
+            }
+          </div>
+        </div>
+
+        @if (form.startTime || timelineTrainings.length > 0) {
+          <div class="mt-2">
+            <h3 class="text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Edzések idősávja ({{ form.startTime ? (form.startTime | slice:0:10) : 'mai nap' }})</h3>
+            <div class="relative bg-gray-100 dark:bg-gray-800 rounded-lg h-12 overflow-hidden border border-gray-200 dark:border-gray-700 transition-colors">
+              @for (h of getTimelineHours(); track h) {
+                <div class="absolute top-0 bottom-0 w-px bg-gray-300/70 dark:bg-gray-600/50"
+                  [style.left.%]="getHourPosition(h)">
+                </div>
+                <span class="absolute top-0.5 text-[10px] text-gray-400 dark:text-gray-500"
+                  [style.left.%]="getHourPosition(h)"
+                  style="transform: translateX(-50%)">
+                  {{ h === 24 ? '24' : h }}:00
+                </span>
+              }
+              @for (t of timelineTrainings; track t.id) {
+                <div class="absolute top-5 bottom-1 rounded bg-gray-400/70 dark:bg-gray-500/50 hover:bg-gray-500/70 dark:hover:bg-gray-400/70 transition-colors"
+                  [style.left.%]="getBarLeft(t.startTime)"
+                  [style.width.%]="getBarWidth(t.startTime, t.endTime)"
+                  [title]="t.name + ': ' + (t.startTime | slice:11:16) + ' - ' + (t.endTime | slice:11:16)">
+                </div>
+              }
+              @if (form.startTime && form.endTime) {
+                <div class="absolute top-5 bottom-1 rounded transition-colors"
+                  [class.bg-primary-500]="!hasOverlap()"
+                  [class.bg-red-500]="hasOverlap()"
+                  [class.opacity-80]="true"
+                  [style.left.%]="getNewBarLeft()"
+                  [style.width.%]="getNewBarWidth()"
+                  [title]="form.name || 'Új edzés'">
+                </div>
+              }
+              @if (isTodaySelected()) {
+                <div class="absolute top-0 bottom-0 w-0.5 bg-red-500 z-20"
+                  [style.left.%]="getNowPosition()"
+                  title="Jelenlegi idő">
+                </div>
+              }
+            </div>
+            @if (hasOverlap()) {
+              <p class="text-red-600 dark:text-red-400 text-xs font-semibold mt-1">Ütközés van egy meglévő edzéssel! Kérjük, válassz más időpontot.</p>
+            }
+          </div>
+        }
+
+        <div class="border-t border-gray-200 dark:border-gray-800 pt-5">
+          <h3 class="text-base font-bold text-gray-800 dark:text-white mb-3">Jegyek / Bérletek</h3>
+          @if (form.tickets.length > 0) {
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              @for (ticket of form.tickets; track $index) {
+                <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 flex flex-col hover:border-primary-400 transition-colors"
+                     [ngClass]="editingTicketIndex === $index ? 'bg-white dark:bg-gray-800 shadow-sm' : 'bg-gray-50 dark:bg-gray-800/40'">
+
+                  @if (editingTicketIndex === $index) {
+                    <div class="flex justify-between items-center mb-3">
+                      <span class="text-xs font-bold text-primary-600 dark:text-primary-400">{{ $index + 1 }}. jegy szerkesztése</span>
+                      <button (click)="saveTicketEdit()"
+                              [disabled]="!ticket.description || ticket.price === null || ticket.price < 0"
+                              class="text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 cursor-pointer bg-green-50 dark:bg-green-900/30 p-1 rounded disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                      </button>
+                    </div>
+
+                    <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Leírás</label>
+                    <input type="text" [(ngModel)]="ticket.description" [name]="'tDesc_' + $index" placeholder="Leírás"
+                      class="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded focus:outline-none focus:ring-1 focus:ring-primary-400 mb-2">
+
+                    <div class="flex items-end gap-2">
+                      <div class="flex-1 relative">
+                        <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Ár (Ft)</label>
+                        <input type="number" [(ngModel)]="ticket.price" [name]="'tPrice_' + $index" min="0"
+                          class="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded focus:outline-none focus:ring-1 focus:ring-primary-400">
+                      </div>
+                      <label class="flex justify-center items-center gap-1 text-xs text-gray-600 dark:text-gray-400 cursor-pointer whitespace-nowrap px-2 h-[34px]">
+                        <input type="checkbox" [(ngModel)]="ticket.isStudent" [name]="'tStudent_' + $index" class="rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700">
+                        Diák
+                      </label>
+                    </div>
+                  } @else {
+                    <div class="flex justify-between items-start mb-2">
+                      <span class="bg-primary-500/15 text-primary-600 dark:text-primary-400 px-2 text-xs py-1 rounded font-bold">
+                        {{ ticket.price | number:'1.0-0' }} Ft
+                      </span>
+                      <div class="flex gap-2 ml-2">
+                        <button (click)="editTicket($index)" class="text-blue-400 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400 cursor-pointer transition-colors">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                          </svg>
+                        </button>
+                        <button (click)="removeTicket($index)" class="text-red-400 hover:text-red-600 dark:text-red-500 dark:hover:text-red-400 cursor-pointer transition-colors">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3 flex-1">{{ ticket.description }}</p>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">
+                      <span>Diák: {{ ticket.isStudent ? 'Igen' : 'Nem' }}</span>
+                    </div>
+                  }
+
+                  @for (err of getTicketErrors($index); track $index) {
+                    <p class="text-red-600 dark:text-red-400 text-xs font-semibold mt-1">{{ err }}</p>
+                  }
+                </div>
+              }
+            </div>
+          }
+
+          @if (hasAnyTicketErrors() || ticketError) {
+            <div class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-400 p-3 rounded mb-3 shadow-sm transition-all">
+              <p class="text-red-600 dark:text-red-400 text-xs font-semibold">
+                {{ ticketError || 'Egy vagy több jegy hibás adatot tartalmaz.' }}
+              </p>
+            </div>
+          }
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+            <div class="md:col-span-2">
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Leírás</label>
+              <input type="text" [(ngModel)]="newTicket.description" name="ticketDesc" placeholder="pl. Edzésjegy"
+                class="w-full px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded focus:outline-none focus:ring-1 focus:ring-primary-400 placeholder:text-gray-400 dark:placeholder:text-gray-500">
+            </div>
+            <div class="flex items-end gap-3 md:col-span-1">
+              <div class="flex-1">
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Ár (Ft)</label>
+                <input type="number" [(ngModel)]="newTicket.price" name="ticketPrice" min="0"
+                  class="w-full px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded focus:outline-none focus:ring-1 focus:ring-primary-400">
+              </div>
+              <label class="flex justify-center items-center gap-1 text-xs text-gray-600 dark:text-gray-400 cursor-pointer whitespace-nowrap px-1 h-[34px]">
+                <input type="checkbox" [(ngModel)]="newTicket.isStudent" name="ticketStudent" class="rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700">
+                Diák
+              </label>
+            </div>
+            <div class="md:col-span-1">
+              <button (click)="addTicket()" type="button"
+                class="w-full px-3 py-1.5 bg-primary-600 hover:bg-primary-500 text-white text-sm font-bold rounded cursor-pointer transition-colors">
+                + Hozzáadás
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="p-6 border-t border-gray-200 dark:border-gray-800 flex justify-end gap-3 transition-colors">
+        <button (click)="closeModal()" type="button"
+          class="px-5 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold rounded-md cursor-pointer transition-colors">
+          Mégse
+        </button>
+        <button (click)="save()" [disabled]="isSaving"
+          class="px-6 py-2 bg-primary-600 hover:bg-primary-500 text-white font-bold rounded-md cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-colors">
+          @if (isSaving) {
+            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          }
+          Mentés
+        </button>
+      </div>
+    </div>
+  </div>
+}

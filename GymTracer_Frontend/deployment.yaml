@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gymtracer-frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gymtracer-frontend
+
+  template:
+    metadata:
+      labels:
+        app: gymtracer-frontend
+
+    spec:
+      containers:
+        - name: gymtracer-frontend-container
+          image: ghcr.io/bendehuba/gymtracer-frontend:1776591549
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: ghcr-auth-secret
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gymtracer-frontend-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: gymtracer-frontend
+  ports: 
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gymtracer-frontend-cert
+spec:
+  secretName: gymtracer-frontend-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - gymtracer.jcloud.jedlik.cloud
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gymtracer-frontend-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+spec:
+  ingressClassName: nginx
+
+  tls:
+    - hosts:
+      - gymtracer.jcloud.jedlik.cloud
+      secretName: gymtracer-frontend-tls
+
+  rules:
+    - host: gymtracer.jcloud.jedlik.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gymtracer-frontend-clusterip
+                port:
+                  number: 80  

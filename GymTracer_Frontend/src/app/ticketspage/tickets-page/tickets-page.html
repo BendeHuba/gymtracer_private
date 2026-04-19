@@ -1,0 +1,95 @@
+<div class="flex-1 flex justify-center items-start min-h-full w-full px-4 py-12 bg-white dark:bg-gray-950 transition-colors duration-300"
+    [ngClass]="theme.getColor()">
+  <div class="w-full max-w-6xl bg-white dark:bg-gray-900 rounded-lg shadow-xl p-8 border-t-4 border-primary-600 transition-colors">
+
+    <section>
+        <h2 class="text-2xl font-bold text-black dark:text-white mb-6 border-b border-gray-200 dark:border-gray-800 pb-2">Saját Jegyek</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @if (ownedTickets.length == 0) {
+                <div class="col-span-full text-center text-gray-500 dark:text-gray-400 py-8">
+                    Nincsenek megvásárolt jegyek. Vásároljon egyet a lenti kínálatból.
+                </div>
+            }
+            @else {
+                @for (ticket of ownedTickets; track $index) {
+                    <app-owned-ticket-card [ticket]="ticket" (payForTicket)="payOwnedTicket($event)"></app-owned-ticket-card>
+                }
+            }
+            
+        </div>
+        
+    </section>
+
+
+    <section class="mt-8">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 border-b border-gray-200 dark:border-gray-800 pb-2 gap-4">
+            <h2 class="text-2xl font-bold text-black dark:text-white">Standard Jegyek</h2>
+
+            <label class="flex items-center space-x-3 cursor-pointer group">
+                <div class="relative flex items-center justify-center">
+                    <input type="checkbox" id="studentFilter1" name="studentFilter1" [(ngModel)]="showStandardStudentTickets" (change)="refreshTickets()"
+                        class="peer appearance-none w-5 h-5 border-2 border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 checked:bg-primary-500 checked:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all cursor-pointer" />
+                    <svg class="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <span class="text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">Tanulói jegyek</span>
+            </label>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            @for (ticket of standardTickets; track $index) {
+                <app-tickets-card [ticket]="ticket" (buy)="openTicketModal($event)"></app-tickets-card>
+            }
+
+        </div>
+    </section>
+
+
+    <section class="mt-8">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 border-b border-gray-200 dark:border-gray-800 pb-2 gap-4">
+            <h2 class="text-2xl font-bold text-black dark:text-white">Edzések</h2>
+
+            <label class="flex items-center space-x-3 cursor-pointer group">
+                <div class="relative flex items-center justify-center">
+                    <input type="checkbox" id="studentFilter2" name="studentFilter2" [(ngModel)]="showTrainingStudentTickets" (change)="refreshTickets()"
+                        class="peer appearance-none w-5 h-5 border-2 border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 checked:bg-primary-500 checked:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all cursor-pointer" />
+                    <svg class="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <span class="text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">Tanulói jegyek</span>
+            </label>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @if (trainingTickets.length == 0) {
+                <div class="col-span-full text-center text-gray-500 dark:text-gray-400 py-8">
+                    Nincsenek edzéshez kapcsolódó elérhető jegyek.
+                </div>
+            }
+
+            @for (ticket of trainingTickets; track $index) {
+                <app-tickets-card [ticket]="ticket" (buy)="openTicketModal($event)"></app-tickets-card>
+            }
+        </div>
+    </section>
+
+    @if (isTicketModalOpen && selectedTicketToBuy) {
+        <app-ticket-modal 
+            [ticket]="selectedTicketToBuy!"
+            (close)="closeTicketModal()"
+            (confirmPurchase)="processPayment($event)">
+        </app-ticket-modal>
+    }
+
+    @if (isPaymentModalOpen) {
+        <app-payment-modal [newTicket]="selectedTicketToBuy" [ownedTicket]="selectedOwnedTicketToPay" (close)="closePaymentModal()" (paymentSuccess)="makePayment($event)"></app-payment-modal>
+    }
+    
+</div>
+</div>

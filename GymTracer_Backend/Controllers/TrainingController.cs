@@ -121,7 +121,21 @@ namespace GymTracer.Controllers
                     {
                         t.Trainer.Id,
                         t.Trainer.Name
-                    }
+                    },
+
+                    tickets = t.Tickets.Where(t => t.IsActive).Select(ticket => new
+                    {
+                        ticket.Id,
+
+                        ticket.Description,
+                        ticket.IsStudent,
+                        ticket.Type,
+                        ticket.Price,
+                        ticket.Tax_key,
+
+                        ticket.MaxUsage,
+                        ticket.IsActive
+                    })
                 }));
             });
         }
@@ -363,6 +377,9 @@ namespace GymTracer.Controllers
                 if (training.TrainerId == 0)
                     training.TrainerId = dbTraining.TrainerId;
 
+                if (dbTraining.StartTime <= tokenHandler.Now())
+                    return BadRequest("A már megkezdett vagy befejeződött edzéseket nem lehet szerkeszteni!");
+
                 if (dbTraining.TrainerId != training.TrainerId)
                     if (userRole != nameof(User_Role.admin) && userRole != nameof(User_Role.staff))
                         return BadRequest("Az edzést nem adhatja át másnak.");
@@ -484,6 +501,9 @@ namespace GymTracer.Controllers
                         return BadRequest("Csak saját nevében törölheti az edzést!");
                 }
 
+                if (dbTraining.StartTime <= tokenHandler.Now())
+                    return BadRequest("A már megkezdett vagy befejeződött edzéseket nem lehet törölni!");
+
                 dbTraining.Active = false;
                 // TODO: jegyek inaktiválása, és megnézni hogy ki lett-e fizetve valakinek, ha igen, refundolni
 
@@ -497,8 +517,8 @@ namespace GymTracer.Controllers
         }
 
         [Authorize(Roles = nameof(User_Role.trainer) + "," + nameof(User_Role.staff) + "," + nameof(User_Role.admin))]
-        [HttpPatch("{training_id}/user/{id}/presence")]
-        public IActionResult SetTrainingPresence([FromRoute] long training_id, [FromRoute] long id, [FromBody] dynamic body)
+        [HttpPatch("{training_id}/user/{id}/presence/{presence}")]
+        public IActionResult SetTrainingPresence([FromRoute] long training_id, [FromRoute] long id, [FromRoute] bool presence)
         {
             return this.Run(() =>
             {
@@ -514,22 +534,20 @@ namespace GymTracer.Controllers
                 if (dbTraining is null)
                     return BadRequest("Nincs ilyen edzés!");
 
-                bool? presence = body.presence;
-
-                if(presence is null)
-                    return BadRequest("A részvétel megadása kötelező!");
-
                 if (userId != dbTraining.TrainerId.ToString())
                 {
                     if (userRole != nameof(User_Role.admin) && userRole != nameof(User_Role.staff))
                         return BadRequest("Csak saját edzéséhez állíthatja az emberek jelenlétét!");
                 }
 
+                if(dbTraining.EndTime.AddDays(2 * 7) <= tokenHandler.Now())
+                    return BadRequest("A részvételi adatok az edzést követő két hétben módosíthatóak csak!");
+
                 TrainingUser? dbTrainingUser = dbTraining.TrainingUsers.FirstOrDefault(t => t.UserId == id);
                 if (dbTrainingUser is null) 
                     return BadRequest("Ez a felhasználó nincs regisztrálva erre az edzésre!");
 
-                dbTrainingUser.Presence = presence.Value;
+                dbTrainingUser.Presence = presence;
                 dbContext.SaveChanges();
 
                 return Ok(new{ 
@@ -548,12 +566,13 @@ namespace GymTracer.Controllers
 
             trainingValidator.Validate(t => t.StartTime, "edzés kezdete")
                 .NotDefault()
-                .After(tokenHandler.Now())
+                .After(tokenHandler.Now().AddMinutes(-1)) // "azonnal induló" edzésnek puffer idő
                 .Before(tokenHandler.Now().AddMonths(1));
 
             trainingValidator.Validate(t => t.EndTime, "edzés vége")
                 .NotDefault()
                 .After(training.StartTime)
+                .BeforeStrict(training.StartTime.Date.AddDays(1))
                 .Before(tokenHandler.Now().AddMonths(1));
 
             // Edzés hossza
@@ -596,8 +615,7 @@ namespace GymTracer.Controllers
                         .Max(ulong.MaxValue);
 
                     ticket.ThenValidate(ticket => ticket.Type, "típus")
-                        .InEnum()
-                        .Equal(Ticket_Type.training, "Az edzéshez csak edzésjegy típusú jegy adható meg.");
+                        .InEnum();
                 });
 
             return ticketsValidator;

@@ -1,22 +1,34 @@
-<div class="h-40 bg-gray-200 w-full relative">
+<div class="h-40 bg-gray-200 dark:bg-gray-800 transition-colors duration-300 ease-in-out w-full relative">
   <img class="w-full h-full object-cover"
       (error)="onImgError($event)"
-      [src]="training.image" 
+      [src]="training.image.includes('http') ? training.image : 'images/'+training.image" 
       [alt]="training.name"
       draggable="false">
 </div>
 
-<div class="p-5 flex-1 flex flex-col">
-  <h3 class="text-xl font-bold text-gray-800 mb-2">{{ training.name }}</h3>
-  <div class="text-sm text-gray-600 mb-4 flex-1">
-    <p class="mb-1"><span class="font-semibold text-gray-700">Edző:</span> {{ training.trainer.name }}</p>
-    <p class="mb-1"><span class="font-semibold text-gray-700">Időpont:</span> {{ training.startTime | date:'short' }} -
-      {{ training.endTime | date:'shortTime' }}</p>
-    <p><span class="font-semibold text-gray-700">Max résztvevő:</span> {{ training.maxParticipant }} fő</p>
+<div class="p-5 flex-1 flex flex-col bg-white dark:bg-gray-800 transition-colors duration-300 ease-in-out">
+  <div class="flex items-center gap-2 mb-2">
+    <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 transition-colors duration-300 ease-in-out">{{ training.name }}</h3>
+    
+    @if(endedInPast()){
+      <span class="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded font-medium shrink-0 transition-colors duration-300 ease-in-out">Véget ért</span>
+    }
+    @else if(inProgress()){
+      <span class="px-2 py-0.5 text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 rounded font-medium shrink-0 flex items-center gap-1.5 transition-colors duration-300 ease-in-out">
+        <span class="w-1.5 h-1.5 bg-green-600 dark:bg-green-500 rounded-full animate-pulse transition-colors duration-300 ease-in-out"></span>
+        Folyamatban
+      </span>
+    }
+  </div>
+  
+  <div class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1 transition-colors duration-300 ease-in-out">
+    <p class="mb-1"><span class="font-semibold text-gray-700 dark:text-gray-300 transition-colors duration-300 ease-in-out">Edző:</span> {{ training.trainer.name }}</p>
+    <p class="mb-1"><span class="font-semibold text-gray-700 dark:text-gray-300 transition-colors duration-300 ease-in-out">Időpont:</span> {{ training.startTime | date:'yyyy. MM. dd. HH:mm':'':'hu' }} - {{ training.endTime | date:'HH:mm':'':'hu' }}</p>
+    <p><span class="font-semibold text-gray-700 dark:text-gray-300 transition-colors duration-300 ease-in-out">Max résztvevő:</span> {{ training.maxParticipant }} fő</p>
   </div>
 
   <a
-    class="block text-center w-full py-2 border border-primary-600 text-primary-600 hover:border-primary-500 hover:text-primary-500 rounded font-semibold transition-colors cursor-pointer"
+    class="block text-center w-full py-2 border border-primary-600 dark:border-primary-500 text-primary-600 dark:text-primary-400 hover:border-primary-500 dark:hover:border-primary-400 hover:text-primary-500 dark:hover:text-primary-300 rounded font-semibold transition-colors duration-300 ease-in-out cursor-pointer"
     (click)="preserveListState()"
     [routerLink]="['/trainings', training.id]">
     Részletek

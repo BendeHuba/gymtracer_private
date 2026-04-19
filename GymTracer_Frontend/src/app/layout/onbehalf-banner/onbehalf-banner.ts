@@ -5,9 +5,12 @@ import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-onbehalf-banner',
-  standalone: true,
   imports: [],
   templateUrl: './onbehalf-banner.html',
+  styleUrl: './onbehalf-banner.css',
+  host: { 
+    'class': 'block -mb-4 z-10 relative' 
+  }
 })
 export class OnbehalfBanner {
   auth = inject(AuthService);
@@ -16,8 +19,7 @@ export class OnbehalfBanner {
 
   exit() {
     this.auth.pretendedUser = null;
-    this.theme.isPretendMode = false;
-    localStorage.removeItem('pretended_user');
+    this.auth.removePretendedUser();
     this.router.navigate(['/users']);
   }
 }

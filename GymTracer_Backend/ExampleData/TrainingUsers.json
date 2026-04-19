@@ -2,81 +2,89 @@
     {
         "Id": 1,
         "TrainingId": 1,
-        "UserId": 1,
-        "ApplicationDate": "2023-04-25T10:00:00Z",
+        "UserId": 8,
+        "ApplicationDate": "2026-05-01T10:10:00",
         "OnWaitinglist": 0,
-        "Presence": 1
+        "Presence": 0
     },
     {
         "Id": 2,
-        "TrainingId": 2,
-        "UserId": 2,
-        "ApplicationDate": "2023-04-26T11:00:00Z",
+        "TrainingId": 1,
+        "UserId": 9,
+        "ApplicationDate": "2026-05-01T10:15:00",
         "OnWaitinglist": 0,
-        "Presence": 1
+        "Presence": 0
     },
     {
         "Id": 3,
-        "TrainingId": 3,
-        "UserId": 4,
-        "ApplicationDate": "2023-04-27T12:00:00Z",
+        "TrainingId": 2,
+        "UserId": 10,
+        "ApplicationDate": "2026-05-01T10:20:00",
         "OnWaitinglist": 0,
         "Presence": 0
     },
     {
         "Id": 4,
-        "TrainingId": 4,
-        "UserId": 5,
-        "ApplicationDate": "2023-04-28T13:00:00Z",
-        "OnWaitinglist": 1,
+        "TrainingId": 2,
+        "UserId": 11,
+        "ApplicationDate": "2026-05-01T10:25:00",
+        "OnWaitinglist": 0,
         "Presence": 0
     },
     {
         "Id": 5,
-        "TrainingId": 5,
-        "UserId": 7,
-        "ApplicationDate": "2023-04-29T14:00:00Z",
+        "TrainingId": 3,
+        "UserId": 12,
+        "ApplicationDate": "2026-05-01T10:30:00",
         "OnWaitinglist": 0,
-        "Presence": 1
+        "Presence": 0
     },
     {
         "Id": 6,
-        "TrainingId": 6,
-        "UserId": 8,
-        "ApplicationDate": "2023-04-30T15:00:00Z",
+        "TrainingId": 3,
+        "UserId": 13,
+        "ApplicationDate": "2026-05-01T10:35:00",
         "OnWaitinglist": 0,
-        "Presence": 1
+        "Presence": 0
     },
     {
         "Id": 7,
-        "TrainingId": 7,
-        "UserId": 9,
-        "ApplicationDate": "2023-05-01T16:00:00Z",
+        "TrainingId": 4,
+        "UserId": 14,
+        "ApplicationDate": "2026-05-01T10:40:00",
         "OnWaitinglist": 0,
         "Presence": 0
     },
     {
         "Id": 8,
-        "TrainingId": 8,
-        "UserId": 10,
-        "ApplicationDate": "2023-05-02T17:00:00Z",
+        "TrainingId": 4,
+        "UserId": 15,
+        "ApplicationDate": "2026-05-01T10:45:00",
         "OnWaitinglist": 0,
-        "Presence": 1
+        "Presence": 0
     },
     {
         "Id": 9,
-        "TrainingId": 9,
-        "UserId": 1,
-        "ApplicationDate": "2023-05-03T18:00:00Z",
-        "OnWaitinglist": 1,
+        "TrainingId": 5,
+        "UserId": 16,
+        "ApplicationDate": "2026-05-01T10:50:00",
+        "OnWaitinglist": 0,
         "Presence": 0
     },
     {
         "Id": 10,
-        "TrainingId": 10,
-        "UserId": 2,
-        "ApplicationDate": "2023-05-04T19:00:00Z",
+        "TrainingId": 5,
+        "UserId": 17,
+        "ApplicationDate": "2026-05-01T10:55:00",
+        "OnWaitinglist": 1,
+        "Presence": 0
+    },
+    {
+        "Id": 11,
+        "TrainingId": 6,
+        "UserId": 18,
+        "ApplicationDate": "2026-05-01T11:00:00",
         "OnWaitinglist": 0,
-        "Presence": 1
+        "Presence": 0
     }
 ]

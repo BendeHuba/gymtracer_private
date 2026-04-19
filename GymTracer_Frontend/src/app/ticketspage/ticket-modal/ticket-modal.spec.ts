@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { TicketModal } from './ticket-modal';
+
+describe('TicketModal', () => {
+  let component: TicketModal;
+  let fixture: ComponentFixture<TicketModal>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TicketModal]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(TicketModal);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

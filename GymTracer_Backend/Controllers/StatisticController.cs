@@ -32,12 +32,12 @@ namespace GymTracer.Controllers
             {
                 if (daysBack > 7)
                 {
-                    throw new ApiException(400, "Only 7 days back statistic allowed at max");
+                    throw new ApiException(400, "Csak maximum 7 napra visszamenő statisztika engedélyezett!");
                 }
 
                 if (weeksBack > 4)
                 {
-                    throw new ApiException(400, "Only 4 weeks back statistic allowed at max");
+                    throw new ApiException(400, "Csak maximum 4 hétre visszamenő statisztika engedélyezett!");
                 }
 
                 List<UsageLog> dayByStatistics = DbContext.Set<UsageLog>().Where(ul => ul.UseDate < tokenHandler.Now() && ul.UseDate > tokenHandler.Now().AddDays(-daysBack)).ToList();

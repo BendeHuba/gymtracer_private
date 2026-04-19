@@ -1,18 +1,34 @@
-<div class="p-5 bg-red-300 mx-auto w-110 rounded-2xl">
-    <table class="table-auto border-collapse border border-gray-300 w-100 text-center">
-        <thead>
-            <tr>
-                <th class="border-collapse border border-gray-300">Jegy</th>
-                <th class="border-collapse border border-gray-300">Ár</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (ticket of tickets; track $index) {
-                <tr>
-                    <td class="border-collapse border border-gray-300">{{ ticket.description }}</td>
-                    <td class="border-collapse border border-gray-300">{{ ticket.price }} Ft</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+<section class="py-20 px-6 bg-gray-800" [ngClass]="theme.getColor()">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 text-center underline text-primary-600 decoration-primary-400 underline-offset-8">
+            Jegy árak
+        </h2>
+        @if (tickets.length === 0) {
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-center text-primary-500">Hiba</h3>
+                    <p class="text-gray-400 mb-4 text-center">A jegyárak átmenetileg nem érhetőek el.</p>
+                </div>
+        }@else{
+            <div class="overflow-hidden rounded-lg border border-gray-700 shadow-xl">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-700 text-gray-200">
+                        <th class="py-4 px-4 font-bold uppercase text-sm">Jegy típus</th>
+                        <th class="py-4 px-4 font-bold uppercase text-sm text-right">Ár</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-700">
+                    @for (ticket of tickets; track $index) {
+                        <tr class="hover:bg-gray-750 transition-colors">
+                            <td class="py-4 px-4 text-gray-200">{{ ticket.description }}</td>
+                            <td class="py-4 px-4 text-right font-bold text-primary-500">{{ ticket.price }} Ft</td>
+                        </tr>
+                    }
+                    
+                </tbody>
+            </table>
+        </div>
+        }
+        
+    </div>
+</section>

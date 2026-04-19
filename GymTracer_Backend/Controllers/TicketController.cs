@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace GymTracer.Controllers
 {
@@ -31,7 +32,7 @@ namespace GymTracer.Controllers
             {
                 var tickets = DbContext.Set<Ticket>().Include(t => t.Training);
 
-                var ticketsToBeReturned = tickets.Select(t => new
+                var ticketsToBeReturned = tickets.Where(t => t.Training == null || t.Training.Active && t.Training.EndTime > tokenHandler.Now()).Select(t => new
                 {
                     t.Id,
                     t.Type,
@@ -40,7 +41,7 @@ namespace GymTracer.Controllers
                     t.Price,
                     t.MaxUsage,
                     trainingId = t.Training == null ? null : t.TrainingId!,
-                    trainerName = t.Training == null ? null : t.Training.Name!
+                    trainingName = t.Training == null ? null : t.Training.Name!
                 }).ToList();
 
                 return StatusCode(200, ticketsToBeReturned);
@@ -55,29 +56,55 @@ namespace GymTracer.Controllers
             {
                 if (IsAuthorized(id))
                 {
-                    var userTickets = DbContext.Set<UserTicket>().Where(u => u.UserId == id).Include(u => u.Ticket).Include(u => u.Ticket.Training);
+                    var userTickets = DbContext.Set<UserTicket>().Where(u => u.UserId == id && u.ExpirationDate > tokenHandler.Now()).Include(u => u.Ticket).Include(u => u.Ticket.Training).Include(u => u.Payment);
+
+                    List<UserTicket> validTickets = [];
+
+                    foreach (var userTicket in userTickets)
+                    {
+                        switch (userTicket.Ticket.Type)
+                        {
+                            case Ticket_Type.training:
+                            case Ticket_Type.daily:
+                            case Ticket_Type.x_usage:
+                                if (userTicket.Ticket.MaxUsage - userTicket.UsageAmount > 0)
+                                {
+                                    validTickets.Add(userTicket);
+                                }
+                                break;
+                            case Ticket_Type.monthly:
+                                if (userTicket.ExpirationDate > tokenHandler.Now())
+                                {
+                                    validTickets.Add(userTicket);
+                                }
+                                break;
+                        }
+                    }
 
                     if (userTickets != null)
                     {
-                        return StatusCode(200, userTickets.Select(ut => new
+                        return StatusCode(200, validTickets.Select(ut => new
                         {
                             ut.Ticket.Type,
                             ut.Ticket.Description,
                             ut.Ticket.IsStudent,
                             ut.ExpirationDate,
-                            usagesLeft = ut.UsageAmount,
+                            price = ut.Payment.TotalPrice,
+                            paymentId = ut.PaymentId,
+                            isPayed = ut.Payment.PaymentDate != null,
+                            usagesLeft = ut.Ticket.MaxUsage - ut.UsageAmount,
                             trainingId = ut.Ticket.Training == null ? null : ut.Ticket.TrainingId!,
-                            trainerName = ut.Ticket.Training == null ? null : ut.Ticket.Training.Name!
+                            trainingName = ut.Ticket.Training == null ? null : ut.Ticket.Training.Name!
                         }));
                     }
                     else
                     {
-                        throw new ApiException(404, "No card found");
+                        throw new ApiException(404, "Nem található jegy");
                     }
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
             });
         }
@@ -107,12 +134,12 @@ namespace GymTracer.Controllers
                     }
                     else
                     {
-                        throw new ApiException(404, "No card found");
+                        throw new ApiException(404, "Nincs ilyen kártya");
                     }
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
             });
         }
@@ -125,7 +152,16 @@ namespace GymTracer.Controllers
             {
                 if (IsAuthorized(id, calledFromOtherController))
                 {
-                    using var transaction = DbContext.Database.BeginTransaction();
+                    IDbContextTransaction? tx = null;
+                    try
+                    {
+                        tx = DbContext.Database.BeginTransaction();
+                    }
+                    catch
+                    {
+                        tx = null;
+                    }
+
                     string loggedInUserId;
                     try
                     {
@@ -137,7 +173,7 @@ namespace GymTracer.Controllers
                     }
                     if (loggedInUserId == "")
                     {
-                        throw new ApiException(400, "Issuer can not be identified");
+                        throw new ApiException(400, "A kibocsátó személy azonosítása sikertelen");
                     }
 
 
@@ -150,7 +186,7 @@ namespace GymTracer.Controllers
 
                     if (ticket == null)
                     {
-                        throw new ApiException(400, "No ticket found");
+                        throw new ApiException(400, "Nincs ilyen jegy");
                     }
 
                     Payment newPayment = new Payment();
@@ -216,7 +252,8 @@ namespace GymTracer.Controllers
                     DbContext.Set<UserTicket>().Add(newUserTicket);
                     DbContext.SaveChanges();
 
-                    transaction.Commit();
+                    tx?.Commit();
+                    tx?.Dispose();
 
                     return StatusCode(201, new
                     {
@@ -230,7 +267,7 @@ namespace GymTracer.Controllers
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
             });
         }
@@ -243,16 +280,31 @@ namespace GymTracer.Controllers
             {
                 if (IsAuthorized(id))
                 {
-                    var paymentToBePayed = DbContext.Set<UserTicket>().Where(ut => ut.UserId == id && ut.PaymentId == payment_id).Include(ut => ut.Payment).Single();
+                    var paymentToBePayed = DbContext.Set<UserTicket>().Where(ut => ut.UserId == id && ut.PaymentId == payment_id).Include(ut => ut.Payment).Include(ut => ut.Ticket).Single();
 
                     if (paymentToBePayed == null)
                     {
-                        throw new ApiException(400, "No payment found");
+                        throw new ApiException(400, "Nincs ilyen jegy");
                     }
 
                     if (paymentToBePayed.Payment.PaymentDate != null)
                     {
-                        throw new ApiException(400, "Ticket already payed");
+                        throw new ApiException(400, "A jegy már ki lett fizetve");
+                    }
+
+                    if (paymentToBePayed.Ticket.TrainingId.HasValue)
+                    {
+                        var userTraining = DbContext.Set<TrainingUser>().SingleOrDefault(tu => tu.UserId == id && tu.TrainingId == paymentToBePayed.Ticket.TrainingId);
+                    
+                        if (userTraining == null)
+                        {
+                            throw new ApiException(400, "Nincs ilyen jelentkezés");
+                        }
+                        else if (userTraining.OnWaitinglist)
+                        {
+                            throw new ApiException(400, "A jegy nem vásárolható meg amíg várólistán van.");
+                        }
+
                     }
 
                     paymentToBePayed.Payment.PaymentDate = tokenHandler.Now();
@@ -270,7 +322,7 @@ namespace GymTracer.Controllers
                 }
                 else
                 {
-                    throw new ApiException(401, "Unauthorized");
+                    throw new ApiException(401, "Nem engedélyezett");
                 }
             });
         }
@@ -293,7 +345,7 @@ namespace GymTracer.Controllers
 
             if (user == null)
             {
-                throw new ApiException(404, "User not found");
+                throw new ApiException(404, "Felhasználó nem létezik");
             }
             if (id.ToString() == loggedInUserId || (loggedInUser!.Role == User_Role.staff || loggedInUser.Role == User_Role.admin))
             {

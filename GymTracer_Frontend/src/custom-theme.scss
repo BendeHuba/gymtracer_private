@@ -26,6 +26,29 @@ $theme-red: mat.m2-define-light-theme((color: (primary: $red-palette, accent: $r
 $theme-yellow: mat.m2-define-light-theme((color: (primary: $yellow-palette, accent: $yellow-palette)));
 $theme-orange: mat.m2-define-light-theme((color: (primary: $orange-palette, accent: $orange-palette)));
 
+$red-dark-palette: mat.m2-define-palette(map.merge(mat.$m2-red-palette, (
+  400: #a31c1c,
+  500: #b32020,
+  600: #c22424)), 500);
+
+$yellow-dark-palette: mat.m2-define-palette(map.merge(mat.$m2-amber-palette, (
+  400: #96570a,
+  500: #a6630b,
+  600: #b56f0c,
+  contrast: (
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff
+  ))), 500);
+
+$orange-dark-palette: mat.m2-define-palette(map.merge(mat.$m2-orange-palette, (
+  400: #a83810,
+  500: #b83e12,
+  600: #c84414)), 500);
+$theme-red-dark: mat.m2-define-dark-theme((color: (primary: $red-dark-palette, accent: $red-dark-palette)));
+$theme-yellow-dark: mat.m2-define-dark-theme((color: (primary: $yellow-dark-palette, accent: $yellow-dark-palette)));
+$theme-orange-dark: mat.m2-define-dark-theme((color: (primary: $orange-dark-palette, accent: $orange-dark-palette)));
+
 @include mat.all-component-themes($theme-red);
 
 .theme-yellow {
@@ -36,15 +59,62 @@ $theme-orange: mat.m2-define-light-theme((color: (primary: $orange-palette, acce
   @include mat.all-component-colors($theme-orange);
 }
 
-body {
-  color-scheme: light;
-  background-color: var(--mat-sys-surface, #ffffff);
-  color: var(--mat-sys-on-surface, #000000);
-  margin: 0;
+.dark {
+  @include mat.all-component-colors($theme-red-dark);
+
+  &.theme-yellow, & .theme-yellow {
+    @include mat.all-component-colors($theme-yellow-dark);
+  }
+
+  &.theme-orange, & .theme-orange {
+    @include mat.all-component-colors($theme-orange-dark);
+  }
 }
 
-.mat-mdc-slide-toggle .mdc-switch__track {
-  background-color: #d1d5db !important;
-  border-color: #9e9e9e !important; 
-  transition: background-color 300ms ease-in-out, border-color 300ms ease-in-out !important;
+body {
+  color-scheme: light;
+  margin: 0;
+
+  &.dark {
+    color-scheme: dark;
+  }
+}
+
+.mat-mdc-slide-toggle {
+  .mdc-switch__track {
+    transition-property: background-color, border-color !important;
+    transition-duration: 300ms !important;
+    transition-timing-function: ease-in-out !important;
+  }
+  .mdc-switch__handle {
+    transition-property: background-color !important;
+    transition-duration: 300ms !important;
+    transition-timing-function: ease-in-out !important;
+  }
+  .mdc-switch__icon {
+    transition-property: color, fill !important;
+    transition-duration: 300ms !important;
+    transition-timing-function: ease-in-out !important;
+  }
+  .mdc-label {
+    transition: color 300ms ease-in-out !important;
+  }
+}
+
+.dark {
+  .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked .mdc-switch__track {
+    background-color: #8c1717 !important;
+  }
+
+  &.theme-yellow, & .theme-yellow {
+    .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked .mdc-switch__track {
+      background-color: #6b4005 !important;
+    }
+  }
+
+  &.theme-orange, & .theme-orange {
+    .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked .mdc-switch__track {
+      background-color: #822b0c !important;
+    }
+  }
 }

@@ -1,71 +1,71 @@
 <div class="flex-1 flex justify-center items-start min-h-full w-full px-4 py-12"
     [ngClass]="theme.getColor()">
-  <div class="w-full max-w-6xl bg-white rounded-lg shadow-xl p-8 border-t-4 border-primary-600">
+  <div class="w-full max-w-6xl bg-white dark:bg-gray-900 transition-colors duration-300 ease-in-out rounded-lg shadow-xl p-8 border-t-4 border-primary-600">
     
-    <h2 class="text-3xl font-bold text-gray-800 mb-8">Edzések keresése</h2>
+    <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-200 transition-colors duration-300 ease-in-out mb-8">Edzések keresése</h2>
     
-    <form #searchForm="ngForm" (ngSubmit)="onSearch()" novalidate class="mb-10 bg-gray-50 p-6 rounded-lg border border-gray-200">
+    <form #searchForm="ngForm" (ngSubmit)="onSearch()" novalidate class="mb-10 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-300 ease-in-out">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 items-end">
         
         <div class="relative">
-          <label for="keyword" class="block text-sm font-medium text-gray-700 mb-1">Kulcsszó</label>
+          <label for="keyword" class="block text-sm font-medium text-gray-700 dark:text-gray-400 transition-colors duration-300 ease-in-out mb-1">Kulcsszó</label>
           <input 
             type="text" 
             id="keyword" 
             name="keyword" 
             [(ngModel)]="filters.keyword" 
             [disabled]="isLoading"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors placeholder-gray-300 disabled:bg-gray-100 disabled:text-gray-500"
+            class="w-full px-4 py-2 border bg-white dark:bg-gray-900 text-black dark:text-white border-gray-300 dark:border-gray-600 rounded-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 placeholder-gray-400 dark:placeholder-gray-500 disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:text-gray-500 dark:disabled:text-gray-600"
             placeholder="Név vagy leírás..."
           >
         </div>
 
         <div class="relative">
-          <label for="start" class="block text-sm font-medium text-gray-700 mb-1">Kezdési idő</label>
+          <label for="start" class="block text-sm font-medium text-gray-700 dark:text-gray-400 transition-colors duration-300 ease-in-out mb-1">Kezdési idő</label>
           <input 
             type="datetime-local" 
             id="start" 
             name="start" 
             [(ngModel)]="filters.start" 
             [disabled]="isLoading"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors placeholder-gray-300 disabled:bg-gray-100 disabled:text-gray-500"
+            class="w-full px-4 py-2 border bg-white dark:bg-gray-900 text-black dark:text-white border-gray-300 dark:border-gray-600 rounded-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 placeholder-gray-400 dark:placeholder-gray-500 disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:text-gray-500 dark:disabled:text-gray-600"
           >
         </div>
 
         <div class="relative">
-          <label for="end" class="block text-sm font-medium text-gray-700 mb-1">Befejezési idő</label>
+          <label for="end" class="block text-sm font-medium text-gray-700 dark:text-gray-400 transition-colors duration-300 ease-in-out mb-1">Befejezési idő</label>
           <input 
             type="datetime-local" 
             id="end" 
             name="end" 
             [(ngModel)]="filters.end" 
             [disabled]="isLoading"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors placeholder-gray-300 disabled:bg-gray-100 disabled:text-gray-500"
+            class="w-full px-4 py-2 border bg-white dark:bg-gray-900 text-black dark:text-white border-gray-300 dark:border-gray-600 rounded-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 placeholder-gray-400 dark:placeholder-gray-500 disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:text-gray-500 dark:disabled:text-gray-600"
           >
         </div>
 
         <div class="relative">
-          <label for="trainerName" class="block text-sm font-medium text-gray-700 mb-1">Edző neve</label>
+          <label for="trainerName" class="block text-sm font-medium text-gray-700 dark:text-gray-400 transition-colors duration-300 ease-in-out mb-1">Edző neve</label>
           <input 
             type="text" 
             id="trainerName" 
             name="trainerName" 
             [(ngModel)]="filters.trainerName" 
             [disabled]="isLoading"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors placeholder-gray-300 disabled:bg-gray-100 disabled:text-gray-500"
+            class="w-full px-4 py-2 border bg-white dark:bg-gray-900 text-black dark:text-white border-gray-300 dark:border-gray-600 rounded-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 placeholder-gray-400 dark:placeholder-gray-500 disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:text-gray-500 dark:disabled:text-gray-600"
             placeholder="Kovács János"
           >
         </div>
 
         <div class="relative">
-          <label for="trainerId" class="block text-sm font-medium text-gray-700 mb-1">Edző azonosítója</label>
+          <label for="trainerId" class="block text-sm font-medium text-gray-700 dark:text-gray-400 transition-colors duration-300 ease-in-out mb-1">Edző azonosítója</label>
           <input 
             type="number" 
             id="trainerId" 
             name="trainerId" 
             [(ngModel)]="filters.trainerId" 
             [disabled]="isLoading"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors placeholder-gray-300 disabled:bg-gray-100 disabled:text-gray-500"
+            class="w-full px-4 py-2 border bg-white dark:bg-gray-900 text-black dark:text-white border-gray-300 dark:border-gray-600 rounded-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 placeholder-gray-400 dark:placeholder-gray-500 disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:text-gray-500 dark:disabled:text-gray-600"
             placeholder="Például: 12"
           >
         </div>
@@ -77,7 +77,7 @@
           type="button" 
           (click)="clearFilters()"
           [disabled]="isLoading"
-          class="w-full md:w-auto px-6 h-12 flex justify-center items-center bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-md transition-all duration-300 disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed border border-gray-300"
+          class="w-full md:w-auto px-6 h-12 flex justify-center items-center bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 font-bold rounded-md transition-all duration-300 disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed border border-gray-300 dark:border-gray-600"
         >
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           Törlés
@@ -103,18 +103,18 @@
 
     <div class="relative min-h-[200px]">
       @if(trainings && trainings.length > 0) {
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" [class.opacity-50]="isLoading">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-colors duration-300 ease-in-out" [class.opacity-50]="isLoading">
           
           @for(training of trainings; track training.id) {
-            <trainings-training-item [training]="training" class="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white flex flex-col" />
+            <trainings-training-item [training]="training" class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-gray-800 flex flex-col" />
           }
           
         </div>
       } @else if(!isLoading && hasSearched) {
-        <div class="w-full py-16 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
-          <svg class="w-16 h-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          <p class="text-lg text-gray-600 font-medium">Nem találhatók a keresési feltételeknek megfelelő képzések.</p>
-          <p class="text-gray-500 mt-2">Próbálja meg módosítani a szűrőket.</p>
+        <div class="w-full py-16 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800/50 transition-colors duration-300 ease-in-out">
+          <svg class="w-16 h-16 text-gray-400 dark:text-gray-500 mb-4 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <p class="text-lg text-gray-600 dark:text-gray-300 font-medium transition-colors duration-300">Nem találhatók a keresési feltételeknek megfelelő képzések.</p>
+          <p class="text-gray-500 dark:text-gray-400 mt-2 transition-colors duration-300">Próbálja meg módosítani a szűrőket.</p>
         </div>
       }
     </div>

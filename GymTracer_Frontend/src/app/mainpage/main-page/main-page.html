@@ -1,6 +1,6 @@
-<div class="relative w-full h-200">
+<section class="relative w-full h-200">
 
-    <img src="images/GymPic.png" alt="Hero Background" class="absolute inset-0 w-full h-200 object-cover" />
+    <img ngSrc="images/GymPic.jpg" alt="Edzőterem főkép" class="absolute inset-0 w-full h-200 object-cover" fill priority/>
 
     <div class="absolute inset-0 bg-black/50"></div>
 
@@ -11,13 +11,55 @@
         <p class="text-lg md:text-2xl text-gray-200 max-w-2xl mb-10 drop-shadow-md">
             Oldalunkon vásárolhat jegyeket, bérleteket és jelentkezhet edzésekre is.
         </p>
-        <a href="#content"
-            class="px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition duration-300">
-            Bejelentkezés
-        </a>
+         @if (!currentUser) {
+            <a [routerLink]="['/login']"
+                class="px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition duration-300 hover:cursor-pointer">
+                Bejelentkezés
+            </a>
+        } @else {
+            <a [routerLink]="['/trainings']"
+                class="px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition duration-300 hover:cursor-pointer">
+                Edzések
+            </a>
+        }
     </div>
-</div>
-<div>
-    <h1 class="text-center text-3xl font-bold mt-5">Jegyáraink</h1>
-    <app-ticket-table class="m-5"></app-ticket-table>
-</div>
+</section>
+
+<section class="relative py-20 px-6 bg-linear-to-b from-gray-800 to-gray-900" [ngClass]="theme.getColor()" >
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+            <h1 class="text-5xl font-extrabold mb-6 tracking-tight text-gray-200 text-center">
+                LÉPJ TÚL A <span class="text-primary-500">HATÁRAIDON!</span> 
+            </h1>
+            <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                A <span class="font-semibold text-white">GymTracer</span> Győr legfelszereltebb edzőterme, ahol a legújabb gépekkel és szakértő edzőkkel várunk, hogy segítsünk elérni a fitness céljaidat. Legyen szó erőnléti edzésről, kardióról vagy csoportos órákról, nálunk mindenki megtalálja a számára legmegfelelőbb programot. Csatlakozz hozzánk, és tapasztald meg a különbséget egy olyan helyen, ahol a teljesítmény és a közösség találkozik!
+            </p>
+            <div class="flex gap-4">
+                
+                 @if (!currentUser) {
+                    <a [routerLink]="['/registration']"
+                    class="bg-primary-500 hover:bg-primary-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 hover:cursor-pointer text-center align-middle">
+                    Regisztráció
+                    </a>
+                } @else {
+                    <a [routerLink]="['/tickets']"
+                        class="bg-primary-500 hover:bg-primary-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 hover:cursor-pointer text-center align-middle">
+                        Jegy vásárlása
+                    </a>
+                }
+                <a
+                    href="#ticket-table" class="border border-gray-600 hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-full transition duration-300 hover:cursor-pointer" >
+                    Jegyárak
+                </a>
+            </div>
+        </div>
+        <div class="md:w-1/2">
+            <img ngSrc="images/GymPic_2.jpg" width="800" height="550"
+                alt="Edzőtermi berendezés" class="rounded-2xl shadow-2xl border border-gray-700">
+        </div>
+    </div>
+</section>
+
+<app-training-cards></app-training-cards>
+
+<app-ticket-table id="ticket-table"></app-ticket-table>

@@ -50,73 +50,93 @@ namespace GymTracer.Migrations
                         new
                         {
                             Id = 1L,
-                            Code = new Guid("a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d"),
-                            CreatedAt = new DateTime(2023, 1, 20, 10, 0, 0, 0, DateTimeKind.Utc),
-                            UserId = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Code = new Guid("b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e"),
-                            CreatedAt = new DateTime(2023, 1, 21, 11, 0, 0, 0, DateTimeKind.Utc),
-                            UserId = 2L
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Code = new Guid("c3d4e5f6-a7b8-9c0d-1e2f-3a4b5c6d7e8f"),
-                            CreatedAt = new DateTime(2023, 1, 22, 12, 0, 0, 0, DateTimeKind.Utc),
-                            UserId = 3L
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            Code = new Guid("d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a"),
-                            CreatedAt = new DateTime(2023, 1, 23, 13, 0, 0, 0, DateTimeKind.Utc),
-                            UserId = 4L
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            Code = new Guid("e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f9a0b"),
-                            CreatedAt = new DateTime(2023, 1, 24, 14, 0, 0, 0, DateTimeKind.Utc),
-                            UserId = 5L
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Code = new Guid("f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f9a0b1c"),
-                            CreatedAt = new DateTime(2023, 1, 25, 15, 0, 0, 0, DateTimeKind.Utc),
-                            UserId = 6L
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            Code = new Guid("a7b8c9d0-e1f2-3a4b-5c6d-7e8f9a0b1c2d"),
-                            CreatedAt = new DateTime(2023, 1, 26, 16, 0, 0, 0, DateTimeKind.Utc),
-                            RevokedAt = new DateTime(2023, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UserId = 7L
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            Code = new Guid("b8c9d0e1-f2a3-4b5c-6d7e-8f9a0b1c2d3e"),
-                            CreatedAt = new DateTime(2023, 1, 27, 17, 0, 0, 0, DateTimeKind.Utc),
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a001"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 8L
                         },
                         new
                         {
-                            Id = 9L,
-                            Code = new Guid("c9d0e1f2-a3b4-5c6d-7e8f-9a0b1c2d3e4f"),
-                            CreatedAt = new DateTime(2023, 1, 28, 18, 0, 0, 0, DateTimeKind.Utc),
+                            Id = 2L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a002"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 5, 0, 0, DateTimeKind.Unspecified),
                             UserId = 9L
                         },
                         new
                         {
-                            Id = 10L,
-                            Code = new Guid("d0e1f2a3-b4c5-6d7e-8f9a-0b1c2d3e4f5a"),
-                            CreatedAt = new DateTime(2023, 1, 29, 19, 0, 0, 0, DateTimeKind.Utc),
+                            Id = 3L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a003"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 10, 0, 0, DateTimeKind.Unspecified),
                             UserId = 10L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a004"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 15, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 11L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a005"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 20, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 12L
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a999"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 12L
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a007"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 14L
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a008"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 35, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 15L
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a009"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 40, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 16L
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a010"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 45, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 17L
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a011"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 50, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 18L
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a012"),
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 55, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 19L
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            Code = new Guid("ae25016a-edd0-4e2a-85cf-5fb04f53a013"),
+                            CreatedAt = new DateTime(2026, 5, 1, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 20L
                         });
                 });
 
@@ -156,91 +176,110 @@ namespace GymTracer.Migrations
                         new
                         {
                             Id = 1L,
-                            DueDate = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IssuerId = 1L,
-                            PaymentDate = new DateTime(2023, 1, 30, 10, 0, 0, 0, DateTimeKind.Utc),
-                            ReceiptNumber = "REC-00001",
-                            TotalPrice = 5000ul
+                            DueDate = new DateTime(2026, 5, 1, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 8L,
+                            PaymentDate = new DateTime(2026, 5, 1, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-001",
+                            TotalPrice = 2000ul
                         },
                         new
                         {
                             Id = 2L,
-                            DueDate = new DateTime(2023, 2, 5, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IssuerId = 2L,
-                            PaymentDate = new DateTime(2023, 2, 4, 11, 0, 0, 0, DateTimeKind.Utc),
-                            ReceiptNumber = "REC-00002",
-                            TotalPrice = 45000ul
+                            DueDate = new DateTime(2026, 5, 1, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 9L,
+                            PaymentDate = new DateTime(2026, 5, 1, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-002",
+                            TotalPrice = 18000ul
                         },
                         new
                         {
                             Id = 3L,
-                            DueDate = new DateTime(2023, 2, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IssuerId = 3L,
-                            PaymentDate = new DateTime(2023, 2, 9, 12, 0, 0, 0, DateTimeKind.Utc),
-                            ReceiptNumber = "REC-00003",
-                            TotalPrice = 20000ul
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            DueDate = new DateTime(2023, 2, 15, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IssuerId = 4L,
-                            PaymentDate = new DateTime(2023, 2, 14, 13, 0, 0, 0, DateTimeKind.Utc),
-                            ReceiptNumber = "REC-00004",
-                            TotalPrice = 3000ul
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            DueDate = new DateTime(2023, 2, 20, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IssuerId = 5L,
-                            PaymentDate = new DateTime(2023, 2, 19, 14, 0, 0, 0, DateTimeKind.Utc),
-                            ReceiptNumber = "REC-00005",
-                            TotalPrice = 40000ul
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            DueDate = new DateTime(2023, 2, 25, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IssuerId = 6L,
-                            PaymentDate = new DateTime(2023, 2, 24, 15, 0, 0, 0, DateTimeKind.Utc),
-                            ReceiptNumber = "REC-00006",
+                            DueDate = new DateTime(2026, 5, 1, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 10L,
+                            PaymentDate = new DateTime(2026, 5, 1, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-003",
                             TotalPrice = 2500ul
                         },
                         new
                         {
+                            Id = 4L,
+                            DueDate = new DateTime(2026, 5, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 11L,
+                            PaymentDate = new DateTime(2026, 5, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-004",
+                            TotalPrice = 22000ul
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            DueDate = new DateTime(2026, 5, 1, 12, 15, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 12L,
+                            PaymentDate = new DateTime(2026, 5, 1, 12, 15, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-005",
+                            TotalPrice = 1800ul
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            DueDate = new DateTime(2026, 5, 1, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 13L,
+                            PaymentDate = new DateTime(2026, 5, 1, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-006",
+                            TotalPrice = 18000ul
+                        },
+                        new
+                        {
                             Id = 7L,
-                            DueDate = new DateTime(2023, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IssuerId = 7L,
-                            PaymentDate = new DateTime(2023, 2, 28, 16, 0, 0, 0, DateTimeKind.Utc),
-                            ReceiptNumber = "REC-00007",
-                            TotalPrice = 22500ul
+                            DueDate = new DateTime(2026, 5, 1, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 14L,
+                            PaymentDate = new DateTime(2026, 5, 1, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-007",
+                            TotalPrice = 2500ul
                         },
                         new
                         {
                             Id = 8L,
-                            DueDate = new DateTime(2023, 3, 5, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IssuerId = 8L,
-                            ReceiptNumber = "REC-00008",
-                            TotalPrice = 3500ul
+                            DueDate = new DateTime(2026, 5, 1, 13, 30, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 15L,
+                            PaymentDate = new DateTime(2026, 5, 1, 13, 30, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-008",
+                            TotalPrice = 22000ul
                         },
                         new
                         {
                             Id = 9L,
-                            DueDate = new DateTime(2023, 3, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IssuerId = 9L,
-                            PaymentDate = new DateTime(2023, 3, 9, 18, 0, 0, 0, DateTimeKind.Utc),
-                            ReceiptNumber = "REC-00009",
-                            TotalPrice = 15000ul
+                            DueDate = new DateTime(2026, 5, 1, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 16L,
+                            PaymentDate = new DateTime(2026, 5, 1, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-009",
+                            TotalPrice = 2000ul
                         },
                         new
                         {
                             Id = 10L,
-                            DueDate = new DateTime(2023, 3, 15, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IssuerId = 10L,
-                            PaymentDate = new DateTime(2023, 3, 14, 19, 0, 0, 0, DateTimeKind.Utc),
-                            ReceiptNumber = "REC-00010",
-                            TotalPrice = 400000ul
+                            DueDate = new DateTime(2026, 5, 1, 14, 15, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 17L,
+                            PaymentDate = new DateTime(2026, 5, 1, 14, 15, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-010",
+                            TotalPrice = 1500ul
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            DueDate = new DateTime(2026, 5, 1, 14, 30, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 18L,
+                            PaymentDate = new DateTime(2026, 5, 1, 14, 30, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-011",
+                            TotalPrice = 18000ul
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            DueDate = new DateTime(2026, 5, 1, 15, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuerId = 19L,
+                            PaymentDate = new DateTime(2026, 5, 1, 15, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReceiptNumber = "INV-202605-012",
+                            TotalPrice = 2500ul
                         });
                 });
 
@@ -285,27 +324,16 @@ namespace GymTracer.Migrations
 
                     b.ToTable("Tickets", t =>
                         {
-                            t.HasCheckConstraint("Tax_key_positive", "\"Tax_key\" >= 0");
+                            t.HasCheckConstraint("Tax_key_positive", "`Tax_key` >= 0");
                         });
 
                     b.HasData(
                         new
                         {
                             Id = 1L,
-                            Description = "Standard Daily Pass",
+                            Description = "Napijegy",
                             IsActive = true,
                             IsStudent = false,
-                            MaxUsage = 1ul,
-                            Price = 5000ul,
-                            Tax_key = 27.00m,
-                            Type = 1
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Description = "Student Daily Pass",
-                            IsActive = true,
-                            IsStudent = true,
                             MaxUsage = 1ul,
                             Price = 2500ul,
                             Tax_key = 27.00m,
@@ -313,285 +341,512 @@ namespace GymTracer.Migrations
                         },
                         new
                         {
-                            Id = 3L,
-                            Description = "Monthly Full Pass",
+                            Id = 2L,
+                            Description = "Havi bérlet",
                             IsActive = true,
                             IsStudent = false,
-                            Price = 45000ul,
+                            Price = 18000ul,
                             Tax_key = 27.00m,
                             Type = 2
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Description = "10 alkalmas bérlet",
+                            IsActive = true,
+                            IsStudent = false,
+                            MaxUsage = 10ul,
+                            Price = 22000ul,
+                            Tax_key = 27.00m,
+                            Type = 3
                         },
                         new
                         {
                             Id = 4L,
-                            Description = "Student Monthly Pass",
+                            Description = "Reggeli Jóga Jegy",
                             IsActive = true,
-                            IsStudent = true,
-                            Price = 22500ul,
+                            IsStudent = false,
+                            MaxUsage = 1ul,
+                            Price = 2000ul,
                             Tax_key = 27.00m,
-                            Type = 2
+                            TrainingId = 1L,
+                            Type = 0
                         },
                         new
                         {
                             Id = 5L,
-                            Description = "10-Occasion Pass",
+                            Description = "Reggeli Jóga Diák",
                             IsActive = true,
-                            IsStudent = false,
-                            MaxUsage = 10ul,
-                            Price = 40000ul,
+                            IsStudent = true,
+                            MaxUsage = 1ul,
+                            Price = 1500ul,
                             Tax_key = 27.00m,
-                            Type = 3
+                            TrainingId = 1L,
+                            Type = 0
                         },
                         new
                         {
                             Id = 6L,
-                            Description = "Student 10-Occasion",
+                            Description = "CrossFit Kezdő Jegy",
                             IsActive = true,
-                            IsStudent = true,
-                            MaxUsage = 10ul,
-                            Price = 20000ul,
+                            IsStudent = false,
+                            MaxUsage = 1ul,
+                            Price = 2500ul,
                             Tax_key = 27.00m,
-                            Type = 3
+                            TrainingId = 2L,
+                            Type = 0
                         },
                         new
                         {
                             Id = 7L,
-                            Description = "Standard Training Ticket - Yoga Basics",
+                            Description = "CrossFit Kezdő Diák",
                             IsActive = true,
-                            IsStudent = false,
+                            IsStudent = true,
                             MaxUsage = 1ul,
-                            Price = 6000ul,
+                            Price = 1800ul,
                             Tax_key = 27.00m,
-                            TrainingId = 1L,
+                            TrainingId = 2L,
                             Type = 0
                         },
                         new
                         {
                             Id = 8L,
-                            Description = "Student Training Ticket - Yoga Basics",
+                            Description = "Haladó TRX Jegy",
                             IsActive = true,
-                            IsStudent = true,
+                            IsStudent = false,
                             MaxUsage = 1ul,
-                            Price = 3000ul,
+                            Price = 2200ul,
                             Tax_key = 27.00m,
-                            TrainingId = 1L,
+                            TrainingId = 3L,
                             Type = 0
                         },
                         new
                         {
                             Id = 9L,
-                            Description = "Standard Training Ticket - HIIT Blast",
+                            Description = "Haladó TRX Diák",
                             IsActive = true,
-                            IsStudent = false,
+                            IsStudent = true,
                             MaxUsage = 1ul,
-                            Price = 6000ul,
+                            Price = 1600ul,
                             Tax_key = 27.00m,
-                            TrainingId = 2L,
+                            TrainingId = 3L,
                             Type = 0
                         },
                         new
                         {
                             Id = 10L,
-                            Description = "Student Training Ticket - HIIT Blast",
+                            Description = "Zumba Fit Jegy",
                             IsActive = true,
-                            IsStudent = true,
+                            IsStudent = false,
                             MaxUsage = 1ul,
-                            Price = 3000ul,
+                            Price = 1800ul,
                             Tax_key = 27.00m,
-                            TrainingId = 2L,
+                            TrainingId = 4L,
                             Type = 0
                         },
                         new
                         {
                             Id = 11L,
-                            Description = "Standard Training Ticket - Pilates Core",
+                            Description = "Zumba Fit Diák",
                             IsActive = true,
-                            IsStudent = false,
+                            IsStudent = true,
                             MaxUsage = 1ul,
-                            Price = 6000ul,
+                            Price = 1400ul,
                             Tax_key = 27.00m,
-                            TrainingId = 3L,
+                            TrainingId = 4L,
                             Type = 0
                         },
                         new
                         {
                             Id = 12L,
-                            Description = "Student Training Ticket - Pilates Core",
+                            Description = "Súlyemelés Jegy",
                             IsActive = true,
-                            IsStudent = true,
+                            IsStudent = false,
                             MaxUsage = 1ul,
-                            Price = 3000ul,
+                            Price = 2500ul,
                             Tax_key = 27.00m,
-                            TrainingId = 3L,
+                            TrainingId = 5L,
                             Type = 0
                         },
                         new
                         {
                             Id = 13L,
-                            Description = "Standard Training Ticket - Zumba",
+                            Description = "Súlyemelés Diák",
                             IsActive = true,
-                            IsStudent = false,
+                            IsStudent = true,
                             MaxUsage = 1ul,
-                            Price = 6000ul,
+                            Price = 1800ul,
                             Tax_key = 27.00m,
-                            TrainingId = 4L,
+                            TrainingId = 5L,
                             Type = 0
                         },
                         new
                         {
                             Id = 14L,
-                            Description = "Student Training Ticket - Zumba",
+                            Description = "Spinning 1 Jegy",
                             IsActive = true,
-                            IsStudent = true,
+                            IsStudent = false,
                             MaxUsage = 1ul,
-                            Price = 3000ul,
+                            Price = 2000ul,
                             Tax_key = 27.00m,
-                            TrainingId = 4L,
+                            TrainingId = 6L,
                             Type = 0
                         },
                         new
                         {
                             Id = 15L,
-                            Description = "Standard Training Ticket - CrossFit",
+                            Description = "Spinning 1 Diák",
                             IsActive = true,
-                            IsStudent = false,
+                            IsStudent = true,
                             MaxUsage = 1ul,
-                            Price = 6000ul,
+                            Price = 1500ul,
                             Tax_key = 27.00m,
-                            TrainingId = 5L,
+                            TrainingId = 6L,
                             Type = 0
                         },
                         new
                         {
                             Id = 16L,
-                            Description = "Student Training Ticket - CrossFit",
+                            Description = "Pilates Jegy",
                             IsActive = true,
-                            IsStudent = true,
+                            IsStudent = false,
                             MaxUsage = 1ul,
-                            Price = 3000ul,
+                            Price = 2000ul,
                             Tax_key = 27.00m,
-                            TrainingId = 5L,
+                            TrainingId = 7L,
                             Type = 0
                         },
                         new
                         {
                             Id = 17L,
-                            Description = "Standard Training Ticket - Spin Class",
+                            Description = "Pilates Diák",
                             IsActive = true,
-                            IsStudent = false,
+                            IsStudent = true,
                             MaxUsage = 1ul,
-                            Price = 6000ul,
+                            Price = 1500ul,
                             Tax_key = 27.00m,
-                            TrainingId = 6L,
+                            TrainingId = 7L,
                             Type = 0
                         },
                         new
                         {
                             Id = 18L,
-                            Description = "Student Training Ticket - Spin Class",
+                            Description = "Kettlebell Jegy",
                             IsActive = true,
-                            IsStudent = true,
+                            IsStudent = false,
                             MaxUsage = 1ul,
-                            Price = 3000ul,
+                            Price = 2200ul,
                             Tax_key = 27.00m,
-                            TrainingId = 6L,
+                            TrainingId = 8L,
                             Type = 0
                         },
                         new
                         {
                             Id = 19L,
-                            Description = "Standard Training Ticket - Boxing",
+                            Description = "Kettlebell Diák",
                             IsActive = true,
-                            IsStudent = false,
+                            IsStudent = true,
                             MaxUsage = 1ul,
-                            Price = 6000ul,
+                            Price = 1600ul,
                             Tax_key = 27.00m,
-                            TrainingId = 7L,
+                            TrainingId = 8L,
                             Type = 0
                         },
                         new
                         {
                             Id = 20L,
-                            Description = "Student Training Ticket - Boxing",
+                            Description = "Box edzés Jegy",
                             IsActive = true,
-                            IsStudent = true,
+                            IsStudent = false,
                             MaxUsage = 1ul,
-                            Price = 3000ul,
+                            Price = 2500ul,
                             Tax_key = 27.00m,
-                            TrainingId = 7L,
+                            TrainingId = 9L,
                             Type = 0
                         },
                         new
                         {
                             Id = 21L,
-                            Description = "Standard Training Ticket - Stretching",
+                            Description = "Box edzés Diák",
                             IsActive = true,
-                            IsStudent = false,
+                            IsStudent = true,
                             MaxUsage = 1ul,
-                            Price = 6000ul,
+                            Price = 1800ul,
                             Tax_key = 27.00m,
-                            TrainingId = 8L,
+                            TrainingId = 9L,
                             Type = 0
                         },
                         new
                         {
                             Id = 22L,
-                            Description = "Student Training Ticket - Stretching",
+                            Description = "HIIT Jegy",
                             IsActive = true,
-                            IsStudent = true,
+                            IsStudent = false,
                             MaxUsage = 1ul,
-                            Price = 3000ul,
+                            Price = 2000ul,
                             Tax_key = 27.00m,
-                            TrainingId = 8L,
+                            TrainingId = 10L,
                             Type = 0
                         },
                         new
                         {
                             Id = 23L,
-                            Description = "Standard Training Ticket - Powerlifting",
+                            Description = "HIIT Diák",
                             IsActive = true,
-                            IsStudent = false,
+                            IsStudent = true,
                             MaxUsage = 1ul,
-                            Price = 6000ul,
+                            Price = 1500ul,
                             Tax_key = 27.00m,
-                            TrainingId = 9L,
+                            TrainingId = 10L,
                             Type = 0
                         },
                         new
                         {
                             Id = 24L,
-                            Description = "Student Training Ticket - Powerlifting",
+                            Description = "Core tréning Jegy",
                             IsActive = true,
-                            IsStudent = true,
+                            IsStudent = false,
                             MaxUsage = 1ul,
-                            Price = 3000ul,
+                            Price = 1800ul,
                             Tax_key = 27.00m,
-                            TrainingId = 9L,
+                            TrainingId = 11L,
                             Type = 0
                         },
                         new
                         {
                             Id = 25L,
-                            Description = "Standard Training Ticket - Aqua Aerobics",
+                            Description = "Core tréning Diák",
                             IsActive = true,
-                            IsStudent = false,
+                            IsStudent = true,
                             MaxUsage = 1ul,
-                            Price = 6000ul,
+                            Price = 1400ul,
                             Tax_key = 27.00m,
-                            TrainingId = 10L,
+                            TrainingId = 11L,
                             Type = 0
                         },
                         new
                         {
                             Id = 26L,
-                            Description = "Student Training Ticket - Aqua Aerobics",
+                            Description = "Stretching Jegy",
+                            IsActive = true,
+                            IsStudent = false,
+                            MaxUsage = 1ul,
+                            Price = 1500ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 12L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 27L,
+                            Description = "Stretching Diák",
                             IsActive = true,
                             IsStudent = true,
                             MaxUsage = 1ul,
-                            Price = 3000ul,
+                            Price = 1000ul,
                             Tax_key = 27.00m,
-                            TrainingId = 10L,
+                            TrainingId = 12L,
                             Type = 0
+                        },
+                        new
+                        {
+                            Id = 28L,
+                            Description = "Funkcionális Jegy",
+                            IsActive = true,
+                            IsStudent = false,
+                            MaxUsage = 1ul,
+                            Price = 2200ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 13L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 29L,
+                            Description = "Funkcionális Diák",
+                            IsActive = true,
+                            IsStudent = true,
+                            MaxUsage = 1ul,
+                            Price = 1600ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 13L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 30L,
+                            Description = "Aerobik Jegy",
+                            IsActive = true,
+                            IsStudent = false,
+                            MaxUsage = 1ul,
+                            Price = 1800ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 14L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 31L,
+                            Description = "Aerobik Diák",
+                            IsActive = true,
+                            IsStudent = true,
+                            MaxUsage = 1ul,
+                            Price = 1400ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 14L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 32L,
+                            Description = "Baba-mama Jegy",
+                            IsActive = true,
+                            IsStudent = false,
+                            MaxUsage = 1ul,
+                            Price = 2000ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 15L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 33L,
+                            Description = "Baba-mama Diák",
+                            IsActive = true,
+                            IsStudent = true,
+                            MaxUsage = 1ul,
+                            Price = 1500ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 15L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 34L,
+                            Description = "Gerinctorna Jegy",
+                            IsActive = true,
+                            IsStudent = false,
+                            MaxUsage = 1ul,
+                            Price = 1800ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 16L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 35L,
+                            Description = "Gerinctorna Diák",
+                            IsActive = true,
+                            IsStudent = true,
+                            MaxUsage = 1ul,
+                            Price = 1400ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 16L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 36L,
+                            Description = "Kardió mix Jegy",
+                            IsActive = true,
+                            IsStudent = false,
+                            MaxUsage = 1ul,
+                            Price = 2000ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 17L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 37L,
+                            Description = "Kardió mix Diák",
+                            IsActive = true,
+                            IsStudent = true,
+                            MaxUsage = 1ul,
+                            Price = 1500ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 17L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 38L,
+                            Description = "Erőemelés Jegy",
+                            IsActive = true,
+                            IsStudent = false,
+                            MaxUsage = 1ul,
+                            Price = 2500ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 18L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 39L,
+                            Description = "Erőemelés Diák",
+                            IsActive = true,
+                            IsStudent = true,
+                            MaxUsage = 1ul,
+                            Price = 1800ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 18L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 40L,
+                            Description = "Spinning 2 Jegy",
+                            IsActive = true,
+                            IsStudent = false,
+                            MaxUsage = 1ul,
+                            Price = 2200ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 19L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 41L,
+                            Description = "Spinning 2 Diák",
+                            IsActive = true,
+                            IsStudent = true,
+                            MaxUsage = 1ul,
+                            Price = 1600ul,
+                            Tax_key = 27.00m,
+                            TrainingId = 19L,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 42L,
+                            Description = "Napijegy Diák",
+                            IsActive = true,
+                            IsStudent = true,
+                            MaxUsage = 1ul,
+                            Price = 1250ul,
+                            Tax_key = 27.00m,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 43L,
+                            Description = "Havi bérlet Diák",
+                            IsActive = true,
+                            IsStudent = true,
+                            Price = 9000ul,
+                            Tax_key = 27.00m,
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 44L,
+                            Description = "10 alkalmas bérlet Diák",
+                            IsActive = true,
+                            IsStudent = true,
+                            MaxUsage = 10ul,
+                            Price = 11000ul,
+                            Tax_key = 27.00m,
+                            Type = 3
                         });
                 });
 
@@ -628,82 +883,98 @@ namespace GymTracer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2023, 4, 1, 8, 0, 0, 0, DateTimeKind.Utc),
-                            RevokedAt = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            TokenString = "token_abc123def456",
+                            CreatedAt = new DateTime(2026, 5, 1, 8, 5, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 8, 5, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A360",
                             UserId = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2023, 4, 2, 9, 0, 0, 0, DateTimeKind.Utc),
-                            RevokedAt = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            TokenString = "token_bcd234efg567",
-                            UserId = 2L
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CreatedAt = new DateTime(2023, 4, 3, 10, 0, 0, 0, DateTimeKind.Utc),
-                            RevokedAt = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            TokenString = "token_cde345fgh678",
-                            UserId = 3L
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            CreatedAt = new DateTime(2023, 4, 4, 11, 0, 0, 0, DateTimeKind.Utc),
-                            RevokedAt = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            TokenString = "token_def456ghi789",
-                            UserId = 4L
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            CreatedAt = new DateTime(2023, 4, 5, 12, 0, 0, 0, DateTimeKind.Utc),
-                            RevokedAt = new DateTime(2023, 4, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            TokenString = "token_efg567hij890",
-                            UserId = 5L
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            CreatedAt = new DateTime(2023, 4, 6, 13, 0, 0, 0, DateTimeKind.Utc),
-                            RevokedAt = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            TokenString = "token_fgh678ijk901",
-                            UserId = 6L
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            CreatedAt = new DateTime(2023, 4, 7, 14, 0, 0, 0, DateTimeKind.Utc),
-                            RevokedAt = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            TokenString = "token_ghi789jkl012",
-                            UserId = 7L
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            CreatedAt = new DateTime(2023, 4, 8, 15, 0, 0, 0, DateTimeKind.Utc),
-                            RevokedAt = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            TokenString = "token_hij890klm123",
+                            CreatedAt = new DateTime(2026, 5, 1, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A361",
                             UserId = 8L
                         },
                         new
                         {
-                            Id = 9L,
-                            CreatedAt = new DateTime(2023, 4, 9, 16, 0, 0, 0, DateTimeKind.Utc),
-                            RevokedAt = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            TokenString = "token_ijk901lmn234",
+                            Id = 3L,
+                            CreatedAt = new DateTime(2026, 5, 1, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A362",
                             UserId = 9L
                         },
                         new
                         {
-                            Id = 10L,
-                            CreatedAt = new DateTime(2023, 4, 10, 17, 0, 0, 0, DateTimeKind.Utc),
-                            RevokedAt = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            TokenString = "token_jkl012mno345",
+                            Id = 4L,
+                            CreatedAt = new DateTime(2026, 5, 1, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A363",
                             UserId = 10L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CreatedAt = new DateTime(2026, 5, 1, 10, 45, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 10, 45, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A364",
+                            UserId = 11L
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CreatedAt = new DateTime(2026, 5, 1, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A365",
+                            UserId = 12L
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CreatedAt = new DateTime(2026, 5, 1, 11, 15, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 11, 15, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A366",
+                            UserId = 13L
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            CreatedAt = new DateTime(2026, 5, 1, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A367",
+                            UserId = 14L
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            CreatedAt = new DateTime(2026, 5, 1, 11, 45, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 11, 45, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A368",
+                            UserId = 15L
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A369",
+                            UserId = 16L
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 15, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 12, 15, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A370",
+                            UserId = 17L
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            CreatedAt = new DateTime(2026, 5, 1, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            RevokedAt = new DateTime(2026, 5, 2, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            TokenString = "575D6F6985153B428B4BEF8FD525BEA1F78E502B9DA6654A1EB774997C06B9F30FF132D9A44F296E176767A148175538579C459051474120FB85530D89C7A371",
+                            UserId = 18L
                         });
                 });
 
@@ -753,120 +1024,228 @@ namespace GymTracer.Migrations
                         {
                             Id = 1L,
                             Active = true,
-                            Description = "Intro to Yoga",
-                            EndTime = new DateTime(2023, 5, 1, 9, 0, 0, 0, DateTimeKind.Utc),
-                            Image = "yoga.jpg",
-                            MaxParticipant = 20ul,
-                            Name = "Yoga Basics",
-                            StartTime = new DateTime(2023, 5, 1, 8, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Frissítő napindító jóga",
+                            EndTime = new DateTime(2026, 5, 5, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "yoga_morning.jpg",
+                            MaxParticipant = 15ul,
+                            Name = "Reggeli Jóga",
+                            StartTime = new DateTime(2026, 5, 5, 7, 0, 0, 0, DateTimeKind.Unspecified),
                             TrainerId = 3L
                         },
                         new
                         {
                             Id = 2L,
                             Active = true,
-                            Description = "High Intensity Interval Training",
-                            EndTime = new DateTime(2023, 5, 1, 11, 0, 0, 0, DateTimeKind.Utc),
-                            Image = "hiit.jpg",
-                            MaxParticipant = 15ul,
-                            Name = "HIIT Blast",
-                            StartTime = new DateTime(2023, 5, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                            TrainerId = 6L
+                            Description = "Alapok elsajátítása",
+                            EndTime = new DateTime(2026, 5, 6, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            Image = "crossfit_basic.jpg",
+                            MaxParticipant = 10ul,
+                            Name = "CrossFit Kezdő",
+                            StartTime = new DateTime(2026, 5, 6, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 4L
                         },
                         new
                         {
                             Id = 3L,
                             Active = true,
-                            Description = "Core strengthening",
-                            EndTime = new DateTime(2023, 5, 2, 9, 0, 0, 0, DateTimeKind.Utc),
-                            Image = "pilates.jpg",
-                            MaxParticipant = 15ul,
-                            Name = "Pilates Core",
-                            StartTime = new DateTime(2023, 5, 2, 8, 0, 0, 0, DateTimeKind.Utc),
-                            TrainerId = 3L
+                            Description = "Saját testsúlyos edzés",
+                            EndTime = new DateTime(2026, 5, 7, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "trx_pro.jpg",
+                            MaxParticipant = 12ul,
+                            Name = "Haladó TRX",
+                            StartTime = new DateTime(2026, 5, 7, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 5L
                         },
                         new
                         {
                             Id = 4L,
                             Active = true,
-                            Description = "Dance cardio",
-                            EndTime = new DateTime(2023, 5, 2, 19, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Táncos kardió",
+                            EndTime = new DateTime(2026, 5, 8, 20, 0, 0, 0, DateTimeKind.Unspecified),
                             Image = "zumba.jpg",
-                            MaxParticipant = 25ul,
-                            Name = "Zumba Dance",
-                            StartTime = new DateTime(2023, 5, 2, 18, 0, 0, 0, DateTimeKind.Utc),
+                            MaxParticipant = 20ul,
+                            Name = "Zumba Fit",
+                            StartTime = new DateTime(2026, 5, 8, 19, 0, 0, 0, DateTimeKind.Unspecified),
                             TrainerId = 6L
                         },
                         new
                         {
                             Id = 5L,
                             Active = true,
-                            Description = "Learn the basics of CrossFit",
-                            EndTime = new DateTime(2023, 5, 3, 18, 0, 0, 0, DateTimeKind.Utc),
-                            Image = "crossfit.jpg",
-                            MaxParticipant = 10ul,
-                            Name = "CrossFit Intro",
-                            StartTime = new DateTime(2023, 5, 3, 17, 0, 0, 0, DateTimeKind.Utc),
-                            TrainerId = 3L
+                            Description = "Erőfejlesztés",
+                            EndTime = new DateTime(2026, 5, 10, 17, 30, 0, 0, DateTimeKind.Unspecified),
+                            Image = "weightlifting.jpg",
+                            MaxParticipant = 8ul,
+                            Name = "Súlyemelés",
+                            StartTime = new DateTime(2026, 5, 10, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 7L
                         },
                         new
                         {
                             Id = 6L,
                             Active = true,
-                            Description = "Indoor cycling",
-                            EndTime = new DateTime(2023, 5, 4, 8, 0, 0, 0, DateTimeKind.Utc),
-                            Image = "spin.jpg",
-                            MaxParticipant = 20ul,
-                            Name = "Spin Class",
-                            StartTime = new DateTime(2023, 5, 4, 7, 0, 0, 0, DateTimeKind.Utc),
-                            TrainerId = 6L
+                            Description = "Kardió tekerés",
+                            EndTime = new DateTime(2026, 5, 12, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "spinning1.jpg",
+                            MaxParticipant = 15ul,
+                            Name = "Spinning 1",
+                            StartTime = new DateTime(2026, 5, 12, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 3L
                         },
                         new
                         {
                             Id = 7L,
                             Active = true,
-                            Description = "Pad work and technique",
-                            EndTime = new DateTime(2023, 5, 5, 20, 0, 0, 0, DateTimeKind.Utc),
-                            Image = "boxing.jpg",
-                            MaxParticipant = 12ul,
-                            Name = "Boxing Fundamentals",
-                            StartTime = new DateTime(2023, 5, 5, 19, 0, 0, 0, DateTimeKind.Utc),
-                            TrainerId = 3L
+                            Description = "Core izmok erősítése",
+                            EndTime = new DateTime(2026, 5, 14, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "pilates.jpg",
+                            MaxParticipant = 15ul,
+                            Name = "Pilates",
+                            StartTime = new DateTime(2026, 5, 14, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 4L
                         },
                         new
                         {
                             Id = 8L,
                             Active = true,
-                            Description = "Recovery session",
-                            EndTime = new DateTime(2023, 5, 6, 11, 0, 0, 0, DateTimeKind.Utc),
-                            Image = "stretch.jpg",
-                            MaxParticipant = 20ul,
-                            Name = "Stretching & Mobility",
-                            StartTime = new DateTime(2023, 5, 6, 10, 0, 0, 0, DateTimeKind.Utc),
-                            TrainerId = 6L
+                            Description = "Dinamikus erőnléti",
+                            EndTime = new DateTime(2026, 5, 15, 19, 30, 0, 0, DateTimeKind.Unspecified),
+                            Image = "kettlebell.jpg",
+                            MaxParticipant = 12ul,
+                            Name = "Kettlebell",
+                            StartTime = new DateTime(2026, 5, 15, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 5L
                         },
                         new
                         {
                             Id = 9L,
                             Active = true,
-                            Description = "Squat, Bench, Deadlift",
-                            EndTime = new DateTime(2023, 5, 7, 17, 30, 0, 0, DateTimeKind.Utc),
-                            Image = "power.jpg",
-                            MaxParticipant = 8ul,
-                            Name = "Powerlifting 101",
-                            StartTime = new DateTime(2023, 5, 7, 16, 0, 0, 0, DateTimeKind.Utc),
-                            TrainerId = 3L
+                            Description = "Technika és állóképesség",
+                            EndTime = new DateTime(2026, 5, 18, 20, 30, 0, 0, DateTimeKind.Unspecified),
+                            Image = "box.jpg",
+                            MaxParticipant = 10ul,
+                            Name = "Box edzés",
+                            StartTime = new DateTime(2026, 5, 18, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 6L
                         },
                         new
                         {
                             Id = 10L,
                             Active = true,
-                            Description = "Pool workout",
-                            EndTime = new DateTime(2023, 5, 8, 10, 0, 0, 0, DateTimeKind.Utc),
-                            Image = "aqua.jpg",
+                            Description = "Magas intenzitású intervall",
+                            EndTime = new DateTime(2026, 5, 20, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "hiit.jpg",
+                            MaxParticipant = 20ul,
+                            Name = "HIIT",
+                            StartTime = new DateTime(2026, 5, 20, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 7L
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            Active = true,
+                            Description = "Törzsizomzat fejlesztése",
+                            EndTime = new DateTime(2026, 5, 22, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            Image = "core.jpg",
                             MaxParticipant = 15ul,
-                            Name = "Aqua Aerobics",
-                            StartTime = new DateTime(2023, 5, 8, 9, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Core tréning",
+                            StartTime = new DateTime(2026, 5, 22, 17, 30, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 3L
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            Active = true,
+                            Description = "Nyújtás és lazítás",
+                            EndTime = new DateTime(2026, 5, 25, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "stretching.jpg",
+                            MaxParticipant = 20ul,
+                            Name = "Stretching",
+                            StartTime = new DateTime(2026, 5, 25, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 4L
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            Active = true,
+                            Description = "Összetett gyakorlatok",
+                            EndTime = new DateTime(2026, 5, 27, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "functional.jpg",
+                            MaxParticipant = 12ul,
+                            Name = "Funkcionális edzés",
+                            StartTime = new DateTime(2026, 5, 27, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 5L
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            Active = true,
+                            Description = "Klasszikus aerobik",
+                            EndTime = new DateTime(2026, 5, 29, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "aerobik.jpg",
+                            MaxParticipant = 25ul,
+                            Name = "Aerobik",
+                            StartTime = new DateTime(2026, 5, 29, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 6L
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            Active = true,
+                            Description = "Szülés utáni regeneráció",
+                            EndTime = new DateTime(2026, 6, 2, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "babamama.jpg",
+                            MaxParticipant = 10ul,
+                            Name = "Baba-mama torna",
+                            StartTime = new DateTime(2026, 6, 2, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 7L
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            Active = true,
+                            Description = "Tartásjavító torna",
+                            EndTime = new DateTime(2026, 6, 5, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "gerinc.jpg",
+                            MaxParticipant = 15ul,
+                            Name = "Gerinctorna",
+                            StartTime = new DateTime(2026, 6, 5, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 3L
+                        },
+                        new
+                        {
+                            Id = 17L,
+                            Active = true,
+                            Description = "Állóképesség fejlesztés",
+                            EndTime = new DateTime(2026, 6, 10, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "cardio.jpg",
+                            MaxParticipant = 20ul,
+                            Name = "Kardió mix",
+                            StartTime = new DateTime(2026, 6, 10, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 4L
+                        },
+                        new
+                        {
+                            Id = 18L,
+                            Active = true,
+                            Description = "Nehéz súlyok",
+                            EndTime = new DateTime(2026, 6, 15, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "powerlifting.jpg",
+                            MaxParticipant = 8ul,
+                            Name = "Erőemelés",
+                            StartTime = new DateTime(2026, 6, 15, 17, 30, 0, 0, DateTimeKind.Unspecified),
+                            TrainerId = 5L
+                        },
+                        new
+                        {
+                            Id = 19L,
+                            Active = true,
+                            Description = "Haladó tekerés",
+                            EndTime = new DateTime(2026, 6, 20, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "spinning2.jpg",
+                            MaxParticipant = 15ul,
+                            Name = "Spinning 2",
+                            StartTime = new DateTime(2026, 6, 20, 19, 0, 0, 0, DateTimeKind.Unspecified),
                             TrainerId = 6L
                         });
                 });
@@ -905,92 +1284,101 @@ namespace GymTracer.Migrations
                         new
                         {
                             Id = 1L,
-                            ApplicationDate = new DateTime(2023, 4, 25, 10, 0, 0, 0, DateTimeKind.Utc),
+                            ApplicationDate = new DateTime(2026, 5, 1, 10, 10, 0, 0, DateTimeKind.Unspecified),
                             OnWaitinglist = false,
-                            Presence = true,
+                            Presence = false,
                             TrainingId = 1L,
-                            UserId = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            ApplicationDate = new DateTime(2023, 4, 26, 11, 0, 0, 0, DateTimeKind.Utc),
-                            OnWaitinglist = false,
-                            Presence = true,
-                            TrainingId = 2L,
-                            UserId = 2L
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            ApplicationDate = new DateTime(2023, 4, 27, 12, 0, 0, 0, DateTimeKind.Utc),
-                            OnWaitinglist = false,
-                            Presence = false,
-                            TrainingId = 3L,
-                            UserId = 4L
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            ApplicationDate = new DateTime(2023, 4, 28, 13, 0, 0, 0, DateTimeKind.Utc),
-                            OnWaitinglist = true,
-                            Presence = false,
-                            TrainingId = 4L,
-                            UserId = 5L
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            ApplicationDate = new DateTime(2023, 4, 29, 14, 0, 0, 0, DateTimeKind.Utc),
-                            OnWaitinglist = false,
-                            Presence = true,
-                            TrainingId = 5L,
-                            UserId = 7L
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            ApplicationDate = new DateTime(2023, 4, 30, 15, 0, 0, 0, DateTimeKind.Utc),
-                            OnWaitinglist = false,
-                            Presence = true,
-                            TrainingId = 6L,
                             UserId = 8L
                         },
                         new
                         {
-                            Id = 7L,
-                            ApplicationDate = new DateTime(2023, 5, 1, 16, 0, 0, 0, DateTimeKind.Utc),
+                            Id = 2L,
+                            ApplicationDate = new DateTime(2026, 5, 1, 10, 15, 0, 0, DateTimeKind.Unspecified),
                             OnWaitinglist = false,
                             Presence = false,
-                            TrainingId = 7L,
+                            TrainingId = 1L,
                             UserId = 9L
                         },
                         new
                         {
-                            Id = 8L,
-                            ApplicationDate = new DateTime(2023, 5, 2, 17, 0, 0, 0, DateTimeKind.Utc),
+                            Id = 3L,
+                            ApplicationDate = new DateTime(2026, 5, 1, 10, 20, 0, 0, DateTimeKind.Unspecified),
                             OnWaitinglist = false,
-                            Presence = true,
-                            TrainingId = 8L,
+                            Presence = false,
+                            TrainingId = 2L,
                             UserId = 10L
                         },
                         new
                         {
-                            Id = 9L,
-                            ApplicationDate = new DateTime(2023, 5, 3, 18, 0, 0, 0, DateTimeKind.Utc),
-                            OnWaitinglist = true,
+                            Id = 4L,
+                            ApplicationDate = new DateTime(2026, 5, 1, 10, 25, 0, 0, DateTimeKind.Unspecified),
+                            OnWaitinglist = false,
                             Presence = false,
-                            TrainingId = 9L,
-                            UserId = 1L
+                            TrainingId = 2L,
+                            UserId = 11L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            ApplicationDate = new DateTime(2026, 5, 1, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            OnWaitinglist = false,
+                            Presence = false,
+                            TrainingId = 3L,
+                            UserId = 12L
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            ApplicationDate = new DateTime(2026, 5, 1, 10, 35, 0, 0, DateTimeKind.Unspecified),
+                            OnWaitinglist = false,
+                            Presence = false,
+                            TrainingId = 3L,
+                            UserId = 13L
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            ApplicationDate = new DateTime(2026, 5, 1, 10, 40, 0, 0, DateTimeKind.Unspecified),
+                            OnWaitinglist = false,
+                            Presence = false,
+                            TrainingId = 4L,
+                            UserId = 14L
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            ApplicationDate = new DateTime(2026, 5, 1, 10, 45, 0, 0, DateTimeKind.Unspecified),
+                            OnWaitinglist = false,
+                            Presence = false,
+                            TrainingId = 4L,
+                            UserId = 15L
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            ApplicationDate = new DateTime(2026, 5, 1, 10, 50, 0, 0, DateTimeKind.Unspecified),
+                            OnWaitinglist = false,
+                            Presence = false,
+                            TrainingId = 5L,
+                            UserId = 16L
                         },
                         new
                         {
                             Id = 10L,
-                            ApplicationDate = new DateTime(2023, 5, 4, 19, 0, 0, 0, DateTimeKind.Utc),
+                            ApplicationDate = new DateTime(2026, 5, 1, 10, 55, 0, 0, DateTimeKind.Unspecified),
+                            OnWaitinglist = true,
+                            Presence = false,
+                            TrainingId = 5L,
+                            UserId = 17L
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            ApplicationDate = new DateTime(2026, 5, 1, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             OnWaitinglist = false,
-                            Presence = true,
-                            TrainingId = 10L,
-                            UserId = 2L
+                            Presence = false,
+                            TrainingId = 6L,
+                            UserId = 18L
                         });
                 });
 
@@ -1019,72 +1407,702 @@ namespace GymTracer.Migrations
                         new
                         {
                             Id = 1L,
-                            CardId = 1L,
+                            CardId = 3L,
                             Gate = 1,
-                            UseDate = new DateTime(2023, 5, 1, 7, 45, 0, 0, DateTimeKind.Utc)
+                            UseDate = new DateTime(2026, 5, 1, 7, 15, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2L,
-                            CardId = 2L,
-                            Gate = 2,
-                            UseDate = new DateTime(2023, 5, 1, 9, 50, 0, 0, DateTimeKind.Utc)
+                            CardId = 8L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 1, 8, 30, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3L,
-                            CardId = 3L,
-                            Gate = 1,
-                            UseDate = new DateTime(2023, 5, 2, 7, 40, 0, 0, DateTimeKind.Utc)
+                            CardId = 12L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 1, 10, 5, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4L,
-                            CardId = 4L,
-                            Gate = 0,
-                            UseDate = new DateTime(2023, 5, 2, 17, 50, 0, 0, DateTimeKind.Utc)
+                            CardId = 5L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 2, 16, 45, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 5L,
-                            CardId = 5L,
-                            Gate = 2,
-                            UseDate = new DateTime(2023, 5, 3, 16, 45, 0, 0, DateTimeKind.Utc)
+                            CardId = 1L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 2, 17, 20, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 6L,
-                            CardId = 6L,
-                            Gate = 1,
-                            UseDate = new DateTime(2023, 5, 4, 6, 50, 0, 0, DateTimeKind.Utc)
+                            CardId = 9L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 3, 9, 10, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 7L,
-                            CardId = 7L,
-                            Gate = 2,
-                            UseDate = new DateTime(2023, 5, 5, 18, 45, 0, 0, DateTimeKind.Utc)
+                            CardId = 2L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 3, 11, 55, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 8L,
-                            CardId = 8L,
-                            Gate = 1,
-                            UseDate = new DateTime(2023, 5, 6, 9, 55, 0, 0, DateTimeKind.Utc)
+                            CardId = 13L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 4, 6, 30, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 9L,
-                            CardId = 9L,
-                            Gate = 0,
-                            UseDate = new DateTime(2023, 5, 7, 15, 45, 0, 0, DateTimeKind.Utc)
+                            CardId = 7L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 4, 18, 15, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 10L,
+                            CardId = 4L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 5, 8, 40, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            CardId = 11L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 5, 19, 5, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            CardId = 6L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 6, 14, 20, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            CardId = 10L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 6, 15, 35, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            CardId = 8L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 7, 7, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            CardId = 3L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 7, 12, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            CardId = 1L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 8, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 17L,
+                            CardId = 5L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 8, 16, 25, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 18L,
+                            CardId = 12L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 9, 10, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 19L,
+                            CardId = 2L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 9, 11, 45, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 20L,
+                            CardId = 9L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 10, 8, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 21L,
+                            CardId = 13L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 10, 17, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 22L,
+                            CardId = 7L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 11, 19, 20, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 23L,
+                            CardId = 4L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 11, 20, 5, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 24L,
+                            CardId = 11L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 12, 7, 45, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 25L,
+                            CardId = 6L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 12, 15, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 26L,
+                            CardId = 10L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 13, 16, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 27L,
+                            CardId = 8L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 13, 18, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 28L,
+                            CardId = 3L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 14, 9, 25, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 29L,
+                            CardId = 1L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 14, 10, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 30L,
+                            CardId = 5L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 15, 8, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 31L,
+                            CardId = 12L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 15, 12, 35, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 32L,
+                            CardId = 2L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 16, 14, 40, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 33L,
+                            CardId = 9L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 16, 17, 55, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 34L,
+                            CardId = 13L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 17, 11, 20, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 35L,
+                            CardId = 7L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 17, 18, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 36L,
+                            CardId = 4L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 18, 7, 5, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 37L,
+                            CardId = 11L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 18, 9, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 38L,
+                            CardId = 6L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 19, 16, 45, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 39L,
                             CardId = 10L,
                             Gate = 2,
-                            UseDate = new DateTime(2023, 5, 8, 8, 50, 0, 0, DateTimeKind.Utc)
+                            UseDate = new DateTime(2026, 5, 19, 19, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 40L,
+                            CardId = 8L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 20, 8, 25, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 41L,
+                            CardId = 3L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 20, 11, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 42L,
+                            CardId = 1L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 21, 15, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 43L,
+                            CardId = 5L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 21, 17, 35, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 44L,
+                            CardId = 12L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 22, 6, 40, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 45L,
+                            CardId = 2L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 22, 9, 55, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 46L,
+                            CardId = 9L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 23, 14, 20, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 47L,
+                            CardId = 13L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 23, 18, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 48L,
+                            CardId = 7L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 24, 10, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 49L,
+                            CardId = 4L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 24, 12, 45, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 50L,
+                            CardId = 11L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 25, 8, 5, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 51L,
+                            CardId = 6L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 25, 16, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 52L,
+                            CardId = 10L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 26, 19, 25, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 53L,
+                            CardId = 8L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 26, 20, 40, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 54L,
+                            CardId = 3L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 27, 7, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 55L,
+                            CardId = 1L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 27, 11, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 56L,
+                            CardId = 5L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 28, 15, 35, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 57L,
+                            CardId = 12L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 28, 18, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 58L,
+                            CardId = 2L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 29, 9, 20, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 59L,
+                            CardId = 9L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 29, 13, 45, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 60L,
+                            CardId = 13L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 30, 8, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 61L,
+                            CardId = 7L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 5, 30, 10, 25, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 62L,
+                            CardId = 4L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 5, 31, 16, 55, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 63L,
+                            CardId = 11L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 5, 31, 19, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 64L,
+                            CardId = 6L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 1, 7, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 65L,
+                            CardId = 10L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 1, 12, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 66L,
+                            CardId = 8L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 2, 15, 45, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 67L,
+                            CardId = 3L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 2, 18, 20, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 68L,
+                            CardId = 1L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 3, 9, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 69L,
+                            CardId = 5L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 3, 11, 40, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 70L,
+                            CardId = 12L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 4, 16, 5, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 71L,
+                            CardId = 2L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 4, 19, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 72L,
+                            CardId = 9L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 5, 8, 25, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 73L,
+                            CardId = 13L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 5, 14, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 74L,
+                            CardId = 7L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 6, 17, 35, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 75L,
+                            CardId = 4L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 6, 20, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 76L,
+                            CardId = 11L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 7, 7, 45, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 77L,
+                            CardId = 6L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 7, 10, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 78L,
+                            CardId = 10L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 8, 15, 55, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 79L,
+                            CardId = 8L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 8, 18, 40, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 80L,
+                            CardId = 3L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 9, 9, 20, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 81L,
+                            CardId = 1L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 9, 12, 5, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 82L,
+                            CardId = 5L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 10, 16, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 83L,
+                            CardId = 12L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 10, 19, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 84L,
+                            CardId = 2L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 11, 8, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 85L,
+                            CardId = 9L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 11, 11, 35, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 86L,
+                            CardId = 13L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 12, 15, 20, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 87L,
+                            CardId = 7L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 12, 18, 5, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 88L,
+                            CardId = 4L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 13, 9, 40, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 89L,
+                            CardId = 11L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 14, 14, 25, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 90L,
+                            CardId = 6L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 15, 17, 10, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 91L,
+                            CardId = 10L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 16, 19, 55, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 92L,
+                            CardId = 8L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 17, 8, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 93L,
+                            CardId = 3L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 18, 11, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 94L,
+                            CardId = 1L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 19, 15, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 95L,
+                            CardId = 5L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 20, 18, 45, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 96L,
+                            CardId = 12L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 22, 9, 20, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 97L,
+                            CardId = 2L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 24, 12, 5, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 98L,
+                            CardId = 9L,
+                            Gate = 0,
+                            UseDate = new DateTime(2026, 6, 26, 16, 50, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 99L,
+                            CardId = 13L,
+                            Gate = 2,
+                            UseDate = new DateTime(2026, 6, 28, 19, 35, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 100L,
+                            CardId = 7L,
+                            Gate = 1,
+                            UseDate = new DateTime(2026, 6, 30, 8, 10, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -1133,133 +2151,331 @@ namespace GymTracer.Migrations
                         {
                             Id = 1L,
                             Active = true,
-                            BirthDate = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 10, 8, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "alice@example.com",
-                            Name = "Alice Smith",
-                            Password = "hashed_pw_1",
-                            Role = 0
+                            BirthDate = new DateTime(1985, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@gym.hu",
+                            Name = "Adminisztrátor Anna",
+                            Password = "$pbkdf2$sha256$10$9EpqZbBCER6wbi+1cQZIrA==$b27NmGCjC5ll/Xx9tp4atkezneCrwoHuQ7/972kLuDAlXaiTqkHXUwT809/wU+Zr",
+                            Role = 3
                         },
                         new
                         {
                             Id = 2L,
                             Active = true,
-                            BirthDate = new DateTime(1985, 10, 22, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 11, 9, 30, 0, 0, DateTimeKind.Utc),
-                            Email = "bob@example.com",
-                            Name = "Bob Jones",
-                            Password = "hashed_pw_2",
-                            Role = 0
+                            BirthDate = new DateTime(1995, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "ricsi.staff@gym.hu",
+                            Name = "Recepciós Ricsi",
+                            Password = "$pbkdf2$sha256$10$X2mISW/tTvaFPjHNmiVzHg==$MTCqu9sBR+HyMZ5L+WAsuWdu2VK90AncgJpJh/igzGSZxvbudqA8D+tKfHwrXpDm",
+                            Role = 2
                         },
                         new
                         {
                             Id = 3L,
                             Active = true,
-                            BirthDate = new DateTime(1992, 3, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 12, 10, 15, 0, 0, DateTimeKind.Utc),
-                            Email = "charlie@example.com",
-                            Name = "Charlie Brown",
-                            Password = "hashed_pw_3",
+                            BirthDate = new DateTime(1990, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "elemer.edzo@gym.hu",
+                            Name = "Edző Elemér",
+                            Password = "$pbkdf2$sha256$10$UwmbS+nW7ONxybIb7ZKkwg==$PKmOZkVG5LCfFYHCEG5XtprjBI1Hh8ZoxXoIolKRVWaGX8uubwipc7OACmqhu34p",
                             Role = 1
                         },
                         new
                         {
                             Id = 4L,
                             Active = true,
-                            BirthDate = new DateTime(1988, 12, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 13, 11, 45, 0, 0, DateTimeKind.Utc),
-                            Email = "diana@example.com",
-                            Name = "Diana Prince",
-                            Password = "hashed_pw_4",
-                            Role = 0
+                            BirthDate = new DateTime(1992, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "eszter.edzo@gym.hu",
+                            Name = "Edző Eszter",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 1
                         },
                         new
                         {
                             Id = 5L,
                             Active = true,
-                            BirthDate = new DateTime(1995, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 14, 14, 20, 0, 0, DateTimeKind.Utc),
-                            Email = "evan@example.com",
-                            Name = "Evan Wright",
-                            Password = "hashed_pw_5",
-                            Role = 0
+                            BirthDate = new DateTime(1988, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "erik.edzo@gym.hu",
+                            Name = "Edző Erik",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 1
                         },
                         new
                         {
                             Id = 6L,
                             Active = true,
-                            BirthDate = new DateTime(1993, 2, 14, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 15, 16, 5, 0, 0, DateTimeKind.Utc),
-                            Email = "fiona@example.com",
-                            Name = "Fiona Gallagher",
-                            Password = "hashed_pw_6",
+                            BirthDate = new DateTime(1994, 9, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "edit.edzo@gym.hu",
+                            Name = "Edző Edit",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
                             Role = 1
                         },
                         new
                         {
                             Id = 7L,
                             Active = true,
-                            BirthDate = new DateTime(1980, 9, 30, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 16, 18, 50, 0, 0, DateTimeKind.Utc),
-                            Email = "george@example.com",
-                            Name = "George Miller",
-                            Password = "hashed_pw_7",
-                            Role = 0
+                            BirthDate = new DateTime(1991, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "endre.edzo@gym.hu",
+                            Name = "Edző Endre",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 1
                         },
                         new
                         {
                             Id = 8L,
                             Active = true,
-                            BirthDate = new DateTime(1998, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 17, 7, 10, 0, 0, DateTimeKind.Utc),
-                            Email = "hannah@example.com",
-                            Name = "Hannah Abbott",
-                            Password = "hashed_pw_8",
+                            BirthDate = new DateTime(2001, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 9, 15, 0, 0, DateTimeKind.Unspecified),
+                            Email = "janos.kovacs@email.com",
+                            Name = "Kovács János",
+                            Password = "$pbkdf2$sha256$10$OMmHJZpe1+i+mqmppuZl7g==$e5iKNiO0PRFvk4cH2rhX0MfwLjm8NYuQpIpZ1M/T3E/0TejxJV3f8PQCPIH1qoWo",
                             Role = 0
                         },
                         new
                         {
                             Id = 9L,
                             Active = true,
-                            BirthDate = new DateTime(1975, 11, 11, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 18, 12, 35, 0, 0, DateTimeKind.Utc),
-                            Email = "ian@example.com",
-                            Name = "Ian Malcolm",
-                            Password = "hashed_pw_9",
+                            BirthDate = new DateTime(1998, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 9, 20, 0, 0, DateTimeKind.Unspecified),
+                            Email = "anna.nagy@email.com",
+                            Name = "Nagy Anna",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
                             Role = 0
                         },
                         new
                         {
                             Id = 10L,
                             Active = true,
-                            BirthDate = new DateTime(1999, 8, 5, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 19, 15, 25, 0, 0, DateTimeKind.Utc),
-                            Email = "jane@example.com",
-                            Name = "Jane Doe",
-                            Password = "hashed_pw_10",
+                            BirthDate = new DateTime(2003, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            Email = "peter.szabo@email.com",
+                            Name = "Szabó Péter",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
                             Role = 0
                         },
                         new
                         {
                             Id = 11L,
                             Active = true,
-                            BirthDate = new DateTime(1999, 8, 5, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 19, 15, 25, 0, 0, DateTimeKind.Utc),
-                            Email = "tesztelek@example.com",
-                            Name = "Teszt Elek",
-                            Password = "hashed_pw_10",
-                            Role = 2
+                            BirthDate = new DateTime(1995, 12, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 9, 40, 0, 0, DateTimeKind.Unspecified),
+                            Email = "maria.toth@email.com",
+                            Name = "Tóth Mária",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
                         },
                         new
                         {
                             Id = 12L,
                             Active = true,
-                            BirthDate = new DateTime(1999, 8, 5, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreationDate = new DateTime(2023, 1, 19, 15, 25, 0, 0, DateTimeKind.Utc),
-                            Email = "gitaron@example.com",
-                            Name = "Git Áron",
-                            Password = "hashed_pw_10",
-                            Role = 3
+                            BirthDate = new DateTime(1990, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 9, 45, 0, 0, DateTimeKind.Unspecified),
+                            Email = "laszlo.kiss@email.com",
+                            Name = "Kiss László",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            Active = true,
+                            BirthDate = new DateTime(1987, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 9, 50, 0, 0, DateTimeKind.Unspecified),
+                            Email = "eva.varga@email.com",
+                            Name = "Varga Éva",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            Active = true,
+                            BirthDate = new DateTime(1992, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 9, 55, 0, 0, DateTimeKind.Unspecified),
+                            Email = "gabor.molnar@email.com",
+                            Name = "Molnár Gábor",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            Active = true,
+                            BirthDate = new DateTime(1999, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "judit.farkas@email.com",
+                            Name = "Farkas Judit",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            Active = true,
+                            BirthDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 10, 0, 0, DateTimeKind.Unspecified),
+                            Email = "zoltan.balogh@email.com",
+                            Name = "Balogh Zoltán",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 17L,
+                            Active = true,
+                            BirthDate = new DateTime(1985, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            Email = "andrea.papp@email.com",
+                            Name = "Papp Andrea",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 18L,
+                            Active = true,
+                            BirthDate = new DateTime(1994, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 20, 0, 0, DateTimeKind.Unspecified),
+                            Email = "miklos.takacs@email.com",
+                            Name = "Takács Miklós",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 19L,
+                            Active = true,
+                            BirthDate = new DateTime(1996, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 25, 0, 0, DateTimeKind.Unspecified),
+                            Email = "katalin.juhasz@email.com",
+                            Name = "Juhász Katalin",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 20L,
+                            Active = true,
+                            BirthDate = new DateTime(1991, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            Email = "csaba.lakatos@email.com",
+                            Name = "Lakatos Csaba",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 21L,
+                            Active = true,
+                            BirthDate = new DateTime(2002, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 35, 0, 0, DateTimeKind.Unspecified),
+                            Email = "krisztina.meszaros@email.com",
+                            Name = "Mészáros Krisztina",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 22L,
+                            Active = true,
+                            BirthDate = new DateTime(1989, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 40, 0, 0, DateTimeKind.Unspecified),
+                            Email = "attila.simon@email.com",
+                            Name = "Simon Attila",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 23L,
+                            Active = true,
+                            BirthDate = new DateTime(1997, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 45, 0, 0, DateTimeKind.Unspecified),
+                            Email = "agnes.fekete@email.com",
+                            Name = "Fekete Ágnes",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 24L,
+                            Active = true,
+                            BirthDate = new DateTime(1986, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 50, 0, 0, DateTimeKind.Unspecified),
+                            Email = "zsolt.toth@email.com",
+                            Name = "Tóth Zsolt",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 25L,
+                            Active = true,
+                            BirthDate = new DateTime(1993, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 55, 0, 0, DateTimeKind.Unspecified),
+                            Email = "ildiko.szilagyi@email.com",
+                            Name = "Szilágyi Ildikó",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 26L,
+                            Active = true,
+                            BirthDate = new DateTime(1998, 11, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "balazs.torok@email.com",
+                            Name = "Török Balázs",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 27L,
+                            Active = true,
+                            BirthDate = new DateTime(2004, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 11, 5, 0, 0, DateTimeKind.Unspecified),
+                            Email = "dora.feher@email.com",
+                            Name = "Fehér Dóra",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 28L,
+                            Active = true,
+                            BirthDate = new DateTime(1995, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 11, 10, 0, 0, DateTimeKind.Unspecified),
+                            Email = "tamas.racz@email.com",
+                            Name = "Rácz Tamás",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 29L,
+                            Active = true,
+                            BirthDate = new DateTime(1992, 3, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 11, 15, 0, 0, DateTimeKind.Unspecified),
+                            Email = "viktoria.kis@email.com",
+                            Name = "Kis Viktória",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 30L,
+                            Active = true,
+                            BirthDate = new DateTime(1990, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2026, 5, 1, 11, 20, 0, 0, DateTimeKind.Unspecified),
+                            Email = "gergo.gal@email.com",
+                            Name = "Gál Gergő",
+                            Password = "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+                            Role = 0
                         });
                 });
 
@@ -1302,102 +2518,122 @@ namespace GymTracer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreationDate = new DateTime(2023, 1, 30, 10, 5, 0, 0, DateTimeKind.Utc),
-                            ExpirationDate = new DateTime(2023, 1, 31, 23, 59, 59, 0, DateTimeKind.Utc),
+                            CreationDate = new DateTime(2026, 5, 1, 10, 5, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 5, 5, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentId = 1L,
-                            TicketId = 1L,
-                            UsageAmount = 1ul,
-                            UserId = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreationDate = new DateTime(2023, 2, 4, 11, 5, 0, 0, DateTimeKind.Utc),
-                            ExpirationDate = new DateTime(2023, 3, 4, 23, 59, 59, 0, DateTimeKind.Utc),
-                            PaymentId = 2L,
-                            TicketId = 3L,
-                            UsageAmount = 0ul,
-                            UserId = 2L
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CreationDate = new DateTime(2023, 2, 9, 12, 5, 0, 0, DateTimeKind.Utc),
-                            ExpirationDate = new DateTime(2023, 5, 9, 23, 59, 59, 0, DateTimeKind.Utc),
-                            PaymentId = 3L,
-                            TicketId = 6L,
-                            UsageAmount = 5ul,
-                            UserId = 3L
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            CreationDate = new DateTime(2023, 2, 14, 13, 5, 0, 0, DateTimeKind.Utc),
-                            ExpirationDate = new DateTime(2023, 2, 15, 23, 59, 59, 0, DateTimeKind.Utc),
-                            PaymentId = 4L,
-                            TicketId = 7L,
-                            UsageAmount = 1ul,
-                            UserId = 4L
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            CreationDate = new DateTime(2023, 2, 19, 14, 5, 0, 0, DateTimeKind.Utc),
-                            ExpirationDate = new DateTime(2023, 5, 19, 23, 59, 59, 0, DateTimeKind.Utc),
-                            PaymentId = 5L,
-                            TicketId = 5L,
-                            UsageAmount = 2ul,
-                            UserId = 5L
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            CreationDate = new DateTime(2023, 2, 24, 15, 5, 0, 0, DateTimeKind.Utc),
-                            ExpirationDate = new DateTime(2023, 2, 25, 23, 59, 59, 0, DateTimeKind.Utc),
-                            PaymentId = 6L,
-                            TicketId = 2L,
-                            UsageAmount = 1ul,
-                            UserId = 6L
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            CreationDate = new DateTime(2023, 2, 28, 16, 5, 0, 0, DateTimeKind.Utc),
-                            ExpirationDate = new DateTime(2023, 3, 28, 23, 59, 59, 0, DateTimeKind.Utc),
-                            PaymentId = 7L,
                             TicketId = 4L,
-                            UsageAmount = 0ul,
-                            UserId = 7L
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            CreationDate = new DateTime(2023, 3, 5, 8, 0, 0, 0, DateTimeKind.Utc),
-                            ExpirationDate = new DateTime(2023, 3, 6, 12, 0, 0, 0, DateTimeKind.Utc),
-                            PaymentId = 8L,
-                            TicketId = 3L,
                             UsageAmount = 0ul,
                             UserId = 8L
                         },
                         new
                         {
-                            Id = 9L,
-                            CreationDate = new DateTime(2023, 3, 9, 18, 5, 0, 0, DateTimeKind.Utc),
-                            ExpirationDate = new DateTime(2023, 4, 9, 23, 59, 59, 0, DateTimeKind.Utc),
-                            PaymentId = 9L,
+                            Id = 2L,
+                            CreationDate = new DateTime(2026, 5, 1, 11, 5, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 6, 1, 23, 59, 59, 0, DateTimeKind.Unspecified),
+                            PaymentId = 2L,
                             TicketId = 2L,
-                            UsageAmount = 4ul,
+                            UsageAmount = 0ul,
                             UserId = 9L
                         },
                         new
                         {
-                            Id = 10L,
-                            CreationDate = new DateTime(2023, 3, 14, 19, 5, 0, 0, DateTimeKind.Utc),
-                            ExpirationDate = new DateTime(2024, 3, 14, 23, 59, 59, 0, DateTimeKind.Utc),
-                            PaymentId = 10L,
-                            TicketId = 8L,
+                            Id = 3L,
+                            CreationDate = new DateTime(2026, 5, 1, 11, 35, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 5, 1, 23, 59, 59, 0, DateTimeKind.Unspecified),
+                            PaymentId = 3L,
+                            TicketId = 1L,
                             UsageAmount = 0ul,
                             UserId = 10L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreationDate = new DateTime(2026, 5, 1, 12, 5, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 8, 1, 23, 59, 59, 0, DateTimeKind.Unspecified),
+                            PaymentId = 4L,
+                            TicketId = 3L,
+                            UsageAmount = 0ul,
+                            UserId = 11L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CreationDate = new DateTime(2026, 5, 1, 12, 20, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 5, 6, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            PaymentId = 5L,
+                            TicketId = 7L,
+                            UsageAmount = 0ul,
+                            UserId = 12L
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CreationDate = new DateTime(2026, 5, 1, 12, 35, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 6, 1, 23, 59, 59, 0, DateTimeKind.Unspecified),
+                            PaymentId = 6L,
+                            TicketId = 2L,
+                            UsageAmount = 0ul,
+                            UserId = 13L
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CreationDate = new DateTime(2026, 5, 1, 13, 5, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 5, 10, 17, 30, 0, 0, DateTimeKind.Unspecified),
+                            PaymentId = 7L,
+                            TicketId = 12L,
+                            UsageAmount = 0ul,
+                            UserId = 14L
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            CreationDate = new DateTime(2026, 5, 1, 13, 35, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 8, 1, 23, 59, 59, 0, DateTimeKind.Unspecified),
+                            PaymentId = 8L,
+                            TicketId = 3L,
+                            UsageAmount = 0ul,
+                            UserId = 15L
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            CreationDate = new DateTime(2026, 5, 1, 14, 5, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 5, 12, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentId = 9L,
+                            TicketId = 14L,
+                            UsageAmount = 0ul,
+                            UserId = 16L
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            CreationDate = new DateTime(2026, 5, 1, 14, 20, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 5, 14, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentId = 10L,
+                            TicketId = 17L,
+                            UsageAmount = 0ul,
+                            UserId = 17L
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            CreationDate = new DateTime(2026, 5, 1, 14, 35, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 6, 1, 23, 59, 59, 0, DateTimeKind.Unspecified),
+                            PaymentId = 11L,
+                            TicketId = 2L,
+                            UsageAmount = 0ul,
+                            UserId = 18L
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            CreationDate = new DateTime(2026, 5, 1, 15, 5, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2026, 5, 1, 23, 59, 59, 0, DateTimeKind.Unspecified),
+                            PaymentId = 12L,
+                            TicketId = 1L,
+                            UsageAmount = 0ul,
+                            UserId = 19L
                         });
                 });
 

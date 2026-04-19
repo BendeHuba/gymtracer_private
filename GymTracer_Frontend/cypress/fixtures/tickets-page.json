@@ -1,0 +1,70 @@
+{
+  "tickets": [
+    {
+      "id": 11,
+      "type": 1,
+      "description": "Napijegy",
+      "isStudent": false,
+      "price": 2500,
+      "maxUsage": 1,
+      "trainingId": null,
+      "trainingName": null
+    },
+    {
+      "id": 12,
+      "type": 2,
+      "description": "Diak berlet",
+      "isStudent": true,
+      "price": 8000,
+      "maxUsage": 30,
+      "trainingId": null,
+      "trainingName": null
+    },
+    {
+      "id": 13,
+      "type": 0,
+      "description": "Crossfit alkalom",
+      "isStudent": false,
+      "price": 3200,
+      "maxUsage": 1,
+      "trainingId": 77,
+      "trainingName": "Crossfit kezdok"
+    },
+    {
+      "id": 14,
+      "type": 0,
+      "description": "Student joga",
+      "isStudent": true,
+      "price": 2800,
+      "maxUsage": 1,
+      "trainingId": 88,
+      "trainingName": "Student joga"
+    }
+  ],
+  "ownedTickets": [
+    {
+      "type": 2,
+      "description": "Eves berlet",
+      "isStudent": false,
+      "expirationDate": "2030-01-01T00:00:00.000Z",
+      "price": 120000,
+      "paymentId": 991,
+      "isPayed": true,
+      "usagesLeft": null,
+      "trainingId": null,
+      "trainingName": null
+    },
+    {
+      "type": 1,
+      "description": "Fizetesre varo napijegy",
+      "isStudent": false,
+      "expirationDate": "2030-02-01T00:00:00.000Z",
+      "price": 2500,
+      "paymentId": 992,
+      "isPayed": false,
+      "usagesLeft": 1,
+      "trainingId": null,
+      "trainingName": null
+    }
+  ]
+}

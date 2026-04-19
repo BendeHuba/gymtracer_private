@@ -1,3 +1,21 @@
+# Local Development Settings
+Properties/launchSettings.json
+appsettings.Development.json
+
+# Local Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+**/logs/
+*.log
+
+# All Test projects
+**/*Tests/
+**/*Test/
+
+# Standard .NET / VS / Git ignores
 **/.classpath
 **/.dockerignore
 **/.env
@@ -24,7 +42,3 @@
 LICENSE
 README.md
 !**/.gitignore
-!.git/HEAD
-!.git/config
-!.git/packed-refs
-!.git/refs/heads/**

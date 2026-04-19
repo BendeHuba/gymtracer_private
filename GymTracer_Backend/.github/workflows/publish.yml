@@ -1,0 +1,51 @@
+name: Docker Image CI
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: generate image tag
+      run: |
+        echo "IMAGE_TAG=$(date +%s)" >> $GITHUB_ENV
+
+
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: |
+        docker build . --file Dockerfile --tag ghcr.io/bendehuba/gymtracer-backend:$IMAGE_TAG        
+        docker login ghcr.io -u bendehuba -p ${{ secrets.GHCR_TOKEN }}
+        docker push ghcr.io/bendehuba/gymtracer-backend:$IMAGE_TAG
+
+        sed -i 's|image: ghcr.io/bendehuba/gymtracer-backend:.*|image: ghcr.io/bendehuba/gymtracer-backend:'"$IMAGE_TAG"'|' deployment.yaml
+
+        git config --global user.name "Bende Huba"
+        git config --global user.email "bende.huba@students.jedlik.eu"
+        git add deployment.yaml
+        git commit -m "[skip ci] Automated: Updated K8S deployment.yaml with tag $IMAGE_TAG"        
+        git push
+
+        mkdir -p ~/.kube
+        echo "${{ secrets.K8S_CONFIG_BASE64 }}" | base64 -d > ~/.kube/config
+
+        kubectl create secret generic gymtracer-backend-secrets \
+          --from-literal=db-connection="${{ secrets.DB_CONNECTION_STRING }}" \
+          --from-literal=mariadb-root-password="${{ secrets.DB_ROOT_PASSWORD }}" \
+          --from-literal=mariadb-user="${{ secrets.DB_USER }}" \
+          --from-literal=mariadb-password="${{ secrets.DB_PASSWORD }}" \
+          --dry-run=client -o yaml | kubectl apply -f -
+
+        kubectl apply -f deployment.yaml

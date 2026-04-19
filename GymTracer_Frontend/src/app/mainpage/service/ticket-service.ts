@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TicketModel } from '../models/ticketModel';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TicketsService {
-  apiUrl = 'http://localhost:5065/api';
-  constructor(private httpService: HttpClient) {}
+  apiUrl = environment.apiUrl;
+  httpService = inject(HttpClient);
 
   getTickets() {
     return this.httpService.get<TicketModel[]>(`${this.apiUrl}/Ticket`);

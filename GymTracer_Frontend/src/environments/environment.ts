@@ -1,5 +1,7 @@
 import { EnvironmentModel } from "./environment.model";
 
 export const environment : EnvironmentModel = {
-    apiUrl: "http://localhost:5065/api",
+    apiUrl: "https://api.gymtracer.jcloud.jedlik.cloud/api",
+    pastTrainingDays: 14,
+    futureTrainingDays: 60
 }

@@ -94,8 +94,8 @@ export class Trainings implements OnInit, OnDestroy {
     const activeFilters: AllTrainingFilter = {};
     
     if (this.filters.keyword?.trim()) activeFilters.keyword = this.filters.keyword.trim();
-    if (this.filters.start) activeFilters.start = this.filters.start;
-    if (this.filters.end) activeFilters.end = this.filters.end;
+    if (this.filters.start) activeFilters.start = new Date(this.filters.start).toISOString();
+    if (this.filters.end) activeFilters.end = new Date(this.filters.end).toISOString();
     if (this.filters.trainerName?.trim()) activeFilters.trainerName = this.filters.trainerName.trim();
     if (this.filters.trainerId) activeFilters.trainerId = this.filters.trainerId;
 
@@ -104,8 +104,12 @@ export class Trainings implements OnInit, OnDestroy {
 
     this.trainingService.getAllTrainings(activeFilters).subscribe({
       next: (response) => {
-        this.trainings = response;
-        this.trainingService.lastResults = response;
+        this.trainings = response.map(t => ({
+          ...t,
+          startTime: this.ensureUtc(t.startTime),
+          endTime: this.ensureUtc(t.endTime)
+        }));
+        this.trainingService.lastResults = this.trainings;
 
         this.isLoading = false;
       },
@@ -116,4 +120,10 @@ export class Trainings implements OnInit, OnDestroy {
     });
   }
 
+  private ensureUtc(dateString: string){
+    if (!dateString) return dateString;
+
+    const isoString = dateString.replace(' ', 'T');
+    return isoString.endsWith('Z') ? isoString : isoString + 'Z';
+  }
 }

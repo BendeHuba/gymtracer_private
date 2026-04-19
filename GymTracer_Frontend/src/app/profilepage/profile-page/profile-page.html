@@ -1,0 +1,155 @@
+<div class="bg-white dark:bg-gray-950 w-full min-h-[calc(100vh-7.47rem)] shadow-2xl border border-gray-300 dark:border-gray-800 p-8 sm:p-12 transition-colors duration-300"
+    [ngClass]="theme.getColor()">
+    @if (userData) {
+    <div class="flex flex-col sm:flex-row items-center gap-6 border-b border-gray-200 dark:border-gray-800 pb-8 mb-8">
+        <div
+            class="w-24 h-24 bg-linear-to-tr from-primary-600 to-primary-400 rounded-full flex items-center justify-center text-4xl font-bold text-white shadow-lg shrink-0">
+            {{userData.name.charAt(0).toUpperCase()}}
+        </div>
+        <div class="text-center sm:text-left flex-1">
+            <h1 class="text-3xl font-extrabold text-black dark:text-white tracking-tight">{{userData.name}}</h1>
+            <p class="text-gray-600 dark:text-gray-400 text-lg mt-1">{{userData.email}}</p>
+            
+            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 mt-3">
+                <span
+                    class="inline-flex items-center px-3 py-1 bg-green-500/10 dark:bg-green-500/20 text-green-600 dark:text-green-400 border border-green-500/20 rounded-full text-sm font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+                    Aktív Tag
+                </span>
+
+                <span 
+                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold shadow-sm" 
+                    [ngClass]="getRoleBadgeClass(userData.role)">
+                    {{ getRoleLabel(userData.role) }}
+                </span>
+            </div>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3">
+            <button (click)="toggleModification()"
+                class="bg-gray-800 dark:bg-gray-800 hover:bg-gray-700 dark:hover:bg-gray-700 text-white px-5 py-2.5 rounded-xl font-medium transition-colors border border-gray-700 dark:border-gray-600 text-sm hover:cursor-pointer shadow-sm">
+                Profiladatok Szerkesztése
+            </button>
+            <button (click)="deleteProfile()"
+                class="bg-primary-600 hover:bg-primary-500 text-white px-5 py-2.5 rounded-xl font-medium transition-colors text-sm hover:cursor-pointer shadow-md shadow-primary-600/20">
+                Profil Törlése
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+
+        <div class="bg-gray-50/50 dark:bg-gray-900/50 p-5 rounded-2xl border border-gray-200 dark:border-gray-800 transition-colors">
+            <p class="text-gray-500 dark:text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">Regisztráció dátuma</p>
+            <p class="text-black dark:text-white text-lg font-medium">{{userData.creationDate | date:'yyyy MMMM dd.':'':'hu'}}</p>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">{{userData.creationDate | date:'HH:mm':'':'hu'}}</p>
+        </div>
+
+        <div class="bg-gray-50/50 dark:bg-gray-900/50 p-5 rounded-2xl border border-gray-200 dark:border-gray-800 transition-colors">
+            <p class="text-gray-500 dark:text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">Születési dátum</p>
+            @if (userData.birthDate != null) {
+                <p class="text-black dark:text-white text-lg font-medium">{{userData.birthDate | date:'yyyy MMMM dd.':'':'hu'}}</p>
+            }
+            @else {
+                <p class="text-gray-400 dark:text-gray-600 text-lg italic mt-1">Nincs megadva</p>
+            }
+        </div>
+
+        @if (authService.pretendedUser) {
+            <div class="sm:col-span-2 bg-gray-100/50 dark:bg-gray-900/50 p-5 rounded-2xl border border-gray-200/50 dark:border-gray-800 transition-colors" [ngClass]="theme.getColor()">
+                
+                <div class="flex items-center justify-between mb-4">
+                    <p class="text-gray-700 dark:text-gray-400 text-xs font-bold uppercase tracking-widest">Belépőjegyek</p>
+                    <span class="text-xs font-medium bg-gray-300 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-md transition-colors">
+                        {{ entryTickets ? entryTickets.length : 0 }} Elérhető
+                    </span>
+                </div>
+                
+                <div class="flex flex-wrap gap-4 mb-6">
+                    @if (entryTickets && entryTickets.length > 0) {
+                        @for (ticket of entryTickets; track $index) {
+                            <app-tickets-card class="flex-1 min-w-[300px]"
+                                [ticket]="ticket"
+                                [isPaying]="paymentId === ticket.paymentId" 
+                                (localPay)="onLocalPay($event)">
+                            </app-tickets-card>
+                        }
+                    } @else {
+                        <div class="w-full text-center text-gray-500 dark:text-gray-400 py-6 bg-gray-200/50 dark:bg-gray-800/50 rounded-xl border border-gray-300/50 dark:border-gray-700 shadow-inner text-sm">
+                            A felhasználónak nincsenek elérhető belépőjegyei.
+                        </div>
+                    }
+                </div>
+
+                <div class="flex flex-col items-center justify-center gap-4 border-t border-gray-300/50 dark:border-gray-700 pt-5">
+
+                    <label class="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300 font-medium select-none hover:text-black dark:hover:text-white transition-colors"
+                           [ngClass]="{'opacity-50 cursor-not-allowed': isGateLoading, 'cursor-pointer': !isGateLoading}">
+                        <input type="checkbox" [(ngModel)]="entryWithoutTicket" [disabled]="isGateLoading"
+                            class="h-6 w-6 sm:h-5 sm:w-5 accent-primary-600 border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded transition-colors duration-300 ease-in-out disabled:opacity-50">
+                        Beléptetés jegy nélkül
+                    </label>
+
+                    <button (click)="openGate()" [disabled]="isGateLoading"
+                        class="w-full sm:w-auto min-w-[200px] bg-primary-600 hover:bg-primary-500 text-white px-6 py-2.5 rounded-xl font-medium transition-colors text-sm shadow-sm flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                        [ngClass]="{'cursor-not-allowed': isGateLoading, 'hover:cursor-pointer': !isGateLoading}">
+                        
+                        @if (isGateLoading) {
+                            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Feldolgozás...
+                        } @else {
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                            </svg>
+                            Beléptetés
+                        }
+                    </button>
+
+                    @if(userData.wentInToday){
+                        <p class="w-full text-center text-black dark:text-white">A felhasználó ma már <strong class="text-primary-500">belépett</strong> az edzőterembe</p>
+                    }
+                    
+                    @if (gateMessage) {
+                        <div class="text-sm font-medium px-4 py-2 rounded-lg text-center w-full sm:w-auto transition-all"
+                             [ngClass]="{
+                                'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800': gateMessage.isError,
+                                'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800': !gateMessage.isError
+                             }">
+                            {{ gateMessage.text }}
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <app-cards-list class="sm:col-span-2" [(cardsOfUser)]="cards"></app-cards-list>
+    </div>
+    }
+    @else if (isLoading) {
+        <div class="flex flex-col items-center justify-center py-24 gap-4">
+            <svg class="animate-spin h-12 w-12 text-primary-600 dark:text-primary-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="text-gray-600 dark:text-gray-400 text-lg font-medium animate-pulse">
+                Adatok betöltése...
+            </p>
+        </div>
+    }
+    @else {
+    <div class="flex flex-col items-center justify-center py-12">
+        <h1 class="text-3xl font-extrabold text-black dark:text-white tracking-tight capitalize">Hiba</h1>
+        <p class="text-gray-600 dark:text-gray-400 text-lg mt-1">Adatait sajnos nem tudtuk megjeleníteni. Kérjük próbálja újra később.</p>
+    </div>
+    }
+
+</div>
+
+@if (isModifing) {
+ <app-profile-modification-form [userData]="copyOfUserData" (isSuccessful)="isSuccessful($event)"></app-profile-modification-form>
+}
+@if (isDeleteing) {
+    <app-delete-user-popup (Cancel)="deleteCanceled()"></app-delete-user-popup>
+}

@@ -1,123 +1,302 @@
 ﻿[
-  {
-    "Id": 1,
-    "Name": "Alice Smith",
-    "Email": "alice@example.com",
-    "Password": "hashed_pw_1",
-    "BirthDate": "1990-05-15T00:00:00Z",
-    "Role": 0,
-    "CreationDate": "2023-01-10T08:00:00Z",
-    "Active": 1
-  },
-  {
-    "Id": 2,
-    "Name": "Bob Jones",
-    "Email": "bob@example.com",
-    "Password": "hashed_pw_2",
-    "BirthDate": "1985-10-22T00:00:00Z",
-    "Role": 0,
-    "CreationDate": "2023-01-11T09:30:00Z",
-    "Active": 1
-
-  },
-  {
-    "Id": 3,
-    "Name": "Charlie Brown",
-    "Email": "charlie@example.com",
-    "Password": "hashed_pw_3",
-    "BirthDate": "1992-03-08T00:00:00Z",
-    "Role": 1,
-    "CreationDate": "2023-01-12T10:15:00Z",
-    "Active": 1
-  },
-  {
-    "Id": 4,
-    "Name": "Diana Prince",
-    "Email": "diana@example.com",
-    "Password": "hashed_pw_4",
-    "BirthDate": "1988-12-01T00:00:00Z",
-    "Role": 0,
-    "CreationDate": "2023-01-13T11:45:00Z",
-    "Active": 1
-  },
-  {
-    "Id": 5,
-    "Name": "Evan Wright",
-    "Email": "evan@example.com",
-    "Password": "hashed_pw_5",
-    "BirthDate": "1995-07-19T00:00:00Z",
-    "Role": 0,
-    "CreationDate": "2023-01-14T14:20:00Z",
-    "Active": 1
-  },
-  {
-    "Id": 6,
-    "Name": "Fiona Gallagher",
-    "Email": "fiona@example.com",
-    "Password": "hashed_pw_6",
-    "BirthDate": "1993-02-14T00:00:00Z",
-    "Role": 1,
-    "CreationDate": "2023-01-15T16:05:00Z",
-    "Active": 1
-  },
-  {
-    "Id": 7,
-    "Name": "George Miller",
-    "Email": "george@example.com",
-    "Password": "hashed_pw_7",
-    "BirthDate": "1980-09-30T00:00:00Z",
-    "Role": 0,
-    "CreationDate": "2023-01-16T18:50:00Z",
-    "Active": 1
-  },
-  {
-    "Id": 8,
-    "Name": "Hannah Abbott",
-    "Email": "hannah@example.com",
-    "Password": "hashed_pw_8",
-    "BirthDate": "1998-04-25T00:00:00Z",
-    "Role": 0,
-    "CreationDate": "2023-01-17T07:10:00Z",
-    "Active": 1
-  },
-  {
-    "Id": 9,
-    "Name": "Ian Malcolm",
-    "Email": "ian@example.com",
-    "Password": "hashed_pw_9",
-    "BirthDate": "1975-11-11T00:00:00Z",
-    "Role": 0,
-    "CreationDate": "2023-01-18T12:35:00Z",
-    "Active": 1
-  },
-  {
-    "Id": 10,
-    "Name": "Jane Doe",
-    "Email": "jane@example.com",
-    "Password": "hashed_pw_10",
-    "BirthDate": "1999-08-05T00:00:00Z",
-    "Role": 0,
-    "CreationDate": "2023-01-19T15:25:00Z",
-    "Active": 1
-  },
-  {
-    "Id": 11,
-    "Name": "Teszt Elek",
-    "Email": "tesztelek@example.com",
-    "Password": "hashed_pw_10",
-    "BirthDate": "1999-08-05T00:00:00Z",
-    "Role": 2,
-    "CreationDate": "2023-01-19T15:25:00Z",
-    "Active": 1
-  },
-  {
-    "Id": 12,
-    "Name": "Git Áron",
-    "Email": "gitaron@example.com",
-    "Password": "hashed_pw_10",
-    "BirthDate": "1999-08-05T00:00:00Z",
-    "Role": 3,
-    "CreationDate": "2023-01-19T15:25:00Z",
-    "Active": 1
-  }
+        {
+            "Id": 1,
+            "Name": "Adminisztrátor Anna",
+            "Email": "admin@gym.hu",
+            "Password": "$pbkdf2$sha256$10$9EpqZbBCER6wbi+1cQZIrA==$b27NmGCjC5ll/Xx9tp4atkezneCrwoHuQ7/972kLuDAlXaiTqkHXUwT809/wU+Zr",
+            "BirthDate": "1985-05-10T00:00:00",
+            "Role": 3,
+            "CreationDate": "2026-05-01T08:00:00",
+            "Active": 1
+        },
+        {
+            "Id": 2,
+            "Name": "Recepciós Ricsi",
+            "Email": "ricsi.staff@gym.hu",
+            "Password": "$pbkdf2$sha256$10$X2mISW/tTvaFPjHNmiVzHg==$MTCqu9sBR+HyMZ5L+WAsuWdu2VK90AncgJpJh/igzGSZxvbudqA8D+tKfHwrXpDm",
+            "BirthDate": "1995-02-15T00:00:00",
+            "Role": 2,
+            "CreationDate": "2026-05-01T08:00:00",
+            "Active": 1
+        },
+        {
+            "Id": 3,
+            "Name": "Edző Elemér",
+            "Email": "elemer.edzo@gym.hu",
+            "Password": "$pbkdf2$sha256$10$UwmbS+nW7ONxybIb7ZKkwg==$PKmOZkVG5LCfFYHCEG5XtprjBI1Hh8ZoxXoIolKRVWaGX8uubwipc7OACmqhu34p",
+            "BirthDate": "1990-11-20T00:00:00",
+            "Role": 1,
+            "CreationDate": "2026-05-01T08:00:00",
+            "Active": 1
+        },
+        {
+            "Id": 4,
+            "Name": "Edző Eszter",
+            "Email": "eszter.edzo@gym.hu",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1992-06-11T00:00:00",
+            "Role": 1,
+            "CreationDate": "2026-05-01T08:00:00",
+            "Active": 1
+        },
+        {
+            "Id": 5,
+            "Name": "Edző Erik",
+            "Email": "erik.edzo@gym.hu",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1988-04-03T00:00:00",
+            "Role": 1,
+            "CreationDate": "2026-05-01T08:00:00",
+            "Active": 1
+        },
+        {
+            "Id": 6,
+            "Name": "Edző Edit",
+            "Email": "edit.edzo@gym.hu",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1994-09-21T00:00:00",
+            "Role": 1,
+            "CreationDate": "2026-05-01T08:00:00",
+            "Active": 1
+        },
+        {
+            "Id": 7,
+            "Name": "Edző Endre",
+            "Email": "endre.edzo@gym.hu",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1991-01-30T00:00:00",
+            "Role": 1,
+            "CreationDate": "2026-05-01T08:00:00",
+            "Active": 1
+        },
+        {
+            "Id": 8,
+            "Name": "Kovács János",
+            "Email": "janos.kovacs@email.com",
+            "Password": "$pbkdf2$sha256$10$OMmHJZpe1+i+mqmppuZl7g==$e5iKNiO0PRFvk4cH2rhX0MfwLjm8NYuQpIpZ1M/T3E/0TejxJV3f8PQCPIH1qoWo",
+            "BirthDate": "2001-03-12T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T09:15:00",
+            "Active": 1
+        },
+        {
+            "Id": 9,
+            "Name": "Nagy Anna",
+            "Email": "anna.nagy@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1998-07-25T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T09:20:00",
+            "Active": 1
+        },
+        {
+            "Id": 10,
+            "Name": "Szabó Péter",
+            "Email": "peter.szabo@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "2003-11-05T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T09:30:00",
+            "Active": 1
+        },
+        {
+            "Id": 11,
+            "Name": "Tóth Mária",
+            "Email": "maria.toth@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1995-12-18T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T09:40:00",
+            "Active": 1
+        },
+        {
+            "Id": 12,
+            "Name": "Kiss László",
+            "Email": "laszlo.kiss@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1990-08-30T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T09:45:00",
+            "Active": 1
+        },
+        {
+            "Id": 13,
+            "Name": "Varga Éva",
+            "Email": "eva.varga@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1987-02-14T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T09:50:00",
+            "Active": 1
+        },
+        {
+            "Id": 14,
+            "Name": "Molnár Gábor",
+            "Email": "gabor.molnar@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1992-05-06T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T09:55:00",
+            "Active": 1
+        },
+        {
+            "Id": 15,
+            "Name": "Farkas Judit",
+            "Email": "judit.farkas@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1999-09-17T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T10:00:00",
+            "Active": 1
+        },
+        {
+            "Id": 16,
+            "Name": "Balogh Zoltán",
+            "Email": "zoltan.balogh@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "2000-01-01T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T10:10:00",
+            "Active": 1
+        },
+        {
+            "Id": 17,
+            "Name": "Papp Andrea",
+            "Email": "andrea.papp@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1985-06-23T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T10:15:00",
+            "Active": 1
+        },
+        {
+            "Id": 18,
+            "Name": "Takács Miklós",
+            "Email": "miklos.takacs@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1994-04-14T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T10:20:00",
+            "Active": 1
+        },
+        {
+            "Id": 19,
+            "Name": "Juhász Katalin",
+            "Email": "katalin.juhasz@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1996-03-08T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T10:25:00",
+            "Active": 1
+        },
+        {
+            "Id": 20,
+            "Name": "Lakatos Csaba",
+            "Email": "csaba.lakatos@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1991-10-31T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T10:30:00",
+            "Active": 1
+        },
+        {
+            "Id": 21,
+            "Name": "Mészáros Krisztina",
+            "Email": "krisztina.meszaros@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "2002-08-11T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T10:35:00",
+            "Active": 1
+        },
+        {
+            "Id": 22,
+            "Name": "Simon Attila",
+            "Email": "attila.simon@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1989-12-05T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T10:40:00",
+            "Active": 1
+        },
+        {
+            "Id": 23,
+            "Name": "Fekete Ágnes",
+            "Email": "agnes.fekete@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1997-05-22T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T10:45:00",
+            "Active": 1
+        },
+        {
+            "Id": 24,
+            "Name": "Tóth Zsolt",
+            "Email": "zsolt.toth@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1986-07-07T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T10:50:00",
+            "Active": 1
+        },
+        {
+            "Id": 25,
+            "Name": "Szilágyi Ildikó",
+            "Email": "ildiko.szilagyi@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1993-02-28T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T10:55:00",
+            "Active": 1
+        },
+        {
+            "Id": 26,
+            "Name": "Török Balázs",
+            "Email": "balazs.torok@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1998-11-16T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T11:00:00",
+            "Active": 1
+        },
+        {
+            "Id": 27,
+            "Name": "Fehér Dóra",
+            "Email": "dora.feher@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "2004-01-09T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T11:05:00",
+            "Active": 1
+        },
+        {
+            "Id": 28,
+            "Name": "Rácz Tamás",
+            "Email": "tamas.racz@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1995-10-24T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T11:10:00",
+            "Active": 1
+        },
+        {
+            "Id": 29,
+            "Name": "Kis Viktória",
+            "Email": "viktoria.kis@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1992-03-19T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T11:15:00",
+            "Active": 1
+        },
+        {
+            "Id": 30,
+            "Name": "Gál Gergő",
+            "Email": "gergo.gal@email.com",
+            "Password": "$pbkdf2$sha256$10$RzwqSi7MgrYQEcgSthPT7A==$db3Q+KxFdWEHFCemUKpLK7ygLIlIlChcJD+JJE0ltzXhNxobieAX2KjfnMVGJnyG",
+            "BirthDate": "1990-08-08T00:00:00",
+            "Role": 0,
+            "CreationDate": "2026-05-01T11:20:00",
+            "Active": 1
+        }
 ]

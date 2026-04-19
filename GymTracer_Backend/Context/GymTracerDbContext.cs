@@ -43,7 +43,7 @@ namespace GymTracer.Context
 
             modelBuilder.Entity<Ticket>().Property(t => t.IsActive).HasDefaultValue(true);
             modelBuilder.Entity<Ticket>().HasIndex(t => t.IsActive);
-            modelBuilder.Entity<Ticket>().ToTable(t => t.HasCheckConstraint("Tax_key_positive", "\"Tax_key\" >= 0"));
+            modelBuilder.Entity<Ticket>().ToTable(t => t.HasCheckConstraint("Tax_key_positive", "`Tax_key` >= 0"));
 
             modelBuilder.Entity<UserTicket>().HasIndex(ut => ut.PaymentId).IsUnique();
 
@@ -52,6 +52,9 @@ namespace GymTracer.Context
                 PropertyNameCaseInsensitive = true
             };
             options.Converters.Add(new IntToBoolConverter());
+
+            var users = JsonSerializer.Deserialize<List<User>>(File.ReadAllText("ExampleData/Users.json"), options) ?? [];
+            modelBuilder.Entity<User>().HasData(users);
 
             var cards = JsonSerializer.Deserialize<List<Card>>(File.ReadAllText("ExampleData/Cards.json"), options) ?? [];
             modelBuilder.Entity<Card>().HasData(cards);
@@ -73,9 +76,6 @@ namespace GymTracer.Context
 
             var usageLogs = JsonSerializer.Deserialize<List<UsageLog>>(File.ReadAllText("ExampleData/UsageLogs.json"), options) ?? [];
             modelBuilder.Entity<UsageLog>().HasData(usageLogs);
-
-            var users = JsonSerializer.Deserialize<List<User>>(File.ReadAllText("ExampleData/Users.json"), options) ?? [];
-            modelBuilder.Entity<User>().HasData(users);
 
             var userTickets = JsonSerializer.Deserialize<List<UserTicket>>(File.ReadAllText("ExampleData/UserTickets.json"), options) ?? [];
             modelBuilder.Entity<UserTicket>().HasData(userTickets);

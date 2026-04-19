@@ -27,9 +27,15 @@ namespace GymTracer
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   policy =>
                                   {
-                                      policy.WithOrigins("http://localhost:4200") // TODO: kubernetes frontend project ip hozzáadása
-                                            .AllowAnyHeader()
+                                      policy.AllowAnyHeader()
                                             .AllowAnyMethod();
+
+                                      policy.WithOrigins("https://gymtracer.jcloud.jedlik.cloud");
+
+#if DEBUG
+                                      policy.WithOrigins("http://localhost:4200");
+#endif
+
                                   });
             });
 
@@ -89,6 +95,12 @@ namespace GymTracer
 
 
             app.MapControllers();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<GymTracerDbContext>();
+                db.Database.Migrate();
+            }
 
             app.Run();
         }

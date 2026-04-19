@@ -1,12 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #e5e5e5;
+  --color-gray-300: #d4d4d4;
+  --color-gray-400: #a3a3a3;
+  --color-gray-500: #737373;
+  --color-gray-600: #525252;
+  --color-gray-700: #404040;
+  --color-gray-800: #262626;
+  --color-gray-900: #171717;
+  --color-gray-950: #0a0a0a;
+  
   --color-primary-400: #f87171;
   --color-primary-500: #ef4444;
   --color-primary-600: #dc2626;
 
-  --breakpoint-nav: 950px;
+  --breakpoint-nav: 1180px;
+}
+
+body {
+  @apply bg-white dark:bg-gray-950;
+  @apply transition-colors duration-300 ease-in-out;
 }
 
 .theme-yellow {
@@ -19,4 +37,22 @@
   --color-primary-400: #ff8904;
   --color-primary-500: #ff6900;
   --color-primary-600: #f54900;
+}
+
+.dark {
+  --color-primary-400: #a31c1c;
+  --color-primary-500: #b32020;
+  --color-primary-600: #c22424;
+}
+
+.dark.theme-yellow, .dark .theme-yellow {
+  --color-primary-400: #96570a;
+  --color-primary-500: #a6630b;
+  --color-primary-600: #b56f0c;
+}
+
+.dark.theme-orange, .dark .theme-orange {
+  --color-primary-400: #a83810;
+  --color-primary-500: #b83e12;
+  --color-primary-600: #c84414;
 }

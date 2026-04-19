@@ -7,21 +7,34 @@ import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { TrainingApplication } from "../components/training-application/training-application";
 import { UserRole } from '../../models/user.role.model';
+import { AddEditTraining } from "../../global-components/add-edit-training/add-edit-training";
+import { TrainerService } from '../../services/trainer.service';
+import { formatErrors } from '../../utils/error-helper';
+import { TrainerTrainingModel } from '../../models/trainer-training.model';
+import { environment } from '../../../environments/environment';
+import { AllTrainingResponse } from '../../trainings/models/trainings.all.model';
 
 @Component({
   selector: 'app-training-details',
-  imports: [NgClass, DecimalPipe, DatePipe, TrainingApplication],
+  imports: [NgClass, DecimalPipe, DatePipe, TrainingApplication, AddEditTraining],
   templateUrl: './training-details.html',
   styleUrl: './training-details.css',
 })
 export class TrainingDetails {
   trainingId: number | null = null;
   training: TrainingDetailResponse | null = null;
-  isLoading: boolean = true;
+  isLoading = true;
   errorMessage: string | null = null;
 
-  isModalOpen: boolean = false;
+  isModalOpen = false;
   isCancelling = false;
+
+  allTrainings: AllTrainingResponse[] = []
+
+  showEditModal = false;
+  editSuccessMessage: string | null = null; 
+  editingTraining: TrainerTrainingModel | null = null;
+  isDeleting = false;
 
   UserRole = UserRole;
 
@@ -30,6 +43,7 @@ export class TrainingDetails {
   router = inject(Router);
   trainingDetailService = inject(TrainingDetailService);
   theme = inject(ThemeService);
+  trainerService = inject(TrainerService);
 
   ngOnInit(){
     this.route.paramMap.subscribe(params => {
@@ -52,9 +66,7 @@ export class TrainingDetails {
 
   canApply() {
     if (!this.training) return false;
-    if (this.auth.actingUserRole === UserRole.trainer ||
-        this.auth.actingUserRole === UserRole.staff ||
-        this.auth.actingUserRole === UserRole.admin) return false;
+    if (this.auth.actingUser?.id == this.training.trainer.id) return false;
 
     if (this.training.users && this.auth.actingUser) {
       return !this.training.users.some(u => u.id === this.auth.actingUser?.id);
@@ -63,7 +75,77 @@ export class TrainingDetails {
     return !this.training.isApplied;
   }
 
-  isApplied(): boolean {
+  canEditTraining() {
+    if (!this.training || !this.auth?.actingUser) return false;
+  
+    const user = this.auth.actingUser;
+    return user.id === this.training.trainer.id || 
+        user.role === UserRole.admin || 
+        user.role === UserRole.staff;
+  }
+
+  openEdit() {
+    this.editingTraining = this.training;
+    this.showEditModal = true;
+    this.loadAllTrainings();
+  }
+
+  loadAllTrainings() {
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - environment.pastTrainingDays);    
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + environment.futureTrainingDays);
+
+    this.trainerService.getAllTrainings(startDate, endDate).subscribe({
+      next: (res) => {
+        this.allTrainings = res.map(t => ({
+          ...t,
+          startTime: this.ensureUtc(t.startTime),
+          endTime: this.ensureUtc(t.endTime)
+        }));
+      },
+      error: () => {}
+    });
+  }
+
+  onModalClosed() {
+    this.showEditModal = false;
+  }
+
+  onSaveSuccess(message: string) {
+    this.showEditModal = false;
+    this.editSuccessMessage = message;
+    setTimeout(() => this.editSuccessMessage = null, 4000);
+    if (this.trainingId) {
+      this.loadTrainingDetails(this.trainingId);
+    }
+  }
+
+  inProgress() {
+    if (!this.training?.startTime || !this.training?.endTime) return false;
+    const now = new Date().getTime();
+    const start = new Date(this.training?.startTime).getTime();
+    const end = new Date(this.training?.endTime).getTime();
+    return start <= now && now < end;
+  }
+
+  deleteTraining() {
+    if(!this.training) return;
+    if (!confirm('Biztosan törölni szeretnéd ezt az edzést?')) return;
+    this.isDeleting = true;
+    this.trainerService.deleteTraining(this.training.id).subscribe({
+      next: () => {
+        this.isDeleting = false;
+        this.goBack();
+      },
+      error: (err) => {
+        this.isDeleting = false;
+        this.errorMessage = formatErrors(err);
+      }
+    });
+  }
+
+  isApplied(){
     if (!this.training) return false;
     if (this.training.users && this.auth.actingUser) {
       return this.training.users.some(u => u.id === this.auth.actingUser?.id);
@@ -71,18 +153,18 @@ export class TrainingDetails {
     return this.training.isApplied;
   }
 
-  canCancel(): boolean {
+  canCancel(){
     if (this.endedInPast()) return false;
     return this.isApplied();
   }
 
-  canMarkPresence(): boolean {
+  canMarkPresence(){
     if (!this.training) return false;
     const role = this.auth.actingUserRole;
     return role === UserRole.trainer || role === UserRole.staff || role === UserRole.admin;
   }
 
-  isPresenceCheckable(): boolean {
+  isPresenceCheckable(){
     if (!this.training) return false;
     const now = Date.now();
     const endTime = new Date(this.training.endTime).getTime();
@@ -101,7 +183,11 @@ export class TrainingDetails {
 
     this.trainingDetailService.getTrainingById(id).subscribe({
       next: (res) => {
-        this.training = res;
+        this.training = {
+          ...res,
+          startTime: this.ensureUtc(res.startTime),
+          endTime: this.ensureUtc(res.endTime)
+        };
         this.isLoading = false;
       },
       error: (err) => {
@@ -121,18 +207,18 @@ export class TrainingDetails {
     this.router.navigate(['/trainings']);
   }
 
-  openModal() {
+  openModal(){
     this.isModalOpen = true;
   }
 
-  closeModal(applied = false) {
+  closeModal(applied = false){
     this.isModalOpen = false;
     if (applied && this.trainingId) {
       this.loadTrainingDetails(this.trainingId);
     }
   }
 
-  cancelApplication() {
+  cancelApplication(){
     const userId = this.auth.actingUser?.id;
     if (!userId || !this.trainingId) return;
     this.isCancelling = true;
@@ -148,7 +234,7 @@ export class TrainingDetails {
     });
   }
 
-  onPresenceChange(userId: number, presence: boolean) {
+  onPresenceChange(userId: number, presence: boolean){
     if (!this.trainingId) return;
     this.trainingDetailService.markPresence(this.trainingId, userId, presence).subscribe({
       error: (err) => {
@@ -158,4 +244,10 @@ export class TrainingDetails {
     });
   }
 
+  private ensureUtc(dateString: string){
+    if (!dateString) return dateString;
+
+    const isoString = dateString.replace(' ', 'T');
+    return isoString.endsWith('Z') ? isoString : isoString + 'Z';
+  }
 }

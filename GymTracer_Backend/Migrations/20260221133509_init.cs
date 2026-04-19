@@ -33,7 +33,7 @@ namespace GymTracer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Id);
-                    table.CheckConstraint("Tax_key_positive", "\"Tax_key\" >= 0");
+                    table.CheckConstraint("Tax_key_positive", "`Tax_key` >= 0");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 

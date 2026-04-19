@@ -8,15 +8,36 @@ import { UserRole } from '../models/user.role.model';
 export class ThemeService {
   auth = inject(AuthService);
   
-  isStaffMode = false;
-  isPretendMode = false;
+  isDarkMode = localStorage.getItem('dark_mode') === 'true';
+  isStaffMode = localStorage.getItem('staff_mode') === 'true';
+
+  constructor() {
+    if (this.isDarkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }
+  
+  get isPretendMode(){
+    return this.auth.pretendedUser !== null;
+  }
+
+  setStaffMode(value: boolean) {
+    this.isStaffMode = value;
+    localStorage.setItem('staff_mode', String(value));
+  }
 
   getColor(){
     if(this.auth.user){
       if(this.auth.user.role !== UserRole.staff && this.auth.user.role !== UserRole.admin){
-        this.isStaffMode = false;
-        this.isPretendMode = false;
+        this.setStaffMode(false);
+        return "";
       }
+    }
+    else{
+      this.setStaffMode(false);
+      return "";
     }
 
     if (this.isStaffMode){
@@ -28,5 +49,16 @@ export class ThemeService {
       }
     }
     return "";
+  }
+
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('dark_mode', String(this.isDarkMode));
+    
+    if (this.isDarkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
   }
 }

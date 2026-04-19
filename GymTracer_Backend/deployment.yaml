@@ -1,0 +1,233 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gymtracer-db-pvc
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      student: bende-huba
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gymtracer-mariadb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gymtracer-mariadb
+  template:
+    metadata:
+      labels:
+        app: gymtracer-mariadb
+    spec:
+      containers:
+        - name: mariadb-container
+          image: mariadb:12
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gymtracer-backend-secrets
+                  key: mariadb-root-password
+            
+            - name: MARIADB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: gymtracer-backend-secrets
+                  key: mariadb-user
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gymtracer-backend-secrets
+                  key: mariadb-password
+            
+            - name: MARIADB_DATABASE
+              value: "gymtracerdb"
+              
+          volumeMounts:
+            - name: db-volume
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: db-volume
+          persistentVolumeClaim:
+            claimName: gymtracer-db-pvc
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gymtracer-pma-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gymtracer-pma
+  template:
+    metadata:
+      labels:
+        app: gymtracer-pma
+    spec:
+      containers:
+        - name: pma-container
+          image: phpmyadmin
+          ports:
+            - containerPort: 80
+          env:
+            - name: PMA_HOST
+              value: "gymtracer-mariadb-clusterip"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gymtracer-backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gymtracer-backend
+  template:
+    metadata:
+      labels:
+        app: gymtracer-backend
+    spec:
+      containers:
+        - name: gymtracer-backend-container
+          image: ghcr.io/bendehuba/gymtracer-backend:1776548670
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ConnectionStrings__gymtracerDb
+              valueFrom:
+                secretKeyRef:
+                  name: gymtracer-backend-secrets
+                  key: db-connection
+            
+            - name: PasswordHandler__AlgorithmName
+              value: "SHA256"
+            - name: PasswordHandler__Iterations
+              value: "10"
+            - name: PasswordHandler__HashLength
+              value: "48"
+            - name: PasswordHandler__SaltLength
+              value: "16"
+            - name: AuthHandler__ExpirationInMinutes
+              value: "5"
+            - name: AuthHandler__TokenLength
+              value: "128"
+            - name: Logging__LogLevel__Default
+              value: "Information"
+      
+      imagePullSecrets:
+        - name: ghcr-auth-secret
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gymtracer-mariadb-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: gymtracer-mariadb
+  ports: 
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gymtracer-pma-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: gymtracer-pma
+  ports: 
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gymtracer-backend-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: gymtracer-backend
+  ports: 
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gymtracer-backend-cert
+spec:
+  secretName: gymtracer-backend-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - api.gymtracer.jcloud.jedlik.cloud
+    - admin.gymtracer.jcloud.jedlik.cloud
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gymtracer-backend-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+spec:
+  ingressClassName: nginx   
+  
+  tls:
+    - hosts:
+      - api.gymtracer.jcloud.jedlik.cloud
+      - admin.gymtracer.jcloud.jedlik.cloud
+      secretName: gymtracer-backend-tls
+
+  rules:
+    - host: api.gymtracer.jcloud.jedlik.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gymtracer-backend-clusterip
+                port:
+                  number: 80
+
+    - host: admin.gymtracer.jcloud.jedlik.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gymtracer-pma-clusterip
+                port:
+                  number: 80

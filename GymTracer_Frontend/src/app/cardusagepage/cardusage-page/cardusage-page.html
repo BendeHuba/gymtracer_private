@@ -1,0 +1,88 @@
+<div class="flex-1 flex justify-center items-start min-h-full w-full px-4 py-12 bg-white dark:bg-gray-950 transition-colors duration-300"
+    [ngClass]="theme.getColor()">
+  <div class="w-full max-w-6xl bg-white dark:bg-gray-900 rounded-lg shadow-xl p-8 border-t-4 border-primary-600 transition-colors">
+
+    <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-8">Kártyahasználati napló</h1>
+
+    @if (isLoading) {
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-12 flex flex-col items-center justify-center border-t-4 border-primary-600 min-h-[200px]">
+        <svg class="animate-spin h-10 w-10 text-primary-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <p class="text-gray-600 dark:text-gray-400">Betöltés...</p>
+      </div>
+    }
+
+    @if (errorMessage) {
+      <div class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded-md mb-4">
+        <p class="text-red-700 dark:text-red-400 font-medium">{{ errorMessage }}</p>
+      </div>
+    }
+
+    @if (!isLoading && !errorMessage) {
+      <div class="mb-4">
+        <input type="text" [(ngModel)]="filterText" (ngModelChange)="applyFilter()" placeholder="Szűrés név, e-mail, kártya ID szerint..."
+          class="w-full md:w-80 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-500 transition-colors">
+      </div>
+
+      @if (filtered.length === 0) {
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-12 flex flex-col items-center text-center border border-gray-200 dark:border-gray-700 transition-colors">
+          <p class="text-gray-500 dark:text-gray-400 font-medium">Nem találhatók naplóbejegyzések.</p>
+        </div>
+      } @else {
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden transition-colors duration-300">
+          
+          <div class="overflow-x-auto lg:overflow-visible">
+            <table class="min-w-full block lg:table border-collapse divide-y divide-gray-200 dark:divide-gray-700 transition-colors duration-300">
+              
+              <thead class="hidden lg:table-header-group bg-gray-50 dark:bg-gray-900/50 transition-colors duration-300">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">Dátum</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">Kártya ID</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">Felhasználó ID</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">Név</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">E-mail</th>
+                </tr>
+              </thead>
+              
+              <tbody class="block lg:table-row-group bg-white dark:bg-gray-800 p-4 lg:p-0 lg:divide-y divide-gray-200 dark:divide-gray-700 transition-colors duration-300">
+                @for (log of filtered; track log.useDate + log.cardId) {
+                  <tr class="block lg:table-row bg-white dark:bg-gray-800 mb-4 lg:mb-0 border border-gray-200 dark:border-gray-700 lg:border-none rounded-lg lg:rounded-none shadow-sm lg:shadow-none hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-300 ease-in-out">
+                    
+                    <td class="flex lg:table-cell justify-between items-center lg:text-left text-right px-4 py-3 lg:px-6 lg:py-4 border-b border-gray-100 dark:border-gray-700 lg:border-none text-sm text-gray-700 dark:text-gray-300 wrap-break-word">
+                      <span class="lg:hidden text-xs font-medium text-gray-500 dark:text-gray-400 uppercase mr-4 shrink-0">Dátum</span>
+                      <span class="wrap-break-word max-w-[180px] lg:max-w-none">{{ log.useDate | date:'yyyy. MM. dd. HH:mm:ss':'':'hu' }}</span>
+                    </td>
+                    
+                    <td class="flex lg:table-cell justify-between items-center lg:text-left text-right px-4 py-3 lg:px-6 lg:py-4 border-b border-gray-100 dark:border-gray-700 lg:border-none text-sm text-gray-700 dark:text-gray-300 wrap-break-word">
+                      <span class="lg:hidden text-xs font-medium text-gray-500 dark:text-gray-400 uppercase mr-4 shrink-0">Kártya ID</span>
+                      <span class="break-all max-w-[180px] lg:max-w-none">{{ log.cardId }}</span>
+                    </td>
+                    
+                    <td class="flex lg:table-cell justify-between items-center lg:text-left text-right px-4 py-3 lg:px-6 lg:py-4 border-b border-gray-100 dark:border-gray-700 lg:border-none text-sm text-gray-700 dark:text-gray-300 wrap-break-word">
+                      <span class="lg:hidden text-xs font-medium text-gray-500 dark:text-gray-400 uppercase mr-4 shrink-0">Felhasználó ID</span>
+                      <span class="break-all max-w-[180px] lg:max-w-none">{{ log.userId }}</span>
+                    </td>
+                    
+                    <td class="flex lg:table-cell justify-between items-center lg:text-left text-right px-4 py-3 lg:px-6 lg:py-4 border-b border-gray-100 dark:border-gray-700 lg:border-none text-sm font-medium text-gray-900 dark:text-white wrap-break-word">
+                      <span class="lg:hidden text-xs font-medium text-gray-500 dark:text-gray-400 uppercase mr-4 shrink-0">Név</span>
+                      <span class="wrap-break-word max-w-[180px] lg:max-w-none">{{ log.name }}</span>
+                    </td>
+                    
+                    <td class="flex lg:table-cell justify-between items-center lg:text-left text-right px-4 py-3 lg:px-6 lg:py-4 lg:border-none text-sm text-gray-500 dark:text-gray-400 wrap-break-word">
+                      <span class="lg:hidden text-xs font-medium text-gray-500 dark:text-gray-400 uppercase mr-4 shrink-0">E-mail</span>
+                      <span class="break-all max-w-[180px] lg:max-w-none">{{ log.email }}</span>
+                    </td>
+                    
+                  </tr>
+                }
+              </tbody>
+              
+            </table>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

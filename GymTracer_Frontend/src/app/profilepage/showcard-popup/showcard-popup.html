@@ -1,0 +1,46 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-sm transition-opacity">
+  
+  <div class="bg-white dark:bg-gray-900 w-full max-w-lg rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden transform transition-all p-7 text-center">
+    
+    <div class="mb-6 pb-4 border-b border-gray-100 dark:border-gray-800">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">Kártya</h2>
+      <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 uppercase tracking-widest">Tartsa a leolvasóhoz vagy mutassa meg kollégánknak</p>
+    </div>
+
+    <div class=" bg-white p-6 rounded-2xl shadow-inner inline-block mb-7 border-4 border-orange-500/10 dark:border-primary-500/20 shadow-primary-500/5 ">
+      <qrcode  
+        [qrdata]="cardData!.code" 
+        [errorCorrectionLevel]="'M'"
+        [width]="200"
+        colorDark="#000000"
+        colorLight="#ffffff"
+        class="block w-full"
+      ></qrcode>
+    </div>
+    
+    <div class="mb-8">
+        <p class="text-sm font-semibold text-gray-500 dark:text-gray-400">
+          Létrehozva: {{ cardData!.createdAt | date:'yyyy. MM. dd. HH:mm':'':'hu' }}
+        </p>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      
+      <button 
+        (click)="deleteCard()" 
+        type="button" 
+        class="flex-1 px-5 py-2.5 text-sm font-bold text-white bg-primary-600 hover:bg-primary-500 rounded-xl shadow-lg shadow-primary-600/20 transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 hover:cursor-pointer">
+        Kártya Törlése
+      </button>
+
+      <button 
+        (click)="closeModal()" 
+        type="button" 
+        class="flex-1 px-5 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-600 hover:cursor-pointer">
+        Bezár
+      </button>
+
+    </div>
+    
+  </div>
+</div>

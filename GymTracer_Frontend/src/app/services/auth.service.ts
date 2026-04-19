@@ -91,6 +91,20 @@ export class AuthService {
     localStorage.removeItem('pretended_user');
   }
 
+  setUser(user: UserModel){
+    this.user = user;
+    localStorage.setItem('current_user', JSON.stringify(this.user));
+  }
+
+  setPretendedUser(user: UserModel){
+    this.pretendedUser = user;
+    localStorage.setItem('pretended_user', JSON.stringify(this.pretendedUser));
+  }
+
+  removePretendedUser(){
+    localStorage.removeItem('pretended_user');
+  }
+
   extendSession(newValidTo: string) {
     this.validUntil = new Date(newValidTo);
     

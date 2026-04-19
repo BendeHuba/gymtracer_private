@@ -1,4 +1,4 @@
-export function formatErrors(err: any): string {
+export function formatErrors(err: any) {
   if (err.error?.errors && typeof err.error.errors === 'object') {
     return Object.values(err.error.errors).join(' ');
   }

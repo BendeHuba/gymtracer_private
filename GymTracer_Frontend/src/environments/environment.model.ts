@@ -1,3 +1,5 @@
 export type EnvironmentModel = {
-    apiUrl: string
+    apiUrl: string;
+    pastTrainingDays: number;
+    futureTrainingDays: number;
 }

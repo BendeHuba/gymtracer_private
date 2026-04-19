@@ -276,7 +276,7 @@ namespace GymTracer.Migrations
 
                     b.ToTable("Tickets", t =>
                         {
-                            t.HasCheckConstraint("Tax_key_positive", "\"Tax_key\" >= 0");
+                            t.HasCheckConstraint("Tax_key_positive", "`Tax_key` >= 0");
                         });
 
                     b.HasData(

@@ -10,6 +10,7 @@ export type TrainerTrainingModel = {
     id: number;
     name: string;
   };
+  tickets: CreateTicketDto[];
 }
 export type CreateTrainingDto = {
   name: string;

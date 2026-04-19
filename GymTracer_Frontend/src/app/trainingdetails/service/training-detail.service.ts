@@ -19,10 +19,10 @@ export class TrainingDetailService {
   }
 
   cancelApplication(userId: number, trainingId: number){
-    return this.http.delete<any>(`${environment.apiUrl}/User/${userId}/training/${trainingId}`);
+    return this.http.delete(`${environment.apiUrl}/User/${userId}/training/${trainingId}`);
   }
 
   markPresence(trainingId: number, userId: number, presence: boolean){
-    return this.http.patch<any>(`${environment.apiUrl}/Training/${trainingId}/user/${userId}/presence`, { presence });
+    return this.http.patch(`${environment.apiUrl}/Training/${trainingId}/user/${userId}/presence/${presence}`, {});
   }
 }
