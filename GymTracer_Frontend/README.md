@@ -1,274 +1,128 @@
 # GymTracer Frontend
 
-> **Vizsgaremek rövid bemutatása**  
-> A GymTracer frontend az edzőtermi üzleti folyamatok felhasználóbarát kezelőfelülete Angular alapon.  
-> A kliensoldal szerepkör szerint eltérő nézeteket ad (ügyfél/edző/staff/admin), és közvetlenül a GymTracer backend API-ra épül.
+A GymTracer frontend Angular alapú kliensalkalmazás, amely a backend API-ra épülő napi üzleti folyamatokat teszi kezelhetővé.  
+A rendszer szerepköralapú nézeteket és guardolt navigációt használ, így a felhasználó mindig a jogosultságának megfelelő felületet látja.
 
----
+## Rövid munkafolyamat-ellenőrzőlista
 
-## Tartalomjegyzék
+- [ ] Fejlesztői környezet előkészítése (Node, npm, backend elérés)
+- [ ] Függőségek telepítése és build futtatása
+- [ ] Auth/session flow ellenőrzése (login/logout/token)
+- [ ] Route + guard működés tesztelése több szerepkörrel
+- [ ] Staff mode és pretend mode viselkedés ellenőrzése
+- [ ] Hiba- és fallback állapotok kipróbálása
 
-1. [Projektáttekintés](#projektáttekintés)
-2. [Technológiák](#technológiák)
-3. [Funkcionális képességek](#funkcionális-képességek)
-4. [Frontend architektúra](#frontend-architektúra)
-5. [Mappaszerkezet](#mappaszerkezet)
-6. [Telepítési és futtatási leírás](#telepítési-és-futtatási-leírás)
-7. [Build/Test parancsok](#buildtest-parancsok)
-8. [Környezeti konfigurációk](#környezeti-konfigurációk)
-9. [Route és guard dokumentáció](#route-és-guard-dokumentáció)
-10. [API integrációs áttekintés](#api-integrációs-áttekintés)
-11. [Kódrészletek (valós projektkód alapján)](#kódrészletek-valós-projektkód-alapján)
-12. [Demó felhasználók és jelszavak](#demó-felhasználók-és-jelszavak)
-13. [UI és témakezelés](#ui-és-témakezelés)
-14. [Hibakeresés](#hibakeresés)
-15. [Készítők](#készítők)
+## Tartalom
 
----
+- [Projektcél és működési fókusz](#projektcél-és-működési-fókusz)
+- [Technológiai háttér](#technológiai-háttér)
+- [Frontend architektúra](#frontend-architektúra)
+- [Routing és guard logika](#routing-és-guard-logika)
+- [Session és authentikációs működés](#session-és-authentikációs-működés)
+- [API integráció – hogyan kommunikál a backenddel](#api-integráció--hogyan-kommunikál-a-backenddel)
+- [Felhasználói módok (normál / staff / pretend)](#felhasználói-módok-normál--staff--pretend)
+- [UI és témakezelés](#ui-és-témakezelés)
+- [Környezeti konfiguráció](#környezeti-konfiguráció)
+- [Lokális futtatás](#lokális-futtatás)
+- [Fejlesztői parancsok és tesztelés](#fejlesztői-parancsok-és-tesztelés)
+- [Hibakeresés](#hibakeresés)
+- [Átadás előtti ellenőrzőlista](#átadás-előtti-ellenőrzőlista)
 
-## Projektáttekintés
+## Projektcél és működési fókusz
 
-A frontend célja, hogy a backend üzleti funkcióit egyértelmű és gyors kezelőfelületen adja át.
+A frontend célja, hogy a backend üzleti funkcióit gyors, role-aware kezelőfelületen adja át.
 
-Fő use case-ek:
-- belépés/regisztráció,
-- profilkezelés,
-- jegyek áttekintése és kezelése,
-- edzések böngészése és foglalása,
-- edzői jelenlétkezelés,
-- staff/admin statisztikák és felhasználó-váltás.
+Fő működési területek:
 
-A rendszer külön figyelmet fordít a **munkatársi módra**, ahol a staff felhasználó másik ügyfél nevében is dolgozhat.
+- **customer nézet**: profil, jegyek, edzések, jelentkezés,
+- **trainer nézet**: saját edzések kezelése, jelenlét adminisztráció,
+- **staff nézet**: user keresés, ügyfél nevében műveletek,
+- **admin nézet**: statisztikák, bevétel, kártyahasználati riportok.
 
----
+A kliens logika központi eleme, hogy a jogosultságok nem csak UI szinten, hanem route/guard szinten is szűrve vannak.
 
-## Technológiák
+## Technológiai háttér
 
-| Terület | Technológia | Megjegyzés |
+| Terület | Megoldás | Szerepe |
 |---|---|---|
-| Framework | Angular 20 | standalone komponensek |
-| Nyelv | TypeScript | szigorú típusosság |
-| UI | Angular Material + Tailwind | dark mode és custom theme |
-| HTTP | `HttpClient` + interceptor | token automatikus csatolás |
-| Állapot | service + `localStorage` | auth/session állapot |
-| Teszt | Karma/Jasmine + Cypress | unit + e2e lehetőség |
-
----
-
-## Funkcionális képességek
-
-### Felhasználói oldal (customer)
-- profil megtekintése/módosítása,
-- saját jegyek,
-- edzések listázása és jelentkezés,
-- saját tréning előzmények.
-
-### Edzői oldal (trainer)
-- saját edzések kezelése,
-- résztvevők jelenlétének állítása.
-
-### Staff/admin oldal
-- felhasználó keresés,
-- staff mód kezelése,
-- statisztikák,
-- admin extra nézetek (bevétel, kártyahasználat).
-
----
+| Framework | Angular 20 | komponens- és route-rendszer |
+| Nyelv | TypeScript | típusbiztos klienslogika |
+| UI | Angular Material + Tailwind | konzisztens komponensek és design tokenek |
+| HTTP | `HttpClient` + `authInterceptor` | tokenes API kommunikáció |
+| Állapot | service alapú + `localStorage` | session és módkezelés |
+| Teszt | Karma/Jasmine + Cypress script | unit és e2e alapok |
 
 ## Frontend architektúra
 
-### Fő építőelemek
+A projekt logikája három fő rétegre osztható:
 
-| Elem | Leírás |
+1. **Nézetek és komponensek** – oldalak és UI interakciók.
+2. **Service réteg** – auth, API hívások, theme/mode állapot.
+3. **Router + guard réteg** – hozzáférés- és üzemmód-szabályok.
+
+Főbb fájlok:
+
+| Fájl | Szerep |
 |---|---|
-| `app.routes.ts` | route-fa és guard láncok |
-| `AuthService` | login/logout/session/actingUser |
-| `auth.interceptor.ts` | bearer token automatikus hozzáadása |
-| `ThemeService` | sötét mód + staff/pretend témák |
-| oldalkomponensek | profil, jegyek, statisztika, edzések |
+| `src/app/app.routes.ts` | teljes route-fa és guard láncok |
+| `src/app/services/auth.service.ts` | login/logout/session + acting user |
+| `src/app/services/auth.interceptor.ts` | bearer token csatolás + session header feldolgozás |
+| `src/app/services/theme.service.ts` | dark/staff/pretend mód vizuális kezelése |
+| `src/environments/*` | API URL és időablak beállítások |
+| `src/styles.css` | Tailwind theme tokenek és breakpoint |
 
-### Kommunikációs minta
+## Routing és guard logika
 
-1. komponens esemény,
-2. service API-hívás,
-3. backend válasz,
-4. komponensállapot frissül,
-5. router/guard dönt a hozzáférésről.
+### Route térkép
 
----
-
-## Mappaszerkezet
-
-| Útvonal | Tartalom |
-|---|---|
-| `src/app/app.routes.ts` | teljes route definíció |
-| `src/app/guards/` | auth/role/mode guardok |
-| `src/app/services/` | auth, trainer, scanner tracker, theme |
-| `src/environments/` | API URL és időablak konfigurációk |
-| `src/styles.css` | Tailwind témaszínek és breakpoint |
-| `angular.json` | build/serve konfiguráció |
-
----
-
-## Telepítési és futtatási leírás
-
-### Előfeltételek
-
-- Node.js 20+
-- npm 10+
-- futó GymTracer backend
-
-### 1) Projekt mappa
-
-```bash
-cd /home/runner/work/gymtracer_private/gymtracer_private/GymTracer_Frontend
-```
-
-### 2) Függőségek telepítése
-
-```bash
-npm install
-```
-
-> CI/sandbox környezetben a Cypress bináris letöltés időnként problémás lehet. Ilyenkor:
-
-```bash
-CYPRESS_INSTALL_BINARY=0 npm install
-```
-
-### 3) Fejlesztői indítás
-
-```bash
-npm run start
-```
-
-Fejlesztői URL:
-
-- `http://localhost:4200`
-
----
-
-## Build/Test parancsok
-
-| Parancs | Jelentés |
-|---|---|
-| `npm run start` | dev szerver |
-| `npm run build` | production build |
-| `npm run watch` | development watch build |
-| `npm run test` | Karma/Jasmine unit teszt |
-| `npm run cy:open` | Cypress interaktív |
-| `npm run cy:run` | Cypress headless |
-
-### Ellenőrzött build példa
-
-```bash
-cd /home/runner/work/gymtracer_private/gymtracer_private/GymTracer_Frontend
-CYPRESS_INSTALL_BINARY=0 npm install
-npm run build
-```
-
----
-
-## Környezeti konfigurációk
-
-A projekt file replacementet használ.
-
-| Környezet | Fájl | `apiUrl` |
+| Útvonal | Guard(ok) | Funkció |
 |---|---|---|
-| Production | `src/environments/environment.ts` | `https://api.gymtracer.jcloud.jedlik.cloud/api` |
-| Development | `src/environments/dev/environment.development.ts` | `http://localhost:5065/api` |
+| `/` | – | nyitóoldal |
+| `/login` | `guestGuard` | bejelentkezés |
+| `/registration` | `guestGuard` | regisztráció |
+| `/trainings` | `authGuard`, `userModeGuard` | edzések böngészése |
+| `/trainings/:id` | `authGuard`, `userModeGuard` | edzés részletek |
+| `/my-trainings` | `authGuard`, `trainerGuard`, `userModeGuard` | edzői oldal |
+| `/profile` | `authGuard`, `userModeGuard` | profil |
+| `/tickets` | `authGuard`, `userModeGuard` | jegyek |
+| `/users` | `authGuard`, `staffGuard`, `staffModeGuard` | staff user-választás |
+| `/statistics` | `authGuard`, `staffGuard`, `staffModeGuard` | látogatottság |
+| `/income` | `authGuard`, `adminGuard`, `staffModeGuard` | bevételi admin nézet |
+| `/card-usage` | `authGuard`, `adminGuard`, `staffModeGuard` | kártyahasználati admin nézet |
+| `**` | redirect | fallback a főoldalra |
 
-További beállítások:
+### Guardok szerepe röviden
 
-| Kulcs | Jelentés | Alapérték |
-|---|---|---|
-| `pastTrainingDays` | múltbeli edzéslistázási ablak | `14` |
-| `futureTrainingDays` | jövőbeli edzéslistázási ablak | `60` |
+- `authGuard`: belépés nélkül tilt.
+- `trainerGuard`: trainer/staff/admin szerepkört vár.
+- `staffGuard`: staff/admin szerepkört vár.
+- `adminGuard`: csak admin.
+- `staffModeGuard`: staff módban, **pretended user nélkül** enged.
+- `userModeGuard`: staff módban kötelező egy kiválasztott ügyfél.
 
----
-
-## Route és guard dokumentáció
-
-### Route tábla
-
-| Útvonal | Komponens | Guard(ok) | Cél |
-|---|---|---|---|
-| `/` | MainPage | – | nyitóoldal |
-| `/login` | Login | `guestGuard` | bejelentkezés |
-| `/registration` | Registration | `guestGuard` | regisztráció |
-| `/trainings` | Trainings | `authGuard`, `userModeGuard` | edzések lista |
-| `/trainings/:id` | TrainingDetails | `authGuard`, `userModeGuard` | edzés részletek |
-| `/my-trainings` | MyTrainingsPage | `authGuard`, `trainerGuard`, `userModeGuard` | edzői nézet |
-| `/profile` | ProfilePage | `authGuard`, `userModeGuard` | profil |
-| `/tickets` | TicketsPage | `authGuard`, `userModeGuard` | jegyek |
-| `/users` | UserSearch | `authGuard`, `staffGuard`, `staffModeGuard` | staff user választó |
-| `/statistics` | StatisticsPage | `authGuard`, `staffGuard`, `staffModeGuard` | látogatottság |
-| `/income` | IncomePage | `authGuard`, `adminGuard`, `staffModeGuard` | bevétel |
-| `/card-usage` | CardusagePage | `authGuard`, `adminGuard`, `staffModeGuard` | kártyalog |
-| `**` | redirect | – | fallback főoldal |
-
-### Guard logika
-
-| Guard | Mikor enged |
-|---|---|
-| `guestGuard` | csak kijelentkezett látogató |
-| `authGuard` | legalább egy bejelentkezett user (`actingUser`) |
-| `trainerGuard` | trainer/staff/admin |
-| `staffGuard` | staff/admin |
-| `adminGuard` | admin |
-| `staffModeGuard` | staff mód aktív és nincs `pretendedUser` |
-| `userModeGuard` | staff módban legyen kiválasztott felhasználó |
-
----
-
-## API integrációs áttekintés
-
-### Fő service-ek
-
-| Service | Feladat |
-|---|---|
-| `AuthService` | login, logout, regisztráció, session tárolás |
-| `TrainerService` | edzői funkciók (edzések, jelenlét) |
-| `ScannerTrackerService` | kártyaolvasás/kapuhoz kötődő kliens logika |
-| `ThemeService` | dark/staff/pretend vizuális módok |
-
-### Tipikus endpoint-hívások frontendből
-
-| Művelet | Backend útvonal |
-|---|---|
-| Bejelentkezés | `POST /Auth/login` |
-| Regisztráció | `POST /Auth/registration` |
-| Kijelentkezés | `POST /Auth/logout` |
-| Profil lekérés | `GET /User/{id}/profile` |
-| Edzéslista | `GET /Training` |
-| Jegyek lekérése | `GET /Ticket/user/{id}` |
-
----
-
-## Kódrészletek (valós projektkód alapján)
-
-### 1) Auth API URL használat (`AuthService`)
+`authGuard` részlet:
 
 ```ts
-Register(user: RegistrationCredentials){
-  return this.http.post<RegistrationUserDto>(`${environment.apiUrl}/Auth/registration`, user);
-}
-
-Login(user: LoginCredentials){
-  return this.http.post<UserLoginDto>(`${environment.apiUrl}/Auth/login`, user);
+if (auth.actingUserRole === UserRole.not_found) {
+  router.navigate(['/login'], {
+    state: {
+      message: 'A kért oldal megtekintéséhez be kell jelentkeznie.',
+      type: 'error'
+    }
+  });
+  return false;
 }
 ```
 
-### 2) Session mentés localStorage-ba
+## Session és authentikációs működés
 
-```ts
-localStorage.setItem('auth_token', this.token);
-localStorage.setItem('token_valid_to', this.validUntil.toISOString());
-localStorage.setItem('current_user', JSON.stringify(this.user));
-localStorage.removeItem('pretended_user');
-```
+Az `AuthService` egyszerre kezeli:
 
-### 3) Aktív felhasználó kiválasztás (normál vs staff-pretend)
+- ténylegesen belépett felhasználó (`user`),
+- staff által kiválasztott felhasználó (`pretendedUser`),
+- token és lejárati idő (`token`, `validUntil`).
+
+Kulcs logika:
 
 ```ts
 get actingUser(){
@@ -280,241 +134,197 @@ get actingUserRole(){
 }
 ```
 
-### 4) Route + guard lánc példa
+**Miért fontos?**  
+A guardok és a nézetek mindig az aktuális működési kontextusból döntik el, mit lehet megnyitni.
+
+Session mentés:
 
 ```ts
-{path: 'my-trainings', component: MyTrainingsPage, canActivate: [authGuard, trainerGuard, userModeGuard]}
+localStorage.setItem('auth_token', this.token);
+localStorage.setItem('token_valid_to', this.validUntil.toISOString());
+localStorage.setItem('current_user', JSON.stringify(this.user));
+localStorage.removeItem('pretended_user');
 ```
 
-### 5) Környezeti file replacement (`angular.json`)
+## API integráció – hogyan kommunikál a backenddel
 
-```json
-"fileReplacements": [
-  {
-    "replace": "src/environments/environment.ts",
-    "with": "src/environments/dev/environment.development.ts"
-  }
-]
-```
+A kommunikáció központi mintája:
 
-### 6) Theme tokenok (`styles.css`)
+1. service meghívja a backend endpointot,
+2. interceptor csatolja a Bearer tokent,
+3. response headerből szükség esetén session frissítés történik,
+4. komponens a service válaszából frissíti a UI-t.
 
-```css
-@theme {
-  --color-primary-400: #f87171;
-  --color-primary-500: #ef4444;
-  --color-primary-600: #dc2626;
-  --breakpoint-nav: 1180px;
+Auth endpoint hívások:
+
+```ts
+Register(user: RegistrationCredentials){
+  return this.http.post<RegistrationUserDto>(`${environment.apiUrl}/Auth/registration`, user);
+}
+
+Login(user: LoginCredentials){
+  return this.http.post<UserLoginDto>(`${environment.apiUrl}/Auth/login`, user);
+}
+
+Logout(){
+  return this.http.post<LogoutDto>(`${environment.apiUrl}/Auth/logout`, {});
 }
 ```
 
----
+Interceptor részlet:
 
-## Demó felhasználók és jelszavak
+```ts
+if (auth.token) {
+  clonedReq = req.clone({
+    headers: req.headers.set('Authorization', `Bearer ${auth.token}`)
+  });
+}
+```
 
-A frontend a backend seed felhasználóival tesztelhető.
+Session fejléc feldolgozás:
 
-> **Megjegyzés:** a jelszavak a backend seed fájlban hash-elve tároltak, ezért a forráskódból nem olvasható ki biztonságosan plaintext jelszó.  
-> Gyors demóhoz javasolt saját felhasználó regisztrációja a `/registration` oldalon.
+```ts
+const sessionHeader = event.headers.get('session');
+if (sessionHeader) {
+  const { validTo } = JSON.parse(sessionHeader);
+  if (validTo) {
+    auth.extendSession(validTo);
+  }
+}
+```
 
-### Seed felhasználó minták
+## Felhasználói módok (normál / staff / pretend)
 
-| Név | E-mail | Szerepkör | Jelszó állapot |
-|---|---|---|---|
-| Adminisztrátor Anna | `admin@gym.hu` | admin | hash-elve |
-| Recepciós Ricsi | `ricsi.staff@gym.hu` | staff | hash-elve |
-| Edző Elemér | `elemer.edzo@gym.hu` | trainer | hash-elve |
-| Kovács János | `janos.kovacs@email.com` | customer | hash-elve |
+A rendszer három eltérő működési kontextust kezel:
 
-### Gyors demó forgatókönyv
+### 1) Normál mód
 
-1. backend indítása lokálban (`http://localhost:5065`),
-2. frontend futtatása (`npm run start`),
-3. új user regisztráció,
-4. login,
-5. `/trainings`, `/tickets`, `/profile` oldalak bejárása.
+- `pretendedUser === null`
+- a felhasználó a saját adataival dolgozik
+- `userModeGuard` normál működésben átenged
 
----
+### 2) Staff mód
+
+- `ThemeService.isStaffMode === true`
+- staff/admin felhasználó ügyfélkezelési workflowt használ
+- bizonyos oldalak csak staff módban érhetők el (`/users`, `/statistics`, stb.)
+
+### 3) Pretend mód
+
+- staff kiválasztott egy ügyfelet (`pretendedUser` nem null)
+- user-oldali műveletek a kiválasztott ügyfél kontextusában futnak
+- `staffModeGuard` ilyenkor tiltja a staff-only dashboard oldalakat
+
+`staffModeGuard` részlet:
+
+```ts
+if (auth.pretendedUser) {
+  router.navigate(['/profile']);
+  return false;
+}
+
+if (!theme.isStaffMode) {
+  router.navigate(['/']);
+  return false;
+}
+```
 
 ## UI és témakezelés
 
-A frontend Tailwind theme tokeneket használ.
+A projekt Tailwind `@theme` tokeneket és osztályalapú módváltást használ.
 
-| Mód | Fő primer szín |
-|---|---|
-| alap | piros |
-| staff mode | sárga |
-| pretend mode | narancs |
-| dark mód | sötétített variáns |
+Primer színek:
 
-`styles.css` szerint a navigációs breakpoint: `--breakpoint-nav: 1180px`.
+- alap: piros,
+- staff mód: sárga (`theme-yellow`),
+- pretend mód: narancs (`theme-orange`),
+- dark mód: sötétített változatok.
 
----
+Navigációs breakpoint:
 
-## Hibakeresés
+- `--breakpoint-nav: 1180px`
 
-| Jelenség | Lehetséges ok | Javítás |
+`ThemeService` döntés:
+
+```ts
+if (this.isStaffMode){
+  if(this.isPretendMode){
+    return "theme-orange"
+  }
+  else{
+    return "theme-yellow"
+  }
+}
+```
+
+## Környezeti konfiguráció
+
+| Környezet | Fájl | API URL |
 |---|---|---|
-| Üres lista oldalak | rossz `apiUrl` | ellenőrizd environment fájlokat |
-| Folyamatos visszairányítás | guard tilt | szerepkör/mode állapot ellenőrzés |
-| 401 minden kérésre | token hiány/lejárat | login újra + localStorage vizsgálat |
-| Build hiba `ng: not found` | nincs telepített függőség | `npm install` futtatása |
-| Cypress install gond | hálózati korlát | `CYPRESS_INSTALL_BINARY=0 npm install` |
+| Production | `src/environments/environment.ts` | `https://api.gymtracer.jcloud.jedlik.cloud/api` |
+| Development | `src/environments/dev/environment.development.ts` | `http://localhost:5065/api` |
 
----
+További releváns értékek:
 
-## Készítők
+| Kulcs | Jelentés | Alap |
+|---|---|---|
+| `pastTrainingDays` | múltbeli edzéslista időablak | `14` |
+| `futureTrainingDays` | jövőbeli edzéslista időablak | `60` |
 
-| Név | Szerep |
-|---|---|
-| **Bende Huba** | projekt készítő, frontend/backend fejlesztés |
+## Lokális futtatás
 
----
+### Előfeltételek
 
-## Rövid összegzés
+- Node.js 20+
+- npm 10+
+- futó backend (`http://localhost:5065`)
 
-A GymTracer frontend egy szerepkör-alapú, Angular-alapú kliensalkalmazás, amely:
-
-- stabil auth/session kezelést ad,
-- route/guard szinten jól szegmentálja a hozzáférést,
-- backend API-ra építve kezeli az edzőtermi üzleti folyamatokat,
-- fejlesztői környezetben gyorsan futtatható és tesztelhető.
-
----
-
-## Oldalankénti használati útmutató
-
-### `/login`
-
-- cél: bejelentkezés,
-- bemenet: e-mail + jelszó,
-- siker esetén token mentés,
-- hiba esetén felhasználóbarát visszajelzés.
-
-### `/registration`
-
-- cél: új ügyfélfiók létrehozás,
-- ellenőrzés: kötelező mezők,
-- siker esetén továbblépés bejelentkezésre.
-
-### `/trainings`
-
-- edzéslista dátumablakkal,
-- user szerepkörhöz igazodó műveletek,
-- részletek megnyitása `/:id` útvonalon.
-
-### `/tickets`
-
-- felhasználó jegyeinek listája,
-- fizetési állapotok megjelenítése,
-- aktív jegy kiválasztása edzésjelentkezéshez.
-
-### `/profile`
-
-- személyes adatok kezelése,
-- role megjelenítés,
-- sessionhoz kötött felhasználói kontextus.
-
-### `/my-trainings`
-
-- edzői munkafelület,
-- saját edzések listája,
-- jelenléti státusz állítása.
-
-### `/users` + staff mód
-
-- staff felhasználó cél-ügyfelet választ,
-- kiválasztás után user-mode műveletek,
-- staff mód és pretend mód vizuálisan elkülönítve.
-
-### `/statistics`, `/income`, `/card-usage`
-
-- üzleti riport oldalak,
-- role-lánc: auth + staff/admin + staff mode,
-- admin oldalak csak admin jogosultsággal.
-
----
-
-## Állapotkezelési részletek (AuthService)
-
-| Állapot | Jelentés |
-|---|---|
-| `user` | ténylegesen bejelentkezett account |
-| `pretendedUser` | staff által kiválasztott ügyfél |
-| `actingUser` | a rendszer által éppen használt user |
-| `actingUserRole` | guard döntésekhez használt szerepkör |
-
-### LocalStorage kulcsok
-
-| Kulcs | Tartalom |
-|---|---|
-| `auth_token` | bearer token |
-| `token_valid_to` | token lejárat időpont |
-| `current_user` | bejelentkezett user JSON |
-| `pretended_user` | staff célfelhasználó JSON |
-
----
-
-## Interceptor működés röviden
-
-A `auth.interceptor.ts` feladata:
-
-- token jelenlét ellenőrzése,
-- Authorization header hozzáadása minden API kéréshez,
-- backend auth hiba esetén egységes kliensoldali reakció lehetősége.
-
-Ez csökkenti a komponensekben az ismételt HTTP boilerplate kód mennyiségét.
-
----
-
-## Gyakori fejlesztői munkafolyamat
-
-1. backend futtatás lokálban,
-2. frontend `npm run start`,
-3. auth flow ellenőrzés,
-4. route guard ellenőrzés több szerepkörrel,
-5. build + unit teszt,
-6. (opcionális) cypress smoke.
-
-### Gyors ellenőrző parancsblokk
+### Indítás
 
 ```bash
 cd /home/runner/work/gymtracer_private/gymtracer_private/GymTracer_Frontend
 CYPRESS_INSTALL_BINARY=0 npm install
-npm run build
-npm run test
+npm run start
 ```
 
----
+Fejlesztői URL: `http://localhost:4200`
 
-## API hibák felhasználói kezelése (javaslat)
+## Fejlesztői parancsok és tesztelés
 
-| Backend válasz | Frontend reakció |
-|---|---|
-| `401` | kijelentkeztetés + login oldal |
-| `403` | átirányítás főoldalra / jogosultsági üzenet |
-| `404` | „Nem található” üzenet |
-| `409` | üzleti konfliktus üzenet (pl. duplikáció) |
-| `500` | általános hiba toast/panel |
+```bash
+cd /home/runner/work/gymtracer_private/gymtracer_private/GymTracer_Frontend
 
----
+npm run build
+npm run watch
+npm run test
+npm run cy:open
+npm run cy:run
+```
 
-## Teljesítmény és UX megjegyzések
+Megjegyzés:
 
-- route guardokkal korán kiszűrhető a jogosulatlan navigáció,
-- lazy komponensstratégiával tovább optimalizálható a kezdeti csomagméret,
-- API hívásoknál egységes loading/hiba komponens javítja a UX-et,
-- statisztikai oldalaknál cache-elés csökkentheti a backend terhelést.
+- Sandbox/CI környezetben Cypress bináris letöltésnél célszerű a `CYPRESS_INSTALL_BINARY=0` opció.
 
----
+## Hibakeresés
 
-## Vizsgaremek értékelési fókusz
+| Jelenség | Tipikus ok | Teendő |
+|---|---|---|
+| login után azonnali kilépés | token/session állapot sérült | `localStorage` kulcsok ellenőrzése és új login |
+| tiltott oldalra dob vissza | guard logika aktiválódik | szerepkör + mode állapot ellenőrzése |
+| minden API hívás `401` | hiányzó/lejárt Bearer token | auth flow és interceptor ellenőrzése |
+| üres listák | rossz environment API URL | `environment.ts` és dev replacement ellenőrzése |
+| `ng: not found` | függőségek hiányoznak | `npm install` futtatása |
+| unit tesztben `_HttpClient` provider hiba | hiányzó test provider konfiguráció | érintett spec setup frissítése |
 
-A frontend rész jól bemutatja:
+## Átadás előtti ellenőrzőlista
 
-1. szerepkör-alapú kliens oldali navigációt,
-2. backend-integrált auth/session kezelést,
-3. valós üzleti felület felépítését,
-4. guard-centrikus hozzáférésvédelmet,
-5. modern Angular + Tailwind alapú UI megközelítést.
+- [ ] `npm install` rendben
+- [ ] `npm run build` rendben
+- [ ] kritikus route-ok kézi ellenőrzése szerepkörönként
+- [ ] auth + session megújítás működés validálva
+- [ ] staff/pretend mód működés validálva
+- [ ] `npm run test` eredmény áttekintve
 
+## Készítő
+
+- **Bende Huba**
