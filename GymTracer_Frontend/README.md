@@ -314,7 +314,7 @@ get actingUserRole(){
 
 A frontend a backend seed felhasználóival tesztelhető.
 
-> **Megjegyzés:** a jelszavak a backend seed fájlban hash-elve tároltak, ezért a forráskódból nem olvasható ki biztosan plaintext jelszó.  
+> **Megjegyzés:** a jelszavak a backend seed fájlban hash-elve tároltak, ezért a forráskódból nem olvasható ki biztonságosan plaintext jelszó.  
 > Gyors demóhoz javasolt saját felhasználó regisztrációja a `/registration` oldalon.
 
 ### Seed felhasználó minták

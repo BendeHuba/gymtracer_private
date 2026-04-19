@@ -405,7 +405,7 @@ Content-Type: application/json
 
 A seed felhasználók az `ExampleData/Users.json` fájlban találhatók.
 
-> **Fontos:** a repository-ban a jelszavak **hash-elt formában** vannak eltárolva (PBKDF2), ezért a nyílt szöveges jelszó nem olvasható ki közvetlenül a forrásból.  
+> **Fontos:** a repository-ban a jelszavak **hash-elve** vannak eltárolva (PBKDF2), ezért a nyílt szöveges jelszó nem olvasható ki közvetlenül a forrásból.  
 > Demó közben javasolt saját tesztfiók létrehozása a regisztrációs végponton.
 
 ### Kiemelt demó felhasználók (seed)
