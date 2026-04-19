@@ -164,9 +164,9 @@ A szabályok közel maradnak a domainhez, így a karbantartás és a hibakeresé
 ```csharp
 public static class Validator
 {
-    public static Validator<T> Create<T>(T validatonTarget)
+    public static Validator<T> Create<T>(T validationTarget)
     {
-        return new Validator<T>(validatonTarget);
+        return new Validator<T>(validationTarget);
     }
 }
 ```
